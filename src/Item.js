@@ -8,7 +8,8 @@ class Item extends React.Component {
     		backgroundColor: 'white',
     		margin: '2px',
     		padding: '4px',
-    		fontSize: '12px'
+    		fontSize: '12px',
+        borderRadius: '3px'
     	}
         return (
         	<div style={style}>
