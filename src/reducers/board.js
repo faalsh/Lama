@@ -1,7 +1,6 @@
-export default function reducer(state = {
+export default function reducer(state =
 
-  lists: [
-  {
+  [{
     id: 2,
     index: 2,
     title: 'To Do',
@@ -65,9 +64,21 @@ export default function reducer(state = {
 
   ]
 
-}, action){
+, action){
 
 	switch(action.type){
+    case 'ADD_ITEM':
+    return state.map(list => {
+      console.log(list)
+      if(list.id===2) {
+        return list.items.map(item => {
+          return {}
+        })
+
+      } else {
+        return list
+      }
+    })
 		default:
 			return state;
 	}
