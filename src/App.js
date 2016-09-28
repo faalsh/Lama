@@ -9,69 +9,65 @@ export default class App extends Component {
 			lists: [
 			{
 				id: 1,
-				title: "To Do",
+				title: 'To Do',
 				items: [
 					{
 						id: 1,
-						text: "text 1"
+						text: 'text 1'
 					},
 					{
 						id: 2,
-						text: "text 2"
+						text: 'text 2'
 					},
 					{
 						id: 3,
-						text: "text 3"
+						text: 'text 3'
 					}
 				]
-			}, 
+			},
 			{
 				id: 2,
-				title: "Doing",
+				title: 'Doing',
 				items: [
 					{
 						id: 1,
-						text: "text 11"
+						text: 'text 11'
 					},
 					{
 						id: 2,
-						text: "text 22"
+						text: 'text 22'
 					},
 					{
 						id: 3,
-						text: "text 33"
+						text: 'text 33'
 					}
 				]
 			},
 			{
 				id: 3,
-				title: "Done",
+				title: 'Done',
 				items: [
 					{
 						id: 1,
-						text: "text 111"
-					},
-					{
-						id: 2,
-						text: "text 222"
+						text: 'text 111'
 					},
 					{
 						id: 3,
-						text: "text 333"
+						text: 'text 333'
 					}
 				]
-			},  
+			},
 
 			]
-			
+
 		}
 	}
 
   render() {
   	const {lists} = this.state
   	const style = {
-  		display: "flex",
-  		fontFamily: "Helvetica, Arial, sans-serif"
+  		display: 'flex',
+  		fontFamily: 'Helvetica, Arial, sans-serif'
   	}
     return (
 		<div style={style}>
