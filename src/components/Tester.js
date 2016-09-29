@@ -31,6 +31,10 @@ class Tester extends React.Component {
 		const {title,boardId} = this.state
 		this.props.actions.createList(parseInt(boardId), title)
 	}
+	deleteList(){
+		const {boardId, listId} = this.state
+		this.props.actions.deleteList(parseInt(boardId), parseInt(listId))
+	}
 	createBoard() {
 		this.props.actions.createBoard(this.state.title);
 	}
@@ -47,6 +51,12 @@ class Tester extends React.Component {
 	        		title<input onChange={this.handleChange.bind(this,'title')}/>
 	        		<button onClick={this.createList.bind(this)}>Create List</button>
         		</div>
+						<div>Delete list:
+							boardId<input onChange={this.handleChange.bind(this,'boardId')} />
+							listId<input onChange={this.handleChange.bind(this,'listId')}/>
+							<button onClick={this.deleteList.bind(this)}>Delete List</button>
+						</div>
+
 						<div>Add Item:
 							boardId<input onChange={this.handleChange.bind(this,'boardId')} />
 							listId<input onChange={this.handleChange.bind(this,'listId')}/>
