@@ -60,7 +60,9 @@ export default function reducer(state =initialState, action){
     case 'DELETE_ITEM': {
       let {boardId, listId, itemId} = action.payload
       let newState = _.cloneDeep(state)
-      newState.boards.find(board => {return board.boardId === boardId}).lists.find(list => {return list.listId === listId}).items.filter(item => item.itemId !== itemId)
+      let items = newState.boards.find(board => {return board.boardId === boardId}).lists.find(list => {return list.listId === listId}).items
+      let index = items.find(item => item.itemId === itemId)
+      items.splice(index,1)
       return newState
       break
 
