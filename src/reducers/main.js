@@ -79,9 +79,6 @@ export default function reducer(state =initialState, action){
       let {boardId, listId} = action.payload
       let newState = _.cloneDeep(state)
       const lists = newState.boards.find(board => {return board.boardId === boardId}).lists
-      console.log('here')
-
-      console.log(lists)
       let index = lists.find(list => list.listId === listId)
       lists.splice(index,1)
       return newState
@@ -95,6 +92,13 @@ export default function reducer(state =initialState, action){
       let {boardTitle} = action.payload
       let newState = _.cloneDeep(state)
       newState.boards.push({boardId: _.random(1000), boardIndex:newState.boards.length+1, boardTitle, lists:[]})
+      return newState
+    }
+    case 'DELETE_BOARD': {
+      let {boardId} = action.payload
+      let newState = _.cloneDeep(state)
+      let index = newState.boards.find(board => board.boardId === boardId)
+      newState.boards.splice(index,1)
       return newState
     }
 		default:

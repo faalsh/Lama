@@ -38,14 +38,22 @@ class Tester extends React.Component {
 	createBoard() {
 		this.props.actions.createBoard(this.state.title);
 	}
+	deleteBoard(){
+		this.props.actions.deleteBoard(parseInt(this.state.boardId))
+	}
 
     render() {
         return(
         	<div>
-						<div>
+						<div>createBoard
 							title<input onChange={this.handleChange.bind(this,'title')} />
 							<button onClick={this.createBoard.bind(this)}>Create Board</button>
 						</div>
+						<div>Delete Board
+							boardId<input onChange={this.handleChange.bind(this,'boardId')} />
+							<button onClick={this.deleteBoard.bind(this)}>Deletre Board</button>
+						</div>
+
         		<div>Create list:
 	        		boardId<input onChange={this.handleChange.bind(this,'boardId')} />
 	        		title<input onChange={this.handleChange.bind(this,'title')}/>
