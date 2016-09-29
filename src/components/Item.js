@@ -13,7 +13,7 @@ class Item extends React.Component {
     	}
         return (
         	<div style={style}>
-        		{details.text}
+        		{details.itemText}
         	</div>
         )
     }

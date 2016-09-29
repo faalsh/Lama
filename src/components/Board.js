@@ -6,7 +6,7 @@ export default class Board extends Component {
 
   render() {
   	const {lists} = this.props
-    const sortedLists = _.sortBy(lists,'index')
+    const sortedLists = _.sortBy(lists,'listIndex')
 
 
   	const style = {
@@ -15,7 +15,7 @@ export default class Board extends Component {
   	}
     return (
 		<div style={style}>
-			{sortedLists.map((list) => <List key={list.id} items={_.sortBy(list.items, 'index')} title={list.title}/>)}
+			{sortedLists.map((list) => <List key={list.listId} items={_.sortBy(list.items, 'itemIndex')} title={list.listTitle}/>)}
 		</div>
     );
   }

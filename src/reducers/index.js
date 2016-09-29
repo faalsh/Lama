@@ -1,8 +1,6 @@
 import {combineReducers} from 'redux'
-import board from './board'
-import list from './list'
-import item from './item'
+import main from './main'
 
 export default combineReducers({
-	board
+	main
 })

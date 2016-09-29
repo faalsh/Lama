@@ -27,7 +27,7 @@ class List extends React.Component {
         return(
 	        <div style={style}>
 		        <div style={titleStyle}>{title}</div>
-		        {items.map((item) => <Item key={item.id} details={item} />)}
+		        {items.map((item) => <Item key={item.itemId} details={item} />)}
 	        </div>
         )
 
