@@ -5,22 +5,26 @@ import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
 import Tester from '../components/Tester'
+import BoardList from '../components/BoardList'
 
 
 class App extends Component {
 
-  componentDidMount() { 
-    this.props.actions.addItem(1,1,{itemId:2, itemIndex:2, itemText:'test 2'})
-    this.props.actions.addItem(1,1,{itemId:3, itemIndex:3, itemText:'test 3'})
-    this.props.actions.createList(1,'new list')
-  }
-
   render() {
+    const style = {
+      fontFamily: 'Helvetica, Arial, sans-serif'
+    }
+
 		const {main, actions} = this.props
     return (
-			<div style={{fontFamily: 'Helvetica, Arial, sans-serif'}}>
+			<div style={style}>
 				<Header />
-				{main.boards.map((board) => <Board key={board.boardId} lists={board.lists}/>)}
+				<div style={{display:'flex', flexDirection:'row'}}>
+          <BoardList boards={main.boards} selectedBoard={main.selectedBoard} selectBoard={actions.selectBoard}/>
+          <div>
+            {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} lists={board.lists}/>:null)}
+          </div>
+        </div>
         <Tester />
 			</div>
     );
