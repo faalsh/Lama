@@ -13,7 +13,7 @@ class List extends React.Component {
     		margin: '5px',
     		width: '200px',
     		height: '100%',
-        borderRadius: '3px',
+            borderRadius: '3px',
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
     	}

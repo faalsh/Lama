@@ -22,7 +22,7 @@ class App extends Component {
 				<div style={{display:'flex', flexDirection:'row'}}>
           <BoardList boards={main.boards} selectedBoard={main.selectedBoard} selectBoard={actions.selectBoard}/>
           <div>
-            {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} lists={board.lists}/>:null)}
+            {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} board={board}/>:null)}
           </div>
         </div>
         <Tester />
