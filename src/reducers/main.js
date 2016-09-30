@@ -49,7 +49,7 @@ export default function reducer(state =initialState, action){
 
 
 	switch(action.type){
-    case 'ADD_ITEM':{
+    case 'CREATE_ITEM':{
       let {boardId, listId, itemText} = action.payload
       let newState = _.cloneDeep(state)
       let items = newState.boards.find(board => {return board.boardId === boardId}).lists.find(list => {return list.listId === listId}).items

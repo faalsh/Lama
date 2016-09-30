@@ -3,7 +3,7 @@ import Item from './Item'
 import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
-
+import CreateItem from './CreateItem'
 
 class List extends React.Component {
 
@@ -13,7 +13,7 @@ class List extends React.Component {
     }
 
     render() {
-    	const {items,title} = this.props
+    	const {items,title, boardId, listId} = this.props
     	const style = {
             position: 'relative',
     		display: 'flex',
@@ -45,6 +45,7 @@ class List extends React.Component {
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>x</div>
 		        <div style={titleStyle}>{title}</div>
 		        {items.map((item) => <Item key={item.itemId} details={item} />)}
+            <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         )
 
