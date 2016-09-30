@@ -15,8 +15,11 @@ class CreateList extends React.Component {
     	const {boardId, actions} = this.props
     	const {title} = this.state
         if(title !== '') {
-            actions.createList(boardId,title)    
+            actions.createList(boardId,title)
         }
+        this.setState({
+          title: ''
+        })
     }
     handleChange(e) {
     	this.setState({
@@ -27,7 +30,7 @@ class CreateList extends React.Component {
     	const panelStyle = {
     		padding: '5px',
     		margin: '5px',
-    		borderRadius: '3px', 
+    		borderRadius: '3px',
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
             height: '100%',
@@ -51,7 +54,8 @@ class CreateList extends React.Component {
         return(
         	<div style={panelStyle}>
         		<div>
-        			<input onChange={this.handleChange.bind(this)} placeholder="Add a list"/>
+        			<input onChange={this.handleChange.bind(this)}
+                value={this.state.title} placeholder="Add a list"/>
         		</div>
         		<div onClick={this.handleClick.bind(this)} style={buttonStyle}>
         			<span style={{verticalAlign: 'middle'}}>Save</span>

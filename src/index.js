@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './containers/App'
 import {Provider} from 'react-redux'
 import store from './store'
-import ReactDefaultPerf from 'react/lib/ReactDefaultPerf'
+import ReactPerf from 'react/lib/ReactPerf'
 
-window.ReactDefaultPerf = ReactDefaultPerf
+window.ReactPerf = ReactPerf
 console.time('initial')
 ReactDOM.render(
   <Provider store={store}>

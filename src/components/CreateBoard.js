@@ -14,11 +14,11 @@ class CreateBoard extends React.Component {
     handleClick(){
     	const {title} = this.state
         if(title !== '') {
-            this.props.actions.createBoard(title)    
+            this.props.actions.createBoard(title)
         }
-        this.setState = {
-            title: ''
-        }
+        this.setState({
+          title: ''
+        })
     }
     handleChange(e) {
     	this.setState({
@@ -30,7 +30,7 @@ class CreateBoard extends React.Component {
             width: '150px',
     		padding: '5px',
     		margin: '5px',
-    		borderRadius: '3px', 
+    		borderRadius: '3px',
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)'
     	}
@@ -53,7 +53,8 @@ class CreateBoard extends React.Component {
         return(
         	<div style={panelStyle}>
         		<div>
-        			<input onChange={this.handleChange.bind(this)} placeholder="Add a board" style={inputStyle}/>
+        			<input onChange={this.handleChange.bind(this)} 
+                placeholder="Add a board" style={inputStyle} value={this.state.title}/>
         		</div>
         		<div onClick={this.handleClick.bind(this)} style={buttonStyle}>
         			<span style={{verticalAlign: 'middle'}}>Save</span>
