@@ -61,7 +61,7 @@ export default function reducer(state =initialState, action){
       let {boardId, listId, itemId} = action.payload
       let newState = _.cloneDeep(state)
       let items = newState.boards.find(board => {return board.boardId === boardId}).lists.find(list => {return list.listId === listId}).items
-      let index = items.find(item => item.itemId === itemId)
+      let index = items.findIndex(item => item.itemId === itemId)
       items.splice(index,1)
       return newState
       break
@@ -79,7 +79,7 @@ export default function reducer(state =initialState, action){
       let {boardId, listId} = action.payload
       let newState = _.cloneDeep(state)
       const lists = newState.boards.find(board => {return board.boardId === boardId}).lists
-      let index = lists.find(list => list.listId === listId)
+      let index = lists.findIndex(list => list.listId === listId)
       lists.splice(index,1)
       return newState
       break
@@ -97,7 +97,8 @@ export default function reducer(state =initialState, action){
     case 'DELETE_BOARD': {
       let {boardId} = action.payload
       let newState = _.cloneDeep(state)
-      let index = newState.boards.find(board => board.boardId === boardId)
+      let index = newState.boards.findIndex(board => board.boardId === boardId)
+      console.log(index)
       newState.boards.splice(index,1)
       return newState
     }
