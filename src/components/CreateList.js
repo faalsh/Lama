@@ -14,7 +14,9 @@ class CreateList extends React.Component {
     handleClick(){
     	const {boardId, actions} = this.props
     	const {title} = this.state
-    	actions.createList(boardId,title)
+        if(title !== '') {
+            actions.createList(boardId,title)    
+        }
     }
     handleChange(e) {
     	this.setState({

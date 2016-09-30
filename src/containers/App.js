@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
-import Tester from '../components/Tester'
+// import Tester from '../components/Tester'
 import BoardList from '../components/BoardList'
 
 
@@ -25,7 +25,6 @@ class App extends Component {
             {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} board={board}/>:null)}
           </div>
         </div>
-        <Tester />
 
 			</div>
 

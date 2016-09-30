@@ -13,7 +13,9 @@ class CreateBoard extends React.Component {
     }
     handleClick(){
     	const {title} = this.state
-    	this.props.actions.createBoard(title)
+        if(title !== '') {
+            this.props.actions.createBoard(title)    
+        }
         this.setState = {
             title: ''
         }
