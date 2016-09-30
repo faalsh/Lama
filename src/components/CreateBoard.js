@@ -25,6 +25,7 @@ class CreateBoard extends React.Component {
     }
     render() {
     	const panelStyle = {
+            width: '150px',
     		padding: '5px',
     		margin: '5px',
     		borderRadius: '3px', 
@@ -32,7 +33,7 @@ class CreateBoard extends React.Component {
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)'
     	}
     	const inputStyle = {
-
+            width: '145px'
     	}
     	const buttonStyle = {
     		margin: '3px',
@@ -50,7 +51,7 @@ class CreateBoard extends React.Component {
         return(
         	<div style={panelStyle}>
         		<div>
-        			<input onChange={this.handleChange.bind(this)} placeholder="Add a board"/>
+        			<input onChange={this.handleChange.bind(this)} placeholder="Add a board" style={inputStyle}/>
         		</div>
         		<div onClick={this.handleClick.bind(this)} style={buttonStyle}>
         			<span style={{verticalAlign: 'middle'}}>Save</span>

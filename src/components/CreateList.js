@@ -27,7 +27,8 @@ class CreateList extends React.Component {
     		margin: '5px',
     		borderRadius: '3px', 
     		backgroundColor: 'lightgrey',
-    		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)'
+    		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
+            height: '100%',
     	}
     	const inputStyle = {
 
