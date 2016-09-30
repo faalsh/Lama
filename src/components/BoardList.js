@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateBoard from './CreateBoard'
 
 class BoardList extends React.Component {
 
@@ -61,6 +62,7 @@ class BoardList extends React.Component {
 
               })
             }
+            <CreateBoard />
           </div>
         )
     }

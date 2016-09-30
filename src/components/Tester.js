@@ -44,22 +44,22 @@ class Tester extends React.Component {
 
     render() {
         return(
-        	<div>
-						<div>createBoard
+        	<div style={{marginTop: '100px'}}>
+						<div>-CreateBoard
 							title<input onChange={this.handleChange.bind(this,'title')} />
 							<button onClick={this.createBoard.bind(this)}>Create Board</button>
 						</div>
-						<div>Delete Board
+						<div>-Delete Board
 							boardId<input onChange={this.handleChange.bind(this,'boardId')} />
 							<button onClick={this.deleteBoard.bind(this)}>Deletre Board</button>
 						</div>
 
-        		<div>Create list:
-	        		boardId<input onChange={this.handleChange.bind(this,'boardId')} />
-	        		title<input onChange={this.handleChange.bind(this,'title')}/>
-	        		<button onClick={this.createList.bind(this)}>Create List</button>
-        		</div>
-						<div>Delete list:
+		        		<div>-Create list:
+			        		boardId<input onChange={this.handleChange.bind(this,'boardId')} />
+			        		title<input onChange={this.handleChange.bind(this,'title')}/>
+			        		<button onClick={this.createList.bind(this)}>Create List</button>
+		        		</div>
+						<div>-Delete list:
 							boardId<input onChange={this.handleChange.bind(this,'boardId')} />
 							listId<input onChange={this.handleChange.bind(this,'listId')}/>
 							<button onClick={this.deleteList.bind(this)}>Delete List</button>

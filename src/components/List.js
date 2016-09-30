@@ -1,12 +1,21 @@
 import React from 'react';
 import Item from './Item'
+import { connect } from 'react-redux'
+import * as LamaActions from '../actions'
+import { bindActionCreators } from 'redux'
+
 
 class List extends React.Component {
 
+    handleDelete(){
+        const {actions, listId, boardId} = this.props
+        actions.deleteList(boardId, listId)
+    }
 
     render() {
     	const {items,title} = this.props
     	const style = {
+            position: 'relative',
     		display: 'flex',
     		flexDirection: 'column',
     		padding: '5px',
@@ -23,9 +32,17 @@ class List extends React.Component {
     		marginBottom: '10px',
     		textAlign: 'center'
     	}
+        const deleteStyle = {
+            position: 'absolute',
+            top:'5px',
+            right: '5px',
+            cursor: 'pointer'
+
+        }
 
         return(
 	        <div style={style}>
+                <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>x</div>
 		        <div style={titleStyle}>{title}</div>
 		        {items.map((item) => <Item key={item.itemId} details={item} />)}
 	        </div>
@@ -34,4 +51,8 @@ class List extends React.Component {
     }
 }
 
-export default List;
+const mapDispatchToProps = dispatch =>({
+  actions: bindActionCreators(LamaActions,dispatch)
+})
+
+export default connect(null, mapDispatchToProps)(List);
