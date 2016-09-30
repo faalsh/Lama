@@ -13,7 +13,7 @@ class List extends React.Component {
     }
 
     render() {
-    	const {items,title, boardId, listId} = this.props
+    	const {items,title, boardId, listId, actions} = this.props
     	const style = {
             position: 'relative',
     		display: 'flex',
@@ -44,7 +44,7 @@ class List extends React.Component {
 	        <div style={style}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>x</div>
 		        <div style={titleStyle}>{title}</div>
-		        {items.map((item) => <Item key={item.itemId} details={item} />)}
+		        {items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} deleteItem={actions.deleteItem}/>)}
             <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         )
