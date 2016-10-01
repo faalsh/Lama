@@ -99,7 +99,10 @@ export default function reducer(state =initialState, action){
     case 'CREATE_BOARD': {
       let {boardTitle} = action.payload
       let newState = _.cloneDeep(state)
-      newState.boards.push({boardId: _.random(1000), boardIndex:newState.boards.length+1, boardTitle, lists:[]})
+      const boardId = _.random(1000)
+      newState.boards.push({boardId:boardId , boardIndex:newState.boards.length+1, boardTitle, lists:[]})
+      newState.selectedBoard = boardId
+      newState.boardsPanelOpen = false
       return newState
     }
     case 'DELETE_BOARD': {
