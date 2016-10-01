@@ -7,7 +7,6 @@ class Item extends React.Component {
   }
 
     render() {
-      console.log(this.props)
     	const {details} = this.props
     	const style={
         position: 'relative',

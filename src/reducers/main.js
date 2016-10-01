@@ -2,6 +2,7 @@ import _ from 'lodash'
 
 const initialState = {
       selectedBoard: 1,
+      boardsPanelOpen: false,
       boards: [
         {
           boardId: 1,
@@ -49,6 +50,13 @@ export default function reducer(state =initialState, action){
 
 
 	switch(action.type){
+    case 'TOGGLE_BOARDS_PANEL': {
+      console.log(state.boardsPanelOpen)
+      console.log(!state.boardsPanelOpen)
+
+      return {...state, boardsPanelOpen:!state.boardsPanelOpen}
+      break
+    }
     case 'CREATE_ITEM':{
       let {boardId, listId, itemText} = action.payload
       let newState = _.cloneDeep(state)
@@ -86,7 +94,7 @@ export default function reducer(state =initialState, action){
 
     }
     case 'SELECT_BOARD': {
-      return {...state, selectedBoard: action.payload.boardId}
+      return {...state, selectedBoard: action.payload.boardId, boardsPanelOpen:false}
     }
     case 'CREATE_BOARD': {
       let {boardTitle} = action.payload

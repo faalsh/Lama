@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
 // import Tester from '../components/Tester'
-import BoardList from '../components/BoardList'
 
 
 class App extends Component {
@@ -18,9 +17,8 @@ class App extends Component {
 		const {main, actions} = this.props
     return (
 			<div style={style}>
-				<Header />
+				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
-          <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>
           <div>
             {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} board={board}/>:null)}
           </div>
@@ -29,7 +27,7 @@ class App extends Component {
 			</div>
 
     );
-    
+
   }
 }
 

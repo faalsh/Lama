@@ -5,3 +5,4 @@ export const deleteList = (boardId, listId) => ({type:'DELETE_LIST', payload:{bo
 export const selectBoard = (boardId) => ({type:'SELECT_BOARD', payload:{boardId}})
 export const createBoard = (boardTitle) => ({type:'CREATE_BOARD', payload:{boardTitle}})
 export const deleteBoard = (boardId) => ({type:'DELETE_BOARD', payload:{boardId}})
+export const toggleBoardsPanel = () => ({type:'TOGGLE_BOARDS_PANEL'})

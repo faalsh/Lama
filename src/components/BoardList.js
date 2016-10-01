@@ -17,8 +17,12 @@ class BoardList extends React.Component {
         alignItems: 'center',
         margin:'10px',
         width: '150px',
-        backgroundColor: 'rgb(144, 185, 210)',
-        padding: '20px'
+        backgroundColor: 'rgb(65, 89, 125)',
+        padding: '20px',
+        position: 'absolute',
+        top: '30px',
+        zIndex: '1'
+
       }
       const itemStyle = {
         position: 'relative',
@@ -26,7 +30,7 @@ class BoardList extends React.Component {
         width: '150px',
         margin: '5px',
         borderRadius: '3px',
-    		backgroundColor: 'rgb(221, 221, 221)',
+    		backgroundColor: 'rgb(144, 185, 210)',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
         cursor: 'pointer',
         padding: '10px'
@@ -38,15 +42,17 @@ class BoardList extends React.Component {
         padding: '5px',
         width: '150px',
         borderRadius: '3px',
-    		backgroundColor: 'rgb(221, 221, 221)',
+    		backgroundColor: 'rgb(144, 185, 210)',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
         cursor: 'pointer',
         padding: '10px'
       }
       const deleteStyle = {
         position: 'absolute',
-        top: '7.5px',
-        left: '155px'
+        top: '11px',
+        right: '5px',
+        width: '15px',
+        fill: 'white'
 
       }
       const {boards, selectedBoard} = this.props
@@ -57,7 +63,7 @@ class BoardList extends React.Component {
                 const style = board.boardId ===  selectedBoard ? selectedItemStyle:itemStyle
                 return <div key={board.boardId} style={style} onClick={this.handleClick.bind(this,board.boardId)}>
                 {board.boardTitle}
-                  <div style={deleteStyle} onClick={this.handleDelete.bind(this, board.boardId)}>x</div>
+                  <img src='../icons/deleteButton.svg' style={deleteStyle} onClick={this.handleDelete.bind(this, board.boardId)} />
                 </div>
 
               })
