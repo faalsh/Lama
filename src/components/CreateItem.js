@@ -8,7 +8,8 @@ class CreateItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        	title: ''
+        	title: '',
+          panelOpen: false
         }
     }
     handleClick(){
@@ -16,10 +17,22 @@ class CreateItem extends React.Component {
     	const {title} = this.state
         if(title !== '') {
             actions.createItem(boardId, listId, title)
+            this.setState({
+              title: '',
+              panelOpen: false
+            })
+
         }
-        this.setState({
-          title: ''
-        })
+    }
+    handleClose(){
+      this.setState({
+        panelOpen: false
+      })
+    }
+    handleOpen(){
+      this.setState({
+        panelOpen: true
+      })
     }
     handleChange(e) {
     	this.setState({
@@ -30,37 +43,61 @@ class CreateItem extends React.Component {
     	const panelStyle = {
     		padding: '5px',
     		margin: '5px',
-    		borderRadius: '3px',
-    		backgroundColor: 'lightgrey',
-    		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-            height: '100%',
     	}
     	const inputStyle = {
-
+        width: '170px'
     	}
     	const buttonStyle = {
-    		margin: '3px',
     		padding: '5px',
-    		textAlign: 'center',
-
-    		width: '50px',
-    		height: '10px',
+    		width: '70px',
+    		height: '20px',
     		fontSize: '12px',
     		background: 'linear-gradient(to bottom,#61BD4F 0,#5AAC44 100%)',
     		color: 'white',
     		boxShadow: '0 1px 0 #3F6F21',
-    		cursor: 'pointer'
+    		cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '5px',
+        marginBottom:'10px',
+        marginTop: '10px'
     	}
-        return(
+      const panelBottomStyle = {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+      }
+      const closeButtonStyle = {
+        marginLeft: '15px',
+        fontSize: '20px',
+        cursor: 'pointer'
+      }
+      const addItemButtonStyle = {
+        marginTop: '10px',
+        padding: '5px',
+        textDecoration: 'underline',
+        color: 'grey',
+        cursor: 'pointer'
+      }
+        return this.state.panelOpen?(
         	<div style={panelStyle}>
         		<div>
-        			<input onChange={this.handleChange.bind(this)}
-                value={this.state.title} placeholder="Add a item"/>
+        			<textarea rows='3' onChange={this.handleChange.bind(this)} style={inputStyle}
+                value={this.state.title} />
         		</div>
-        		<div onClick={this.handleClick.bind(this)} style={buttonStyle}>
-        			<span style={{verticalAlign: 'middle'}}>Save</span>
-        		</div>
+
+            <div style={panelBottomStyle}>
+            <div onClick={this.handleClick.bind(this)} style={buttonStyle}>
+              Save
+            </div>
+            <div onClick={this.handleClose.bind(this)} style={closeButtonStyle}>×</div>
+            </div>
         	</div>
+        ):(
+          <div onClick={this.handleOpen.bind(this)} style={addItemButtonStyle}>
+            Add item
+          </div>
         )
     }
 }
