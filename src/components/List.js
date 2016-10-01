@@ -42,7 +42,7 @@ class List extends React.Component {
 
         return(
 	        <div style={style}>
-                <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>x</div>
+                <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{title}</div>
 		        {items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} deleteItem={actions.deleteItem}/>)}
             <CreateItem boardId={boardId} listId={listId}/>

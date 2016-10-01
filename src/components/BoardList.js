@@ -52,7 +52,6 @@ class BoardList extends React.Component {
         top: '11px',
         right: '5px',
         width: '15px',
-        fill: 'white'
 
       }
       const {boards, selectedBoard} = this.props
@@ -63,7 +62,7 @@ class BoardList extends React.Component {
                 const style = board.boardId ===  selectedBoard ? selectedItemStyle:itemStyle
                 return <div key={board.boardId} style={style} onClick={this.handleClick.bind(this,board.boardId)}>
                 {board.boardTitle}
-                  <img src='../icons/deleteButton.svg' style={deleteStyle} onClick={this.handleDelete.bind(this, board.boardId)} />
+                  <div style={deleteStyle} onClick={this.handleDelete.bind(this, board.boardId)}>×</div>
                 </div>
 
               })

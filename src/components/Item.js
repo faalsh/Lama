@@ -23,7 +23,7 @@ class Item extends React.Component {
       }
         return (
         	<div style={style}>
-            <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>x</div>
+            <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
         		{details.itemText}
         	</div>
         )

@@ -8,7 +8,8 @@ class CreateList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        	title: ''
+        	title: '',
+          panelOpen: false
         }
     }
     handleClick(){
@@ -18,13 +19,19 @@ class CreateList extends React.Component {
             actions.createList(boardId,title)
         }
         this.setState({
-          title: ''
+          title: '',
+          panelOpen: false
         })
     }
     handleChange(e) {
     	this.setState({
     		title: e.target.value
     	})
+    }
+    openPanel(){
+      this.setState({
+        panelOpen: true
+      })
     }
     render() {
     	const panelStyle = {
@@ -33,34 +40,61 @@ class CreateList extends React.Component {
     		borderRadius: '3px',
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-            height: '100%',
+        height: '100%',
+        width: '200px'
     	}
     	const inputStyle = {
+        width: '185px',
+        height: '20px',
+        fontWeight: 'bold',
+        marginTop: '10px',
+        marginLeft: '5px',
+        marginBottom:'10px'
 
     	}
-    	const buttonStyle = {
-    		margin: '3px',
+    	const panelButtonStyle = {
     		padding: '5px',
-    		textAlign: 'center',
-
-    		width: '50px',
-    		height: '10px',
+    		width: '70px',
+    		height: '20px',
     		fontSize: '12px',
     		background: 'linear-gradient(to bottom,#61BD4F 0,#5AAC44 100%)',
     		color: 'white',
     		boxShadow: '0 1px 0 #3F6F21',
-    		cursor: 'pointer'
+    		cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '5px',
+        marginBottom:'10px'
     	}
-        return(
+      const addButtonStyle = {
+        margin: '3px',
+        backgroundColor: 'rgb(163, 163, 163)',
+        height:'20px',
+        width: '200px',
+        padding: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent:'center',
+        cursor: 'pointer',
+        opacity: '.7'
+
+      }
+        return this.state.panelOpen? (
+
         	<div style={panelStyle}>
         		<div>
-        			<input onChange={this.handleChange.bind(this)}
-                value={this.state.title} placeholder="Add a list"/>
+        			<input onChange={this.handleChange.bind(this)} style={inputStyle}
+                value={this.state.title} placeholder="List title"/>
         		</div>
-        		<div onClick={this.handleClick.bind(this)} style={buttonStyle}>
-        			<span style={{verticalAlign: 'middle'}}>Save</span>
-        		</div>
+        		<div onClick={this.handleClick.bind(this)} style={panelButtonStyle}>
+              Save
+            </div>
         	</div>
+        ):(
+          <div >
+            <div style={addButtonStyle}onClick={this.openPanel.bind(this)}>Add list</div>
+          </div>
         )
     }
 }
