@@ -17,11 +17,17 @@ class CreateList extends React.Component {
     	const {title} = this.state
         if(title !== '') {
             actions.createList(boardId,title)
+            this.setState({
+              title: '',
+              panelOpen: false
+            })
         }
-        this.setState({
-          title: '',
-          panelOpen: false
-        })
+    }
+    handleClose(){
+      this.setState({
+        title: '',
+        panelOpen: false
+      })
     }
     handleChange(e) {
     	this.setState({
@@ -67,6 +73,17 @@ class CreateList extends React.Component {
         marginLeft: '5px',
         marginBottom:'10px'
     	}
+      const panelBottomStyle = {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+      }
+      const closeButtonStyle = {
+        marginLeft: '15px',
+        marginBottom: '10px',
+        fontSize: '25px',
+        cursor: 'pointer'
+      }
       const addButtonStyle = {
         margin: '3px',
         backgroundColor: 'rgb(163, 163, 163)',
@@ -87,8 +104,11 @@ class CreateList extends React.Component {
         			<input onChange={this.handleChange.bind(this)} style={inputStyle}
                 value={this.state.title} placeholder="List title"/>
         		</div>
-        		<div onClick={this.handleClick.bind(this)} style={panelButtonStyle}>
-              Save
+            <div style={panelBottomStyle}>
+              <div onClick={this.handleClick.bind(this)} style={panelButtonStyle}>
+                Save
+              </div>
+              <div onClick={this.handleClose.bind(this)} style={closeButtonStyle}>×</div>
             </div>
         	</div>
         ):(
