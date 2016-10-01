@@ -14,7 +14,12 @@ class Item extends React.Component {
     		margin: '2px',
     		padding: '4px',
     		fontSize: '12px',
-        borderRadius: '3px'
+        borderRadius: '3px',
+        height: '30px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        fontSize: '14px'
     	}
       const deleteStyle = {
         position:'absolute',

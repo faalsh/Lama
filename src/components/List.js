@@ -15,14 +15,14 @@ class List extends React.Component {
     render() {
     	const {items,title, boardId, listId, actions} = this.props
     	const style = {
-            position: 'relative',
+        position: 'relative',
     		display: 'flex',
     		flexDirection: 'column',
     		padding: '5px',
     		margin: '5px',
     		width: '200px',
     		height: '100%',
-            borderRadius: '3px',
+        borderRadius: '3px',
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
     	}
@@ -33,10 +33,10 @@ class List extends React.Component {
     		textAlign: 'center'
     	}
         const deleteStyle = {
-            position: 'absolute',
-            top:'5px',
-            right: '5px',
-            cursor: 'pointer'
+          position: 'absolute',
+          top:'5px',
+          right: '5px',
+          cursor: 'pointer'
 
         }
 
