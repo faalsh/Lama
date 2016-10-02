@@ -76,7 +76,7 @@ class CreateBoard extends React.Component {
         return this.state.panelOpen?(
         	<div style={panelStyle}>
         		<div>
-        			<input onChange={this.handleChange.bind(this)} style={inputStyle}
+        			<input autoFocus onChange={this.handleChange.bind(this)} style={inputStyle}
                 placeholder="Board title" style={inputStyle} value={this.state.title}/>
         		</div>
         		<div onClick={this.handleClick.bind(this)} style={buttonStyle}>

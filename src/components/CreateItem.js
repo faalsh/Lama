@@ -83,7 +83,7 @@ class CreateItem extends React.Component {
         return this.state.panelOpen?(
         	<div style={panelStyle}>
         		<div>
-        			<textarea rows='3' onChange={this.handleChange.bind(this)} style={inputStyle}
+        			<textarea autoFocus rows='3' onChange={this.handleChange.bind(this)} style={inputStyle}
                 value={this.state.title} />
         		</div>
 

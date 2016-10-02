@@ -101,7 +101,7 @@ class CreateList extends React.Component {
 
         	<div style={panelStyle}>
         		<div>
-        			<input onChange={this.handleChange.bind(this)} style={inputStyle}
+        			<input autoFocus onChange={this.handleChange.bind(this)} style={inputStyle}
                 value={this.state.title} placeholder="List title"/>
         		</div>
             <div style={panelBottomStyle}>
