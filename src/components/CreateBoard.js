@@ -12,6 +12,11 @@ class CreateBoard extends React.Component {
           panelOpen: false
         }
     }
+    handleClose(){
+      this.setState({
+        panelOpen: false
+      })
+    }
     handleClick(){
     	const {title} = this.state
         if(title !== '') {
@@ -22,6 +27,18 @@ class CreateBoard extends React.Component {
             })
 
         }
+    }
+    handleKeyPress(e){
+      if(e.key === 'Enter'){
+        const {title} = this.state
+          if(title !== '') {
+              this.props.actions.createBoard(title)
+              this.setState({
+                title: '',
+                panelOpen: false
+              })
+          }
+      }
     }
     handleOpen(){
       this.setState({
@@ -65,6 +82,19 @@ class CreateBoard extends React.Component {
         marginBottom:'10px',
         marginTop: '10px'
     	}
+      const panelBottomStyle = {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+      }
+
+      const closeButtonStyle = {
+        marginLeft: '15px',
+        fontSize: '20px',
+        cursor: 'pointer',
+        color: 'black'
+      }
+
       const createBoardButtonStyle = {
         marginTop: '10px',
         padding: '5px',
@@ -77,11 +107,16 @@ class CreateBoard extends React.Component {
         	<div style={panelStyle}>
         		<div>
         			<input autoFocus onChange={this.handleChange.bind(this)} style={inputStyle}
-                placeholder="Board title" style={inputStyle} value={this.state.title}/>
+                placeholder="Board title" style={inputStyle} value={this.state.title}
+                onKeyPress={this.handleKeyPress.bind(this)}/>
         		</div>
-        		<div onClick={this.handleClick.bind(this)} style={buttonStyle}>
-        			<span style={{verticalAlign: 'middle'}}>Save</span>
-        		</div>
+            <div style={panelBottomStyle}>
+              <div onClick={this.handleClick.bind(this)} style={buttonStyle}>
+                Save
+              </div>
+              <div onClick={this.handleClose.bind(this)} style={closeButtonStyle}>×</div>
+
+            </div>
         	</div>
         ):(
           <div onClick={this.handleOpen.bind(this)} style={createBoardButtonStyle}>

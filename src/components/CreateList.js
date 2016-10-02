@@ -39,6 +39,20 @@ class CreateList extends React.Component {
         panelOpen: true
       })
     }
+    handleKeyPress(e){
+      if(e.key === 'Enter'){
+        const {boardId, actions} = this.props
+        const {title} = this.state
+          if(title !== '') {
+              actions.createList(boardId,title)
+              this.setState({
+                title: '',
+                panelOpen: false
+              })
+          }
+
+      }
+    }
     render() {
     	const panelStyle = {
     		padding: '5px',
@@ -102,7 +116,7 @@ class CreateList extends React.Component {
         	<div style={panelStyle}>
         		<div>
         			<input autoFocus onChange={this.handleChange.bind(this)} style={inputStyle}
-                value={this.state.title} placeholder="List title"/>
+                value={this.state.title} placeholder="List title" onKeyPress={this.handleKeyPress.bind(this)}/>
         		</div>
             <div style={panelBottomStyle}>
               <div onClick={this.handleClick.bind(this)} style={panelButtonStyle}>

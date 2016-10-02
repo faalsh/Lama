@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import List from './List'
 import CreateList from './CreateList'
 import _ from 'lodash'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export default class Board extends Component {
 
@@ -11,6 +12,7 @@ export default class Board extends Component {
         <List key={list.listId} items={_.sortBy(list.items, 'itemIndex')} title={list.listTitle} listId={list.listId} boardId={boardId}/>)
   	const style = {
   		display: 'flex',
+      flexDirection: 'row',
       marginTop: '10px'
   	}
     const titleStyle = {
@@ -23,8 +25,21 @@ export default class Board extends Component {
       <div>
         <div style={titleStyle}>{boardTitle}</div>
     		<div style={style}>
-    			{sortedLists}
+
+          <ReactCSSTransitionGroup
+              transitionName="createList"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}
+              transitionAppear={true}
+              transitionAppearTimeout={500}>
+              <div style ={{display: 'flex'}}>
+              {sortedLists}
+
+              </div>
+          </ReactCSSTransitionGroup>
           <CreateList  boardId={boardId}/>
+
+
     		</div>
       </div>
     );
