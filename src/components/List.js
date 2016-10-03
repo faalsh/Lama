@@ -15,7 +15,7 @@ class List extends React.Component {
 
     render() {
     	const {items,title, boardId, listId, actions, connectDragSource, isDragging, connectDropTarget} = this.props
-      const opacity = isDragging? 0:1
+      const opacity = isDragging? 0.3:1
     	const style = {
         position: 'relative',
     		display: 'flex',
@@ -69,14 +69,28 @@ const listSource = {
 
 const listTarget = {
   hover(props, monitor, component) {
-    const boardId = monitor.getItem().boardId
-    const dragListId = monitor.getItem().listId
-    const hoverListId = props.listId
-    if(dragListId !== hoverListId) {
-      props.actions.swapLists(boardId, dragListId, hoverListId)
+    if(monitor.getItemType() === 'List') {
+      const boardId = monitor.getItem().boardId
+      const dragListId = monitor.getItem().listId
+      const hoverListId = props.listId
+      if(dragListId !== hoverListId) {
+        props.actions.swapLists(boardId, dragListId, hoverListId)
+      }
+    }
+  },
+  drop(props, monitor, component){
+     if (monitor.getItemType() === 'Item') {
+      const boardId = monitor.getItem().boardId
+      const dragListId = monitor.getItem().listId
+      const hoverListId = props.listId
+      const dragItemId = monitor.getItem().itemId
+      if(dragListId != hoverListId) {
+        props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
+      }
     }
   }
 }
+
 
 function collect(connecter, monitor) {
   return {
@@ -86,5 +100,7 @@ function collect(connecter, monitor) {
 }
 
 List = DragSource('List', listSource, collect)(List)
-List = DropTarget('List', listTarget, connect => ({connectDropTarget: connect.dropTarget()}))(List)
+List = DropTarget(['List', 'Item'], listTarget, connect => ({connectDropTarget: connect.dropTarget()}))(List)
+// List = DropTarget('Item', itemTarget, connect => ({connectDropTarget: connect.dropTarget()}))(List)
+
 export default connect(null, mapDispatchToProps)(List);
