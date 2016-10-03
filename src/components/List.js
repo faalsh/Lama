@@ -46,7 +46,7 @@ class List extends React.Component {
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{title}</div>
-		        {items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} deleteItem={actions.deleteItem}/>)}
+		        {items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} actions={actions}/>)}
             <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         ))

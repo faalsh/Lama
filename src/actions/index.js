@@ -8,3 +8,4 @@ export const deleteBoard = (boardId) => ({type:'DELETE_BOARD', payload:{boardId}
 export const toggleBoardsPanel = () => ({type:'TOGGLE_BOARDS_PANEL'})
 export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
 export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => ({type:'MOVE_ITEM_TO_LIST', payload:{boardId, dragListId, hoverListId, dragItemId}})
+export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => ({type:'SWAP_ITEMS', payload:{boardId, dragListId, dragItemId, hoverItemId}})

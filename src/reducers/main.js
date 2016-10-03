@@ -124,6 +124,25 @@ export default function reducer(state =initialState, action){
       hoverList.listIndex = dragIndex
       return newState
     }
+    case 'SWAP_ITEMS': {
+      let {boardId, dragListId, dragItemId, hoverItemId} = action.payload
+      let newState = _.cloneDeep(state)
+      let board = _.find(newState.boards, (o) => o.boardId === boardId)
+      let dragList = _.find(board.lists, (o) => o.listId === dragListId)
+      let dragItem = _.find(dragList.items, (o) => o.itemId === dragItemId)
+      let hoverItem = _.find(dragList.items, (o) => o.itemId === hoverItemId)
+      let dragIndex = dragItem.itemIndex
+      let hoverIndex = hoverItem.itemIndex
+      dragItem.itemIndex = hoverIndex
+      hoverItem.itemIndex = dragIndex
+      // let hoverList = _.find(board.lists, (o) => o.listId === hoverListId)
+      // let dragIndex = dragList.listIndex
+      // let hoverIndex = hoverList.listIndex
+      // dragList.listIndex = hoverIndex
+      // hoverList.listIndex = dragIndex
+      return newState
+    }
+
     case 'MOVE_ITEM_TO_LIST': {
       let {boardId, dragListId, hoverListId, dragItemId} = action.payload
       let newState = _.cloneDeep(state)
@@ -135,10 +154,6 @@ export default function reducer(state =initialState, action){
       hoverList.items.push(dragItem)
       dragList.items = dragList.items.filter((o) => o.itemId !== dragItemId)
 
-      // let dragIndex = dragList.listIndex
-      // let hoverIndex = hoverList.listIndex
-      // dragList.listIndex = hoverIndex
-      // hoverList.listIndex = dragIndex
       return newState
     }
 
