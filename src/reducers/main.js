@@ -109,9 +109,27 @@ export default function reducer(state =initialState, action){
       let {boardId} = action.payload
       let newState = _.cloneDeep(state)
       let index = newState.boards.findIndex(board => board.boardId === boardId)
-      console.log(index)
       newState.boards.splice(index,1)
       return newState
+    }
+    case 'SWAP_LISTS': {
+      let {boardId, dragListId, hoverListId} = action.payload
+      let newState = _.cloneDeep(state)
+      let board = _.find(newState.boards, (o) => o.boardId === boardId)
+      let dragList = _.find(board.lists, (o) => o.listId === dragListId)
+      let hoverList = _.find(board.lists, (o) => o.listId === hoverListId)
+      let dragIndex = dragList.listIndex
+      let hoverIndex = hoverList.listIndex
+      dragList.listIndex = hoverIndex
+      hoverList.listIndex = dragIndex
+      return newState
+      //let index = newState.boards.findIndex(board => board.boardId === boardId)
+      // newState.boards.map(board => {
+      //   if(board.boardId === boardId) {
+      //
+      //   }
+      // })
+
     }
 		default:
 			return state;
