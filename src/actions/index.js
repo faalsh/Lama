@@ -6,3 +6,4 @@ export const selectBoard = (boardId) => ({type:'SELECT_BOARD', payload:{boardId}
 export const createBoard = (boardTitle) => ({type:'CREATE_BOARD', payload:{boardTitle}})
 export const deleteBoard = (boardId) => ({type:'DELETE_BOARD', payload:{boardId}})
 export const toggleBoardsPanel = () => ({type:'TOGGLE_BOARDS_PANEL'})
+export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
