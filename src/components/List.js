@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
 import CreateItem from './CreateItem'
+import {DragSource} from 'react-dnd'
 
 class List extends React.Component {
 
@@ -13,6 +14,7 @@ class List extends React.Component {
     }
 
     render() {
+      console.log(this.props);
     	const {items,title, boardId, listId, actions} = this.props
     	const style = {
         position: 'relative',
@@ -56,4 +58,18 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
+const listSource = {
+  beginDrag(){
+    return {}
+  }
+}
+
+function collect(connecter, monitor) {
+  return {
+    connectDragSource: connecter.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
+
+List = DragSource('List', listSource, collect)(List)
 export default connect(null, mapDispatchToProps)(List);

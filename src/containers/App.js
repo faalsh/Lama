@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
 // import Tester from '../components/Tester'
+import HTML5Backend from 'react-dnd-html5-backend';
+import {DragDropContext} from 'react-dnd';
 
 
 class App extends Component {
@@ -38,4 +40,5 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
+App = DragDropContext(HTML5Backend)(App)
 export default connect(mapStateToProps,mapDispatchToProps)(App)
