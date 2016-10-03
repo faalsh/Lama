@@ -21,6 +21,7 @@ class BoardList extends React.Component {
         padding: '20px',
         position: 'absolute',
         top: '30px',
+        left: '0px', 
         zIndex: '1'
 
       }
