@@ -47,12 +47,33 @@ const initialState = {
 
 
 export default function reducer(state =initialState, action){
+//   if (!Array.prototype.find) {
+//   Array.prototype.find = function(predicate) {
+//     'use strict';
+//     if (this == null) {
+//       throw new TypeError('Array.prototype.find called on null or undefined');
+//     }
+//     if (typeof predicate !== 'function') {
+//       throw new TypeError('predicate must be a function');
+//     }
+//     var list = Object(this);
+//     var length = list.length >>> 0;
+//     var thisArg = arguments[1];
+//     var value;
+
+//     for (var i = 0; i < length; i++) {
+//       value = list[i];
+//       if (predicate.call(thisArg, value, i, list)) {
+//         return value;
+//       }
+//     }
+//     return undefined;
+//   };
+// }
 
 
 	switch(action.type){
     case 'TOGGLE_BOARDS_PANEL': {
-      console.log(state.boardsPanelOpen)
-      console.log(!state.boardsPanelOpen)
 
       return {...state, boardsPanelOpen:!state.boardsPanelOpen}
       break
@@ -60,7 +81,8 @@ export default function reducer(state =initialState, action){
     case 'CREATE_ITEM':{
       let {boardId, listId, itemText} = action.payload
       let newState = _.cloneDeep(state)
-      let items = newState.boards.find(board => {return board.boardId === boardId}).lists.find(list => {return list.listId === listId}).items
+      let board = _.find(newState.boards, (board) => board.boardId === boardId)
+      let items = _.find(board.lists, (list) => list.listId === listId).items
       items.push({itemText,itemId: _.random(10000), itemIndex: items.length+1})
       return newState
       break
@@ -68,8 +90,9 @@ export default function reducer(state =initialState, action){
     case 'DELETE_ITEM': {
       let {boardId, listId, itemId} = action.payload
       let newState = _.cloneDeep(state)
-      let items = newState.boards.find(board => {return board.boardId === boardId}).lists.find(list => {return list.listId === listId}).items
-      let index = items.findIndex(item => item.itemId === itemId)
+      let board = _.find(newState.boards, (board) => board.boardId === boardId)
+      let items = _.find(board.lists, (list) => list.listId === listId).items
+      let index = _.findIndex(items, (item) => item.itemId === itemId)
       items.splice(index,1)
       return newState
       break
@@ -78,7 +101,7 @@ export default function reducer(state =initialState, action){
     case 'CREATE_LIST':{
       let {boardId, listTitle} = action.payload
       let newState = _.cloneDeep(state)
-      const lists = newState.boards.find(board => {return board.boardId === boardId}).lists
+      const lists = _.find(newState.boards, (board) => board.boardId === boardId).lists
       lists.push({listId: _.random(100000), listIndex:lists.length+1,listTitle, items:[]})
       return newState
       break
@@ -86,8 +109,8 @@ export default function reducer(state =initialState, action){
     case 'DELETE_LIST': {
       let {boardId, listId} = action.payload
       let newState = _.cloneDeep(state)
-      const lists = newState.boards.find(board => {return board.boardId === boardId}).lists
-      let index = lists.findIndex(list => list.listId === listId)
+      const lists = _.find(newState.boards, (board) => board.boardId === boardId).lists
+      let index = _.findIndex(lists, (list) => list.listId === listId)
       lists.splice(index,1)
       return newState
       break
@@ -108,7 +131,7 @@ export default function reducer(state =initialState, action){
     case 'DELETE_BOARD': {
       let {boardId} = action.payload
       let newState = _.cloneDeep(state)
-      let index = newState.boards.findIndex(board => board.boardId === boardId)
+      let index = _.findIndex(newState.boards, (board) => board.boardId === boardId)
       newState.boards.splice(index,1)
       return newState
     }
