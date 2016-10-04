@@ -1,49 +1,8 @@
 import _ from 'lodash'
 
 const initialState = {
-      selectedBoard: 1,
-      boardsPanelOpen: false,
-      boards: [
-        {
-          boardId: 1,
-          boardIndex: 1,
-          boardTitle: 'my board',
-          lists: [
-            {
-              listId: 1,
-              listIndex: 1,
-              listTitle: 'To Do',
-              items: [
-                {
-                  itemId: 1,
-                  itemIndex: 1,
-                  itemText: 'test'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          boardId: 2,
-          boardIndex: 3,
-          boardTitle: 'my board 2',
-          lists: [
-            {
-              listId: 1,
-              listIndex: 1,
-              listTitle: 'To Do 2',
-              items: [
-                {
-                  itemId: 1,
-                  itemIndex: 1,
-                  itemText: 'test 2'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+  boards: []
+}
 
 
 export default function reducer(state =initialState, action){
@@ -73,6 +32,10 @@ export default function reducer(state =initialState, action){
 
 
 	switch(action.type){
+    case 'FETCH_DATA': {
+      return {...action.payload}
+      break
+    }
     case 'TOGGLE_BOARDS_PANEL': {
 
       return {...state, boardsPanelOpen:!state.boardsPanelOpen}

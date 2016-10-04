@@ -11,9 +11,13 @@ import {DragDropContext} from 'react-dnd';
 
 class App extends Component {
 
+  componentDidMount() {
+    this.props.actions.fetchData()
+  }
+
   render() {
     const style = {
-      fontFamily: 'Helvetica, Arial, sans-serif', 
+      fontFamily: 'Helvetica, Arial, sans-serif',
       backgroundColor: 'rgb(0, 121, 191)',
       position: 'fixed',
       height: '100%',
@@ -28,7 +32,7 @@ class App extends Component {
 				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
           <div>
-            {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} board={board}/>:null)}
+            {/* {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} board={board}/>:null)} */}
           </div>
         </div>
 
@@ -40,7 +44,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  main: state.main
+  main: state.main,
 })
 const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
