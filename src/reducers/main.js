@@ -168,11 +168,12 @@ export default function reducer(state =initialState, action){
       let dragList = _.find(board.lists, (o) => o.listId === dragListId)
       let hoverList = _.find(board.lists, (o) => o.listId === hoverListId)
       let dragItem = _.find(dragList.items, (o) => o.itemId === dragItemId)
-      dragItem.itemIndex = hoverList.items.length+1
-      hoverList.items.push(dragItem)
-      dragList.items = dragList.items.filter((o) => o.itemId !== dragItemId)
-
-      return newState
+      if(dragItem) {
+        dragItem.itemIndex = hoverList.items.length+1
+        hoverList.items.push(dragItem)
+        dragList.items = dragList.items.filter((o) => o.itemId !== dragItemId)
+        return newState
+      }
     }
 
 		default:

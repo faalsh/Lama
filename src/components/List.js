@@ -77,19 +77,28 @@ const listTarget = {
       if(dragListId !== hoverListId) {
         props.actions.swapLists(boardId, dragListId, hoverListId)
       }
+
+      } else if(monitor.getItemType() === 'Item'){
+        const boardId = monitor.getItem().boardId
+        const dragListId = monitor.getItem().listId
+        const hoverListId = props.listId
+        const dragItemId = monitor.getItem().itemId
+        if(dragListId !== hoverListId) {
+          props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
+        }
     }
   },
-  drop(props, monitor, component){
-     if (monitor.getItemType() === 'Item') {
-      const boardId = monitor.getItem().boardId
-      const dragListId = monitor.getItem().listId
-      const hoverListId = props.listId
-      const dragItemId = monitor.getItem().itemId
-      if(dragListId != hoverListId) {
-        props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
-      }
-    }
-  }
+  // drop(props, monitor, component){
+  //    if (monitor.getItemType() === 'Item') {
+  //     const boardId = monitor.getItem().boardId
+  //     const dragListId = monitor.getItem().listId
+  //     const hoverListId = props.listId
+  //     const dragItemId = monitor.getItem().itemId
+  //     if(dragListId != hoverListId) {
+  //       props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
+  //     }
+  //   }
+  // }
 }
 
 
