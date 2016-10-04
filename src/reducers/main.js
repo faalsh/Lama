@@ -135,11 +135,6 @@ export default function reducer(state =initialState, action){
       let hoverIndex = hoverItem.itemIndex
       dragItem.itemIndex = hoverIndex
       hoverItem.itemIndex = dragIndex
-      // let hoverList = _.find(board.lists, (o) => o.listId === hoverListId)
-      // let dragIndex = dragList.listIndex
-      // let hoverIndex = hoverList.listIndex
-      // dragList.listIndex = hoverIndex
-      // hoverList.listIndex = dragIndex
       return newState
     }
 

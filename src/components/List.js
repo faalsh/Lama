@@ -38,6 +38,7 @@ class List extends React.Component {
           position: 'absolute',
           top:'5px',
           right: '5px',
+          color: 'grey',
           cursor: 'pointer'
 
         }
