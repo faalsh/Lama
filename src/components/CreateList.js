@@ -61,7 +61,7 @@ class CreateList extends React.Component {
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
         height: '100%',
-        width: '200px'
+        width: '200px',
     	}
     	const inputStyle = {
         width: '185px',
@@ -100,7 +100,8 @@ class CreateList extends React.Component {
       }
       const addButtonStyle = {
         margin: '3px',
-        backgroundColor: 'rgb(163, 163, 163)',
+        backgroundColor: '#006ba9',
+        color:'white',
         height:'20px',
         width: '200px',
         padding: '5px',

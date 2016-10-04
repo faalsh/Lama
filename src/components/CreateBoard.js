@@ -55,7 +55,7 @@ class CreateBoard extends React.Component {
         width: '160px',
     		padding: '5px',
     		borderRadius: '3px',
-        backgroundColor: 'rgb(144, 185, 210)',
+        backgroundColor: '#026AA7',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
         marginTop: '10px'
     	}
@@ -68,8 +68,8 @@ class CreateBoard extends React.Component {
     		margin: '3px',
     		padding: '5px',
     		textAlign: 'center',
-    		width: '50px',
-    		height: '10px',
+    		width: '100px',
+    		height: '20px',
     		fontSize: '12px',
     		background: 'linear-gradient(to bottom,#61BD4F 0,#5AAC44 100%)',
     		color: 'white',
@@ -92,7 +92,7 @@ class CreateBoard extends React.Component {
         marginLeft: '15px',
         fontSize: '20px',
         cursor: 'pointer',
-        color: 'black'
+        color: 'white'
       }
 
       const createBoardButtonStyle = {
@@ -100,7 +100,7 @@ class CreateBoard extends React.Component {
         padding: '5px',
         textDecoration: 'underline',
         color: 'white',
-        opacity: '0.5',
+        opacity: '0.8',
         cursor: 'pointer',
       }
         return this.state.panelOpen?(
@@ -112,7 +112,7 @@ class CreateBoard extends React.Component {
         		</div>
             <div style={panelBottomStyle}>
               <div onClick={this.handleClick.bind(this)} style={buttonStyle}>
-                Save
+                Create Board
               </div>
               <div onClick={this.handleClose.bind(this)} style={closeButtonStyle}>×</div>
 

@@ -11,7 +11,7 @@ class Header extends React.Component {
     render() {
       const {main, actions} = this.props
     	const style={
-    		backgroundColor: 'rgb(144, 185, 210)',
+    		backgroundColor: '#026AA7',
         height: '50px',
         width: '100%',
         color: 'white',
@@ -24,13 +24,14 @@ class Header extends React.Component {
         marginLeft: '10px',
         fontSize: '24px',
         fontWeight: 'bold',
-        textAlign: 'right',
+        textAlign: 'center',
         marginRight: '10px',
         width: '100%',
+        fontFamily: '"Indie Flower",cursive'
       }
       const boardsButtonStyle = {
         cursor: 'pointer',
-        backgroundColor: 'rgb(65, 89, 125)',
+        backgroundColor: '#4c94be',
         marginLeft: '10px',
         width: '100px',
         height: '30px',
@@ -38,7 +39,8 @@ class Header extends React.Component {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        WebkitUserSelect:'none'
+        WebkitUserSelect:'none',
+        fontWeight: 'bold'
       }
         return (
         	<div style={style}>

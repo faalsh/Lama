@@ -17,7 +17,7 @@ class BoardList extends React.Component {
         alignItems: 'center',
         margin:'10px',
         width: '150px',
-        backgroundColor: 'rgb(65, 89, 125)',
+        backgroundColor: '#4c94be',
         padding: '20px',
         position: 'absolute',
         top: '30px',
@@ -31,7 +31,7 @@ class BoardList extends React.Component {
         width: '150px',
         margin: '5px',
         borderRadius: '3px',
-    		backgroundColor: 'rgb(144, 185, 210)',
+    		backgroundColor: '#026AA7',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
         cursor: 'pointer',
         padding: '10px'
@@ -43,7 +43,7 @@ class BoardList extends React.Component {
         padding: '5px',
         width: '150px',
         borderRadius: '3px',
-    		backgroundColor: 'rgb(144, 185, 210)',
+    		backgroundColor: '#026AA7',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
         cursor: 'pointer',
         padding: '10px'

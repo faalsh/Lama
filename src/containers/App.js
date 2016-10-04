@@ -13,7 +13,13 @@ class App extends Component {
 
   render() {
     const style = {
-      fontFamily: 'Helvetica, Arial, sans-serif'
+      fontFamily: 'Helvetica, Arial, sans-serif', 
+      backgroundColor: 'rgb(0, 121, 191)',
+      position: 'fixed',
+      height: '100%',
+      width: '100%',
+      top: 0,
+      left: 0
     }
 
 		const {main, actions} = this.props

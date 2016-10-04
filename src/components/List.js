@@ -27,6 +27,7 @@ class List extends React.Component {
         borderRadius: '3px',
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
+            cursor: 'pointer'
     	}
     	const titleStyle = {
     		fontWeight: 'bold',
@@ -43,7 +44,7 @@ class List extends React.Component {
 
         }
 
-        return connectDragSource( connectDropTarget(
+        return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{title}</div>
@@ -51,7 +52,6 @@ class List extends React.Component {
             <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         ))
-
     }
 }
 

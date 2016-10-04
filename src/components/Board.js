@@ -19,7 +19,7 @@ export default class Board extends Component {
       marginTop: '10px',
       marginLeft: '5px',
       fontWeight: 'bold',
-      color: 'rgb(65, 89, 125)'
+      color: 'white'
     }
     return (
       <div>
