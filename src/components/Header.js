@@ -3,9 +3,17 @@ import BoardList from './BoardList'
 
 class Header extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      open: false
+    }
+  }
+
   handleBoardsClick(){
-    const {toggleBoardsPanel} = this.props.actions
-    toggleBoardsPanel()
+    this.setState({
+      open: !this.state.open
+    })
   }
 
     render() {
@@ -43,12 +51,13 @@ class Header extends React.Component {
         fontWeight: 'bold'
       }
         return (
+
         	<div style={style}>
           <div style={boardsButtonStyle} onClick={this.handleBoardsClick.bind(this)}>
             Boards
           </div>
           {
-            main.boardsPanelOpen? <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>:null
+            this.state.open? <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>:null
           }
 
             <div style={logoStyle}>Lama</div>
