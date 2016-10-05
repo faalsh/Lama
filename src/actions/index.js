@@ -25,7 +25,6 @@ export const deleteItem = (boardId, listId, itemId) => ({type:'DELETE_ITEM', pay
 export const createList = (boardId,listTitle) => ({type:'CREATE_LIST', payload:{boardId,listTitle}})
 export const deleteList = (boardId, listId) => ({type:'DELETE_LIST', payload:{boardId,listId}})
 export const selectBoard = (key) => {
-  console.log(key)
   return dispatch => {
     ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'default'}))
   }
@@ -49,17 +48,6 @@ export const deleteBoard = (key) => {
     ref.child('boards/'+key).remove().then(snapshot => dispatch({type:'default'}))
   }
 }
-// export const toggleBoardsPanel = () => {
-//   return dispatch => {
-//     ref.child('boardsPanelOpen').once('value').then((snapshot) => {
-//       ref.update({"boardsPanelOpen":!snapshot.val()}).then(snapshot => {
-//         dispatch({
-//           type: 'default'
-//         })
-//       })
-//     })
-//   }
-// }
 export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
 export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => ({type:'MOVE_ITEM_TO_LIST', payload:{boardId, dragListId, hoverListId, dragItemId}})
 export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => ({type:'SWAP_ITEMS', payload:{boardId, dragListId, dragItemId, hoverItemId}})

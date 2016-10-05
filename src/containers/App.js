@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 // import Tester from '../components/Tester'
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
-
+import _ from 'lodash'
 
 class App extends Component {
 
@@ -32,7 +32,7 @@ class App extends Component {
 				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
           <div>
-            {/* {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} board={board}/>:null)} */}
+             {_.map(main.boards,(board,boardId) => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board}/>:null)} 
           </div>
         </div>
 
