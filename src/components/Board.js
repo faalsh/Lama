@@ -10,7 +10,8 @@ export default class Board extends Component {
   	const {boardTitle} = this.props.board
     const {boardId, lists} = this.props
 // items={_.sortBy(list.items, 'itemIndex')}
-    const sortedLists = _.sortBy(lists,'listIndex').map((list,listId) =>
+// TODO sort list by index
+    const sortedLists =_.map( lists,(list,listId) =>
         <List key={listId}  title={list.listTitle} listId={listId} boardId={boardId}/>)
   	const style = {
   		display: 'flex',

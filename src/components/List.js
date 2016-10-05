@@ -5,6 +5,7 @@ import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
 import CreateItem from './CreateItem'
 import {DragSource, DropTarget} from 'react-dnd'
+import _ from 'lodash'
 
 class List extends React.Component {
 
@@ -43,14 +44,11 @@ class List extends React.Component {
           cursor: 'pointer'
 
         }
-
-        //{items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} actions={actions}/>)}
-
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{title}</div>
-            items here
+            {_.map(items[listId],(item,itemId) => <Item key={itemId} details={item} boardId={boardId} listId={listId} actions={actions}/>)}
             <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         ))
