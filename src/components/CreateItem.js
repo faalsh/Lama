@@ -13,10 +13,10 @@ class CreateItem extends React.Component {
         }
     }
     handleClick(){
-    	const {boardId,listId, actions} = this.props
+    	const {listId, actions} = this.props
     	const {title} = this.state
         if(title !== '') {
-            actions.createItem(boardId, listId, title)
+            actions.createItem(listId, title)
             this.setState({
               title: '',
               panelOpen: false

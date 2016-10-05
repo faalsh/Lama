@@ -6,7 +6,9 @@ var config = {
     storageBucket: 'lama-205e8.appspot.com',
     messagingSenderId: '982449576403'
   };
-  firebase.initializeApp(config);
+  if(firebase.apps.length === 0){
+    firebase.initializeApp(config);
+  }
   const ref = firebase.database().ref('/')
 
 export function fetchData() {
@@ -20,20 +22,12 @@ export function fetchData() {
 }
 }
 
-export const createItem = (boardId, listId, itemText) => ({type:'CREATE_ITEM', payload:{boardId,listId,itemText}})
-export const deleteItem = (boardId, listId, itemId) => ({type:'DELETE_ITEM', payload:{boardId,listId,itemId}})
-export const createList = (boardId,listTitle) => ({type:'CREATE_LIST', payload:{boardId,listTitle}})
-export const deleteList = (boardId, listId) => ({type:'DELETE_LIST', payload:{boardId,listId}})
-export const selectBoard = (key) => {
-  return dispatch => {
-    ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'default'}))
-  }
-}
+
 export const createBoard = (boardTitle) => {
-  
+
   return dispatch => {
     ref.child('boards').once('value').then(snapshot => {
-      let count=snapshot.numChildren()
+      const count=snapshot.numChildren()
       const key = ref.child('boards').push().key
       let updates = {}
       updates['/boards/'+key] = {boardIndex: count, boardTitle}
@@ -41,11 +35,46 @@ export const createBoard = (boardTitle) => {
       return ref.update(updates)
     }).then(snapshot => dispatch({type: 'default'}))
 
-  } 
+  }
 }
-export const deleteBoard = (key) => {
+
+export const createList = (boardId,listTitle) => {
   return dispatch => {
-    ref.child('boards/'+key).remove().then(snapshot => dispatch({type:'default'}))
+    ref.child('lists').child(boardId).once('value').then(snapshot => {
+      const count = snapshot.numChildren()
+      const key = ref.child('lists').child(boardId).push().key
+      let updates = {}
+      updates['/lists/'+boardId+'/'+key] = {listIndex: count, listTitle}
+      return ref.update(updates)
+    }).then(snapshot => dispatch({type:'default'}))
+  }
+}
+
+export const createItem = (listId, itemText) => {
+  return dispatch => {
+    ref.child('items').child(listId).once('value').then(snapshot => {
+      const count = snapshot.numChildren()
+      return ref.child('items').child(listId).push({itemIndex: count, itemText})
+    }).then(snapshot => dispatch({type: 'default'}))
+  }
+}
+
+export const deleteBoard = (boardId) => {
+  return dispatch => {
+    ref.child('boards/'+boardId).remove().then(snapshot => dispatch({type:'default'}))
+  }
+}
+
+export const deleteList = (boardId, listId) => {
+  return dispatch => {
+    ref.child('lists/'+boardId+'/'+listId).remove().then(snapshot => ({type: 'default'}))
+  }
+}
+export const deleteItem = (boardId, listId, itemId) => ({type:'DELETE_ITEM', payload:{boardId,listId,itemId}})
+
+export const selectBoard = (key) => {
+  return dispatch => {
+    ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'default'}))
   }
 }
 export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
