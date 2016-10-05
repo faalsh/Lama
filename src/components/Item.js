@@ -3,8 +3,8 @@ import {DragSource, DropTarget} from 'react-dnd'
 
 class Item extends React.Component {
   handleDelete(){
-    const {boardId, listId, details, actions} = this.props
-    actions.deleteItem(boardId, listId, details.itemId)
+    const {listId, itemId, actions} = this.props
+    actions.deleteItem(listId, itemId)
   }
 
     render() {

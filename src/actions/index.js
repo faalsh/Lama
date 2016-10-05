@@ -70,7 +70,11 @@ export const deleteList = (boardId, listId) => {
     ref.child('lists/'+boardId+'/'+listId).remove().then(snapshot => ({type: 'default'}))
   }
 }
-export const deleteItem = (boardId, listId, itemId) => ({type:'DELETE_ITEM', payload:{boardId,listId,itemId}})
+export const deleteItem = (listId, itemId) => {
+  return dispatch => {
+    ref.child('items/'+listId+'/'+itemId).remove().then(snapshot => ({type: 'default'}))
+  }
+}
 
 export const selectBoard = (key) => {
   return dispatch => {
@@ -80,16 +84,3 @@ export const selectBoard = (key) => {
 export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
 export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => ({type:'MOVE_ITEM_TO_LIST', payload:{boardId, dragListId, hoverListId, dragItemId}})
 export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => ({type:'SWAP_ITEMS', payload:{boardId, dragListId, dragItemId, hoverItemId}})
-
-
-// export const createItem = (boardId, listId, itemText) => ({type:'CREATE_ITEM', payload:{boardId,listId,itemText}})
-// export const deleteItem = (boardId, listId, itemId) => ({type:'DELETE_ITEM', payload:{boardId,listId,itemId}})
-// export const createList = (boardId,listTitle) => ({type:'CREATE_LIST', payload:{boardId,listTitle}})
-// export const deleteList = (boardId, listId) => ({type:'DELETE_LIST', payload:{boardId,listId}})
-// export const selectBoard = (boardId) => ({type:'SELECT_BOARD', payload:{boardId}})
-// export const createBoard = (boardTitle) => ({type:'CREATE_BOARD', payload:{boardTitle}})
-// export const deleteBoard = (boardId) => ({type:'DELETE_BOARD', payload:{boardId}})
-// export const toggleBoardsPanel = () => ({type:'TOGGLE_BOARDS_PANEL'})
-// export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
-// export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => ({type:'MOVE_ITEM_TO_LIST', payload:{boardId, dragListId, hoverListId, dragItemId}})
-// export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => ({type:'SWAP_ITEMS', payload:{boardId, dragListId, dragItemId, hoverItemId}})

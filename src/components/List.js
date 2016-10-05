@@ -44,11 +44,12 @@ class List extends React.Component {
           cursor: 'pointer'
 
         }
+        // TODO sort item by index
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{title}</div>
-            {_.map(items[listId],(item,itemId) => <Item key={itemId} details={item} boardId={boardId} listId={listId} actions={actions}/>)}
+            {_.map(items[listId],(item,itemId) => <Item key={itemId} details={item} itemId={itemId} boardId={boardId} listId={listId} actions={actions}/>)}
             <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         ))
