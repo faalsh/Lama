@@ -10,12 +10,12 @@ import _ from 'lodash'
 class List extends React.Component {
 
     handleDelete(){
-        const {actions, listId, boardId} = this.props
-        actions.deleteList(boardId, listId)
+        const {actions, list, boardId} = this.props
+        actions.deleteList(boardId, list.listId)
     }
 
     render() {
-    	const {title, items, boardId, listId, actions, connectDragSource, isDragging, connectDropTarget} = this.props
+    	const {items, boardId, list, actions, connectDragSource, isDragging, connectDropTarget} = this.props
       const opacity = isDragging? 0.3:1
     	const style = {
         position: 'relative',
@@ -48,9 +48,9 @@ class List extends React.Component {
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
-		        <div style={titleStyle}>{title}</div>
-            {_.map(items[listId],(item,itemId) => <Item key={itemId} details={item} itemId={itemId} boardId={boardId} listId={listId} actions={actions}/>)}
-            <CreateItem boardId={boardId} listId={listId}/>
+		        <div style={titleStyle}>{list.listTitle}</div>
+            {_.map(items[list.listId],(item,itemId) => <Item key={itemId} details={item} itemId={itemId} boardId={boardId} listId={list.listId} actions={actions}/>)}
+            <CreateItem boardId={boardId} listId={list.listId}/>
 	        </div>
         ))
     }
@@ -68,7 +68,8 @@ const listSource = {
   beginDrag(props){
     return {
       boardId: props.boardId,
-      listId: props.listId
+      listId: props.list.listId,
+      listIndex: props.list.listIndex
     }
   }
 }
@@ -78,15 +79,17 @@ const listTarget = {
     if(monitor.getItemType() === 'List') {
       const boardId = monitor.getItem().boardId
       const dragListId = monitor.getItem().listId
-      const hoverListId = props.listId
+      const hoverListId = props.list.listId
+      const dragListIndex = monitor.getItem().listIndex
+      const hoverListIndex = props.list.listIndex
       if(dragListId !== hoverListId) {
-        props.actions.swapLists(boardId, dragListId, hoverListId)
+        props.actions.swapLists(boardId, dragListId, hoverListId, dragListIndex, hoverListIndex)
       }
 
       } else if(monitor.getItemType() === 'Item'){
         const boardId = monitor.getItem().boardId
         const dragListId = monitor.getItem().listId
-        const hoverListId = props.listId
+        const hoverListId = props.list.listId
         const dragItemId = monitor.getItem().itemId
         if(dragListId !== hoverListId) {
           props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)

@@ -15,7 +15,7 @@ export default class Board extends Component {
     }), 'listIndex');
 
     const renderedList =_.map(sortedLists, (list) =>
-        <List key={list.listId}  title={list.listTitle} listId={list.listId} boardId={boardId}/>)
+        <List key={list.listId}  list={list} boardId={boardId}/>)
   	const style = {
   		display: 'flex',
       flexDirection: 'row',

@@ -82,6 +82,29 @@ export const selectBoard = (key) => {
   }
 }
 
-export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
+export const swapLists = (boardId, dragListId, hoverListId, dragListIndex, hoverListIndex) => {
+// console.log(hoverListId);
+  return dispatch => {
+
+    //  ref.child('lists/'+boardId+'/'+dragListId).once('value').then(snapshot =>{
+    //    let newList = snapshot.val()
+    //     newList.listIndex = hoverListIndex
+    //     ref.child('lists/'+boardId+'/'+dragListId).update(newList)
+    //  })
+     //
+    //  ref.child('lists/'+boardId+'/'+hoverListId).once('value').then(snapshot =>{
+    //    let newList = snapshot.val()
+    //    newList.listIndex = dragListIndex
+    //     ref.child('lists/'+boardId+'/'+hoverListId).update(newList)
+    //  })
+    let updates = {}
+    updates['lists/'+boardId+'/'+dragListId+'/listIndex'] = hoverListIndex
+    updates['lists/'+boardId+'/'+hoverListId+'/listIndex'] = dragListIndex
+    ref.update(updates)
+    // console.log(updates);
+     dispatch({type: 'default'})
+
+  }
+}
 export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => ({type:'MOVE_ITEM_TO_LIST', payload:{boardId, dragListId, hoverListId, dragItemId}})
 export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => ({type:'SWAP_ITEMS', payload:{boardId, dragListId, dragItemId, hoverItemId}})
