@@ -14,7 +14,7 @@ class List extends React.Component {
     }
 
     render() {
-    	const {items,title, boardId, listId, actions, connectDragSource, isDragging, connectDropTarget} = this.props
+    	const {title, items, boardId, listId, actions, connectDragSource, isDragging, connectDropTarget} = this.props
       const opacity = isDragging? 0.3:1
     	const style = {
         position: 'relative',
@@ -44,11 +44,13 @@ class List extends React.Component {
 
         }
 
+        //{items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} actions={actions}/>)}
+
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{title}</div>
-		        {items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} actions={actions}/>)}
+            items here
             <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         ))
@@ -57,6 +59,10 @@ class List extends React.Component {
 
 const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
+})
+
+const mapStateToProps = state => ({
+  items: state.main.items,
 })
 
 const listSource = {
@@ -113,4 +119,4 @@ List = DragSource('List', listSource, collect)(List)
 List = DropTarget(['List', 'Item'], listTarget, connect => ({connectDropTarget: connect.dropTarget()}))(List)
 // List = DropTarget('Item', itemTarget, connect => ({connectDropTarget: connect.dropTarget()}))(List)
 
-export default connect(null, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(List);

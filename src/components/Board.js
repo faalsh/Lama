@@ -8,11 +8,10 @@ export default class Board extends Component {
 
   render() {
   	const {boardTitle} = this.props.board
-    const {boardId} = this.props
-
-    console.log(boardId)
-    //const sortedLists = _.sortBy(lists,'listIndex').map(list =>
-    //    <List key={list.listId} items={_.sortBy(list.items, 'itemIndex')} title={list.listTitle} listId={list.listId} boardId={boardId}/>)
+    const {boardId, lists} = this.props
+// items={_.sortBy(list.items, 'itemIndex')}
+    const sortedLists = _.sortBy(lists,'listIndex').map((list,listId) =>
+        <List key={listId}  title={list.listTitle} listId={listId} boardId={boardId}/>)
   	const style = {
   		display: 'flex',
       flexDirection: 'row',
@@ -38,7 +37,7 @@ export default class Board extends Component {
               transitionAppear={true}
               transitionAppearTimeout={500}>
               <div style ={{display: 'flex'}}>
-              sorted list here
+              {sortedLists}
               </div>
           </ReactCSSTransitionGroup>
           <CreateList  boardId={boardId}/>
