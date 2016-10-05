@@ -9,10 +9,13 @@ export default class Board extends Component {
   render() {
   	const {boardTitle} = this.props.board
     const {boardId, lists} = this.props
-// items={_.sortBy(list.items, 'itemIndex')}
-// TODO sort list by index
-    const sortedLists =_.map( lists,(list,listId) =>
-        <List key={listId}  title={list.listTitle} listId={listId} boardId={boardId}/>)
+
+    const sortedLists = _.sortBy(_.map(lists,(list,listId) => {
+      return {listId, ...list}
+    }), 'listIndex');
+
+    const renderedList =_.map(sortedLists, (list) =>
+        <List key={list.listId}  title={list.listTitle} listId={list.listId} boardId={boardId}/>)
   	const style = {
   		display: 'flex',
       flexDirection: 'row',
@@ -24,10 +27,13 @@ export default class Board extends Component {
       fontWeight: 'bold',
       color: 'white'
     }
+    const boardStyle = {
+      margin: '15px'
+    }
 
     return (
 
-      <div>
+      <div style={boardStyle}>
         <div style={titleStyle}>{boardTitle}</div>
     		<div style={style}>
 
@@ -38,7 +44,7 @@ export default class Board extends Component {
               transitionAppear={true}
               transitionAppearTimeout={500}>
               <div style ={{display: 'flex'}}>
-              {sortedLists}
+              {renderedList}
               </div>
           </ReactCSSTransitionGroup>
           <CreateList  boardId={boardId}/>

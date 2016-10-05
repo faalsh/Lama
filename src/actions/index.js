@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-var config = {
+const config = {
     apiKey: 'AIzaSyDJlntfXZ4b7KA17L94arhgcikRqd4WmNE',
     authDomain: 'lama-205e8.firebaseapp.com',
     databaseURL: 'https://lama-205e8.firebaseio.com',
@@ -18,8 +18,8 @@ export function fetchData() {
         type:'FETCH_DATA',
         payload: snapshot.val()
       })
-  })
-}
+    })
+  }
 }
 
 
@@ -81,6 +81,7 @@ export const selectBoard = (key) => {
     ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'default'}))
   }
 }
+
 export const swapLists = (boardId, dragListId, hoverListId) => ({type:'SWAP_LISTS', payload:{boardId, dragListId, hoverListId}})
 export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => ({type:'MOVE_ITEM_TO_LIST', payload:{boardId, dragListId, hoverListId, dragItemId}})
 export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => ({type:'SWAP_ITEMS', payload:{boardId, dragListId, dragItemId, hoverItemId}})

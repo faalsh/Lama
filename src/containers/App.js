@@ -4,13 +4,12 @@ import Header from '../components/Header'
 import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
-// import Tester from '../components/Tester'
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 import _ from 'lodash'
 
 class App extends Component {
-
+// TODO authentication
   componentDidMount() {
     this.props.actions.fetchData()
   }
@@ -32,7 +31,7 @@ class App extends Component {
 				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
           <div>
-             {_.map(main.boards,(board,boardId) => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board} lists={main.lists[boardId]}/>:null)} 
+             {_.map(main.boards,(board,boardId) => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board} lists={main.lists[boardId]}/>:null)}
           </div>
         </div>
 
