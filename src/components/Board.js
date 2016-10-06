@@ -7,9 +7,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 export default class Board extends Component {
 
   render() {
-  	const {lists,boardId,boardTitle} = this.props.board
-    const sortedLists = _.sortBy(lists,'listIndex').map(list =>
-        <List key={list.listId} items={_.sortBy(list.items, 'itemIndex')} title={list.listTitle} listId={list.listId} boardId={boardId}/>)
+  	const {boardTitle, lists} = this.props.board
+    const {boardId} = this.props
+
+    const sortedLists = _.sortBy(_.map(lists,(list,listId) => {
+      return {listId, ...list}
+    }), 'listIndex');
+    const renderedList =_.map(sortedLists, (list) =>
+        <List key={list.listId}  list={list} boardId={boardId}/>)
   	const style = {
   		display: 'flex',
       flexDirection: 'row',
@@ -21,8 +26,13 @@ export default class Board extends Component {
       fontWeight: 'bold',
       color: 'white'
     }
+    const boardStyle = {
+      margin: '15px'
+    }
+
     return (
-      <div>
+
+      <div style={boardStyle}>
         <div style={titleStyle}>{boardTitle}</div>
     		<div style={style}>
 
@@ -33,8 +43,7 @@ export default class Board extends Component {
               transitionAppear={true}
               transitionAppearTimeout={500}>
               <div style ={{display: 'flex'}}>
-              {sortedLists}
-
+              {renderedList}
               </div>
           </ReactCSSTransitionGroup>
           <CreateList  boardId={boardId}/>

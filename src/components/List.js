@@ -5,16 +5,17 @@ import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
 import CreateItem from './CreateItem'
 import {DragSource, DropTarget} from 'react-dnd'
+import _ from 'lodash'
 
 class List extends React.Component {
 
     handleDelete(){
-        const {actions, listId, boardId} = this.props
-        actions.deleteList(boardId, listId)
+        const {actions, list, boardId} = this.props
+        actions.deleteList(boardId, list.listId)
     }
 
     render() {
-    	const {items,title, boardId, listId, actions, connectDragSource, isDragging, connectDropTarget} = this.props
+    	const {boardId, list, actions, connectDragSource, isDragging, connectDropTarget} = this.props
       const opacity = isDragging? 0.3:1
     	const style = {
         position: 'relative',
@@ -44,12 +45,16 @@ class List extends React.Component {
 
         }
 
+        const sortedItems = _.sortBy(_.map(list.items,(item,itemId) => {
+          return {itemId, ...item}
+        }), 'itemIndex')
+
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
-		        <div style={titleStyle}>{title}</div>
-		        {items.map((item) => <Item key={item.itemId} details={item} boardId={boardId} listId={listId} actions={actions}/>)}
-            <CreateItem boardId={boardId} listId={listId}/>
+		        <div style={titleStyle}>{list.listTitle}</div>
+            {_.map(sortedItems,(item) => <Item key={item.itemId} details={item} itemId={item.itemId} listId={list.listId} boardId={boardId} actions={actions}/>)}
+            <CreateItem boardId={boardId} listId={list.listId}/>
 	        </div>
         ))
     }
@@ -59,11 +64,16 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
+const mapStateToProps = state => ({
+  items: state.main.items,
+})
+
 const listSource = {
   beginDrag(props){
     return {
       boardId: props.boardId,
-      listId: props.listId
+      listId: props.list.listId,
+      listIndex: props.list.listIndex
     }
   }
 }
@@ -73,15 +83,15 @@ const listTarget = {
     if(monitor.getItemType() === 'List') {
       const boardId = monitor.getItem().boardId
       const dragListId = monitor.getItem().listId
-      const hoverListId = props.listId
+      const hoverListId = props.list.listId
       if(dragListId !== hoverListId) {
         props.actions.swapLists(boardId, dragListId, hoverListId)
       }
 
       } else if(monitor.getItemType() === 'Item'){
-        const boardId = monitor.getItem().boardId
+        const boardId = props.boardId
         const dragListId = monitor.getItem().listId
-        const hoverListId = props.listId
+        const hoverListId = props.list.listId
         const dragItemId = monitor.getItem().itemId
         if(dragListId !== hoverListId) {
           props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
@@ -113,4 +123,4 @@ List = DragSource('List', listSource, collect)(List)
 List = DropTarget(['List', 'Item'], listTarget, connect => ({connectDropTarget: connect.dropTarget()}))(List)
 // List = DropTarget('Item', itemTarget, connect => ({connectDropTarget: connect.dropTarget()}))(List)
 
-export default connect(null, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(List);

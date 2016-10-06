@@ -4,16 +4,19 @@ import Header from '../components/Header'
 import { connect } from 'react-redux'
 import * as LamaActions from '../actions'
 import { bindActionCreators } from 'redux'
-// import Tester from '../components/Tester'
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
-
+import _ from 'lodash'
 
 class App extends Component {
+// TODO authentication
+  componentDidMount() {
+    this.props.actions.fetchData()
+  }
 
   render() {
     const style = {
-      fontFamily: 'Helvetica, Arial, sans-serif', 
+      fontFamily: 'Helvetica, Arial, sans-serif',
       backgroundColor: 'rgb(0, 121, 191)',
       position: 'fixed',
       height: '100%',
@@ -21,14 +24,13 @@ class App extends Component {
       top: 0,
       left: 0
     }
-
 		const {main, actions} = this.props
     return (
 			<div style={style}>
 				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
           <div>
-            {main.boards.map((board) => main.selectedBoard === board.boardId ? <Board key={board.boardId} board={board}/>:null)}
+             {_.map(main.boards,(board,boardId) => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board}/>:null)}
           </div>
         </div>
 
@@ -40,7 +42,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  main: state.main
+  main: state.main,
 })
 const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)

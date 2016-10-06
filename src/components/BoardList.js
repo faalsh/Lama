@@ -1,14 +1,16 @@
 import React from 'react';
 import CreateBoard from './CreateBoard'
+import _ from 'lodash'
 
 class BoardList extends React.Component {
 
-  handleClick(boardId){
-      this.props.actions.selectBoard(boardId)
+  handleClick(key){
+      this.props.actions.selectBoard(key)
   }
-  handleDelete(boardId) {
-    this.props.actions.deleteBoard(boardId)
+  handleDelete(key) {
+     this.props.actions.deleteBoard(key)
   }
+
     render() {
 
       const panelStyle = {
@@ -53,19 +55,22 @@ class BoardList extends React.Component {
         top: '11px',
         right: '5px',
         width: '15px',
-
       }
+
+      
+
       const {boards, selectedBoard} = this.props
         return (
         	<div style={panelStyle}>
             {
-              boards.map((board) => {
-                const style = board.boardId ===  selectedBoard ? selectedItemStyle:itemStyle
-                return <div key={board.boardId} style={style} onClick={this.handleClick.bind(this,board.boardId)}>
-                {board.boardTitle}
-                  <div style={deleteStyle} onClick={this.handleDelete.bind(this, board.boardId)}>×</div>
-                </div>
-
+                _.map(boards,(board,key) => {
+                const style = key===selectedBoard ? selectedItemStyle:itemStyle
+                return (
+                  <div key={key} style={style} onClick={this.handleClick.bind(this,key)}>
+                    {board.boardTitle}
+                    <div style={deleteStyle} onClick={this.handleDelete.bind(this,key)}>×</div>
+                  </div>
+                )
               })
             }
             <CreateBoard />

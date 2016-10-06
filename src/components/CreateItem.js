@@ -13,7 +13,7 @@ class CreateItem extends React.Component {
         }
     }
     handleClick(){
-    	const {boardId,listId, actions} = this.props
+    	const {boardId, listId, actions} = this.props
     	const {title} = this.state
         if(title !== '') {
             actions.createItem(boardId, listId, title)
