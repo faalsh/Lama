@@ -90,12 +90,11 @@ const listTarget = {
       }
 
       } else if(monitor.getItemType() === 'Item'){
-        const boardId = monitor.getItem().boardId
         const dragListId = monitor.getItem().listId
         const hoverListId = props.list.listId
         const dragItemId = monitor.getItem().itemId
         if(dragListId !== hoverListId) {
-          props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
+          props.actions.moveItemToList(dragListId, hoverListId, dragItemId)
         }
     }
   },

@@ -94,12 +94,20 @@ export const swapLists = (boardId, dragListId, hoverListId) => {
       updates['lists/'+boardId+'/'+hoverListId+'/listIndex'] = dragListIndex
       ref.update(updates)
       dispatch({type: 'default'})
-
      })
-
   }
 }
-export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => ({type:'MOVE_ITEM_TO_LIST', payload:{boardId, dragListId, hoverListId, dragItemId}})
+export const moveItemToList = (dragListId, hoverListId, dragItemId) => {
+  return dispatch => {
+      ref.child('items').once('value').then(snapshot => {
+      const items = snapshot.val()
+      const item = items[dragListId][dragItemId]
+      ref.child('items/'+dragListId+'/'+dragItemId).remove()
+      ref.child('items/'+hoverListId).push(item)
+      dispatch({type: 'default'})
+    })
+  }
+}
 
 
 export const swapItems = (dragListId, dragItemId, hoverItemId) => {
