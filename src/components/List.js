@@ -44,12 +44,17 @@ class List extends React.Component {
           cursor: 'pointer'
 
         }
-        // TODO sort item by index
+
+        const sortedItems = _.sortBy(_.map(items[list.listId],(item,itemId) => {
+          return {itemId, ...item}
+        }), 'itemIndex')
+
+
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{list.listTitle}</div>
-            {_.map(items[list.listId],(item,itemId) => <Item key={itemId} details={item} itemId={itemId} boardId={boardId} listId={list.listId} actions={actions}/>)}
+            {_.map(sortedItems,(item) => <Item key={item.itemId} details={item} itemId={item.itemId} listId={list.listId} actions={actions}/>)}
             <CreateItem boardId={boardId} listId={list.listId}/>
 	        </div>
         ))
