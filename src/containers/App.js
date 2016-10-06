@@ -11,7 +11,9 @@ import _ from 'lodash'
 class App extends Component {
 // TODO authentication
   componentDidMount() {
-    this.props.actions.fetchData()
+    const {fetchData, getConnectionStatus} = this.props.actions
+    fetchData()
+    getConnectionStatus()
   }
 
   render() {

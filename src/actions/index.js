@@ -11,6 +11,7 @@ const config = {
   }
   const ref = firebase.database().ref('/')
 
+
 export function fetchData() {
   return dispatch => {
     ref.on('value', (snapshot) => {
@@ -22,6 +23,17 @@ export function fetchData() {
   }
 }
 
+export const getConnectionStatus = () => {
+  return dispatch => {
+    ref.child('.info/connected').on('value', function(connectedSnap) {
+      if (connectedSnap.val() === true) {
+        dispatch({type: 'CONNECTION_STATUS', payload: true})
+      } else {
+        dispatch({type: 'CONNECTION_STATUS', payload: false})
+      }
+    })
+  }
+}
 
 export const createBoard = (boardTitle) => {
 
