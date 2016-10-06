@@ -80,10 +80,8 @@ const listTarget = {
       const boardId = monitor.getItem().boardId
       const dragListId = monitor.getItem().listId
       const hoverListId = props.list.listId
-      const dragListIndex = monitor.getItem().listIndex
-      const hoverListIndex = props.list.listIndex
       if(dragListId !== hoverListId) {
-        props.actions.swapLists(boardId, dragListId, hoverListId, dragListIndex, hoverListIndex)
+        props.actions.swapLists(boardId, dragListId, hoverListId)
       }
 
       } else if(monitor.getItemType() === 'Item'){

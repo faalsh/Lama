@@ -82,27 +82,20 @@ export const selectBoard = (key) => {
   }
 }
 
-export const swapLists = (boardId, dragListId, hoverListId, dragListIndex, hoverListIndex) => {
-// console.log(hoverListId);
+export const swapLists = (boardId, dragListId, hoverListId) => {
   return dispatch => {
 
-    //  ref.child('lists/'+boardId+'/'+dragListId).once('value').then(snapshot =>{
-    //    let newList = snapshot.val()
-    //     newList.listIndex = hoverListIndex
-    //     ref.child('lists/'+boardId+'/'+dragListId).update(newList)
-    //  })
-     //
-    //  ref.child('lists/'+boardId+'/'+hoverListId).once('value').then(snapshot =>{
-    //    let newList = snapshot.val()
-    //    newList.listIndex = dragListIndex
-    //     ref.child('lists/'+boardId+'/'+hoverListId).update(newList)
-    //  })
-    let updates = {}
-    updates['lists/'+boardId+'/'+dragListId+'/listIndex'] = hoverListIndex
-    updates['lists/'+boardId+'/'+hoverListId+'/listIndex'] = dragListIndex
-    ref.update(updates)
-    // console.log(updates);
-     dispatch({type: 'default'})
+     ref.child('lists/'+boardId+'/').once('value').then(snapshot =>{
+      const lists = snapshot.val()
+      const dragListIndex = lists[dragListId].listIndex
+      const hoverListIndex = lists[hoverListId].listIndex
+      let updates = {}
+      updates['lists/'+boardId+'/'+dragListId+'/listIndex'] = hoverListIndex
+      updates['lists/'+boardId+'/'+hoverListId+'/listIndex'] = dragListIndex
+      ref.update(updates)
+      dispatch({type: 'default'})
+
+     })
 
   }
 }
