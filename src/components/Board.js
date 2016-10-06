@@ -13,9 +13,6 @@ export default class Board extends Component {
     const sortedLists = _.sortBy(_.map(lists,(list,listId) => {
       return {listId, ...list}
     }), 'listIndex');
-
-    console.log(sortedLists)
-
     const renderedList =_.map(sortedLists, (list) =>
         <List key={list.listId}  list={list} boardId={boardId}/>)
   	const style = {

@@ -24,7 +24,6 @@ class App extends Component {
       top: 0,
       left: 0
     }
-    console.log(this.props)
 		const {main, actions} = this.props
     return (
 			<div style={style}>

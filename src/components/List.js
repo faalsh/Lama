@@ -15,7 +15,7 @@ class List extends React.Component {
     }
 
     render() {
-    	const {items, boardId, list, actions, connectDragSource, isDragging, connectDropTarget} = this.props
+    	const {boardId, list, actions, connectDragSource, isDragging, connectDropTarget} = this.props
       const opacity = isDragging? 0.3:1
     	const style = {
         position: 'relative',
@@ -45,10 +45,9 @@ class List extends React.Component {
 
         }
 
-        const sortedItems = _.sortBy(_.map(items[list.listId],(item,itemId) => {
+        const sortedItems = _.sortBy(_.map(list.items,(item,itemId) => {
           return {itemId, ...item}
         }), 'itemIndex')
-
 
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
