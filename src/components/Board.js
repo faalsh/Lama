@@ -7,12 +7,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 export default class Board extends Component {
 
   render() {
-  	const {boardTitle} = this.props.board
-    const {boardId, lists} = this.props
+  	const {boardTitle, lists} = this.props.board
+    const {boardId} = this.props
 
     const sortedLists = _.sortBy(_.map(lists,(list,listId) => {
       return {listId, ...list}
     }), 'listIndex');
+
+    console.log(sortedLists)
 
     const renderedList =_.map(sortedLists, (list) =>
         <List key={list.listId}  list={list} boardId={boardId}/>)

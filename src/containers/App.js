@@ -11,7 +11,7 @@ import _ from 'lodash'
 class App extends Component {
 // TODO authentication
   componentDidMount() {
-    this.props.actions.fetchData()
+    // this.props.actions.fetchData()
   }
 
   render() {
@@ -24,14 +24,14 @@ class App extends Component {
       top: 0,
       left: 0
     }
-
+    console.log(this.props)
 		const {main, actions} = this.props
     return (
 			<div style={style}>
 				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
           <div>
-             {_.map(main.boards,(board,boardId) => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board} lists={main.lists[boardId]}/>:null)}
+             {_.map(main.boards,(board,boardId) => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board}/>:null)}
           </div>
         </div>
 
