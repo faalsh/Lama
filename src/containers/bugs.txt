@@ -4,3 +4,4 @@
 4. when board is deleted, delete all lists and items
 5. when list is deleted, delete all items
 6. lists and items nodes should not be mandatory
+7. sort boards
