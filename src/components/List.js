@@ -53,7 +53,7 @@ class List extends React.Component {
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{list.listTitle}</div>
-            {_.map(sortedItems,(item) => <Item key={item.itemId} details={item} itemId={item.itemId} listId={list.listId} actions={actions}/>)}
+            {_.map(sortedItems,(item) => <Item key={item.itemId} details={item} itemId={item.itemId} listId={list.listId} boardId={boardId} actions={actions}/>)}
             <CreateItem boardId={boardId} listId={list.listId}/>
 	        </div>
         ))
@@ -89,11 +89,12 @@ const listTarget = {
       }
 
       } else if(monitor.getItemType() === 'Item'){
+        const boardId = props.boardId
         const dragListId = monitor.getItem().listId
         const hoverListId = props.list.listId
         const dragItemId = monitor.getItem().itemId
         if(dragListId !== hoverListId) {
-          props.actions.moveItemToList(dragListId, hoverListId, dragItemId)
+          props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
         }
     }
   },

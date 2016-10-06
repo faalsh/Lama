@@ -3,8 +3,8 @@ import {DragSource, DropTarget} from 'react-dnd'
 
 class Item extends React.Component {
   handleDelete(){
-    const {listId, itemId, actions} = this.props
-    actions.deleteItem(listId, itemId)
+    const {boardId, listId, itemId, actions} = this.props
+    actions.deleteItem(boardId, listId, itemId)
   }
 
     render() {
@@ -62,12 +62,13 @@ const itemSource = {
 
 const itemTarget = {
   hover(props, monitor, component) {
+    const boardId = props.boardId
     const dragListId = monitor.getItem().listId
     const dragItemId = monitor.getItem().itemId
     const hoverItemId = props.itemId
     const hoverListId = props.listId
     if(dragItemId !== hoverItemId && dragListId === hoverListId) {
-      props.actions.swapItems(dragListId, dragItemId, hoverItemId)
+      props.actions.swapItems(boardId, dragListId, dragItemId, hoverItemId)
     }
   }
 }
