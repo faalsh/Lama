@@ -50,8 +50,9 @@ export const createList = (boardId,listTitle) => {
 
 export const createItem = (boardId,listId, itemText) => {
   return dispatch => {
-    ref.child('boards').child(boardId).child('lists').child(listId).once('value').then(snapshot => {
+    ref.child('boards').child(boardId).child('lists').child(listId).child('items').once('value').then(snapshot => {
       const count = snapshot.numChildren()
+      console.log(count);
       return ref.child('boards').child(boardId)
         .child('lists').child(listId).child('items').push({itemIndex: count, itemText})
     }).then(snapshot => dispatch({type: 'default'}))
