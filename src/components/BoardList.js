@@ -66,7 +66,9 @@ class BoardList extends React.Component {
         top: 0,
         width: '100%',
         height: '100%',
-         zIndex: 1
+         zIndex: 1,
+         backgroundColor: 'black',
+         opacity: '0.5'
       }
 
       const {boards, selectedBoard} = this.props

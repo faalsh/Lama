@@ -40,7 +40,8 @@ class Header extends React.Component {
         alignItems: 'center',
         justifyContent: 'center',
         WebkitUserSelect:'none',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        zIndex:2
       }
         return (
 
