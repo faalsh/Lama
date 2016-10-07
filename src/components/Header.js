@@ -8,6 +8,10 @@ class Header extends React.Component {
     this.props.actions.toggleBoardList()
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.main.boardListOpen !== nextProps.main.boardListOpen
+  }
+
     render() {
       const {main, actions} = this.props
     	const style={
@@ -43,6 +47,8 @@ class Header extends React.Component {
         fontWeight: 'bold',
         zIndex:2
       }
+
+      
         return (
 
         	<div style={style}>
