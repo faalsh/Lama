@@ -94,7 +94,7 @@ export const toggleBoardList = () => {
 
 export const selectBoard = (key) => {
   return dispatch => {
-    ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'default'}))
+    ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'TOGGLE_BOARD_LIST'}))
   }
 }
 
@@ -109,7 +109,7 @@ export const swapLists = (boardId, dragListId, hoverListId) => {
       updates['boards/'+boardId+'/lists/'+dragListId+'/listIndex'] = hoverListIndex
       updates['boards/'+boardId+'/lists/'+hoverListId+'/listIndex'] = dragListIndex
       ref.update(updates)
-      dispatch({type: 'default'})
+      dispatch({type: 'SWAP_LISTS'})
      })
   }
 }
@@ -120,7 +120,7 @@ export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => 
       const item = snapshot.val()
       ref.child('boards').child(boardId).child('lists').child(dragListId).child('items').child(dragItemId).remove()
       ref.child('boards').child(boardId).child('lists').child(hoverListId).child('items').push(item)
-      dispatch({type: 'default'})
+      dispatch({type: 'MOVE_ITEM_TO_LIST'})
     })
   }
 }
@@ -136,7 +136,7 @@ export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => {
       updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+dragItemId+'/itemIndex'] = hoverItemIndex
       updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+hoverItemId+'/itemIndex'] = dragItemIndex
       ref.update(updates)
-      dispatch({type:'default'})
+      dispatch({type:'SWAP_ITEMS'})
     })
   }
 }
