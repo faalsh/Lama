@@ -52,7 +52,7 @@ export const createBoard = (boardTitle) => {
 
 export const createList = (boardId,listTitle) => {
   return dispatch => {
-    ref.child('boards').child(boardId).once('value').then(snapshot => {
+    ref.child('boards').child(boardId).child('lists').once('value').then(snapshot => {
       const count = snapshot.numChildren()
       const list = {listIndex: count, listTitle}
       return ref.child('boards').child(boardId).child('lists').push(list)
@@ -79,12 +79,19 @@ export const deleteBoard = (boardId) => {
 
 export const deleteList = (boardId, listId) => {
   return dispatch => {
-    ref.child('boards').child(boardId).child('lists').child(listId).remove().then(snapshot => ({type: 'default'}))
+    ref.child('boards').child(boardId).child('lists').child(listId).remove()
+    updateListIndexes(boardId)
+    dispatch({type: 'DELETE_LIST'})
   }
 }
 export const deleteItem = (boardId, listId, itemId) => {
   return dispatch => {
-    ref.child('boards').child(boardId).child('lists').child(listId).child('items').child(itemId).remove().then(snapshot => ({type: 'default'}))
+    ref.child('boards').child(boardId).child('lists')
+      .child(listId).child('items').child(itemId).remove()
+      .then(() => {
+        updateItemIndexes(boardId, listId)
+      })
+      .then(snapshot => ({type: 'default'}))
   }
 }
 
@@ -115,9 +122,14 @@ export const swapLists = (boardId, dragListId, hoverListId) => {
 export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => {
   return dispatch => {
       ref.child('boards').child(boardId).child('lists').child(dragListId).child('items').child(dragItemId).once('value').then(snapshot => {
-      const item = snapshot.val()
-      ref.child('boards').child(boardId).child('lists').child(dragListId).child('items').child(dragItemId).remove()
-      ref.child('boards').child(boardId).child('lists').child(hoverListId).child('items').push(item)
+      let item = snapshot.val()
+      if(item) {
+        ref.child('boards').child(boardId).child('lists').child(dragListId).child('items').child(dragItemId).remove()
+        item.itemIndex = 1000
+        ref.child('boards').child(boardId).child('lists').child(hoverListId).child('items').push(item)
+        updateItemIndexes(boardId, dragListId)
+        updateItemIndexes(boardId, hoverListId)
+      }
       dispatch({type: 'MOVE_ITEM_TO_LIST'})
     })
   }
@@ -126,15 +138,48 @@ export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => 
 
 export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => {
   return dispatch => {
-    ref.child('boards').child(boardId).child('lists').child(dragListId).child('items').once('value').then(snapshot => {
-      const items = snapshot.val()
-      const dragItemIndex = items[dragItemId].itemIndex
-      const hoverItemIndex = items[hoverItemId].itemIndex
-      let updates = {}
-      updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+dragItemId+'/itemIndex'] = hoverItemIndex
-      updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+hoverItemId+'/itemIndex'] = dragItemIndex
-      ref.update(updates)
-      dispatch({type:'SWAP_ITEMS'})
+    ref.child('boards').child(boardId).child('lists').child(dragListId).child('items')
+      .once('value').then(snapshot => {
+        const items = snapshot.val()
+        const dragItemIndex = items[dragItemId].itemIndex
+        const hoverItemIndex = items[hoverItemId].itemIndex
+        let updates = {}
+        updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+dragItemId+'/itemIndex'] = hoverItemIndex
+        updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+hoverItemId+'/itemIndex'] = dragItemIndex
+        ref.update(updates)
+        dispatch({type:'SWAP_ITEMS'})
     })
   }
+}
+
+const updateItemIndexes = (boardId, listId) => {
+  ref.child('boards').child(boardId).child('lists')
+    .child(listId).child('items').once('value').then(snapshot => {
+      let items = snapshot.val()
+      const sortedItems = _.sortBy(_.map(items,(item,itemId) => {
+        return {itemId, ...item}
+      }), 'itemIndex')
+      for(var i=0; i<sortedItems.length; i++) {
+        items[sortedItems[i].itemId].itemIndex = i
+      }
+      if(items){
+        ref.child('boards').child(boardId).child('lists')
+          .child(listId).child('items').update(items)
+      }
+    })
+}
+
+const updateListIndexes = (boardId) => {
+  ref.child('boards').child(boardId).child('lists').once('value')
+    .then(snapshot => {
+      let lists = snapshot.val()
+      let i = 0;
+      for(const listId in lists){
+        lists[listId].listIndex = i
+        i++
+      }
+      if(lists){
+        ref.child('boards').child(boardId).child('lists').update(lists)
+      }
+    })
 }

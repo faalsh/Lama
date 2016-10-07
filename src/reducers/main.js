@@ -13,7 +13,6 @@ export default function reducer(state =initialState, action){
 				selectedBoard = boardId
 			}
       return {...state, ...action.payload, selectedBoard}
-      break
     }
 		case 'SELECT_BOARD': {
 			return {...state, selectedBoard: action.payload, boardListOpen: false}
