@@ -14,14 +14,14 @@ class List extends React.Component {
         actions.deleteList(boardId, list.listId)
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      if(this.props.list.items && nextProps.list.items) {
-        return Object.keys(this.props.list.items).length !== Object.keys(nextProps.list.items).length  
-      } else {
-        return !(this.props.list.items && nextProps.list.items)
-      }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //   if(this.props.list.items && nextProps.list.items) {
+    //     return Object.keys(this.props.list.items).length !== Object.keys(nextProps.list.items).length  
+    //   } else {
+    //     return !(this.props.list.items && nextProps.list.items)
+    //   }
       
-    }
+    // }
 
     render() {
     	const {boardId, list, actions, connectDragSource, isDragging, connectDropTarget} = this.props

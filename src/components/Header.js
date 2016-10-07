@@ -8,9 +8,9 @@ class Header extends React.Component {
     this.props.actions.toggleBoardList()
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props.main.boardListOpen !== nextProps.main.boardListOpen
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.props.main.boardListOpen !== nextProps.main.boardListOpen
+  // }
 
     render() {
       const {main, actions} = this.props
