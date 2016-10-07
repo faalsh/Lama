@@ -53,6 +53,7 @@ class Header extends React.Component {
         return (
 
         	<div style={style}>
+
           <div style={boardsButtonStyle} onClick={this.handleBoardsClick.bind(this)}>
             Boards
           </div>

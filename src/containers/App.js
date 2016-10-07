@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 import _ from 'lodash'
+import ConnectionStatus from '../components/ConnectionStatus'
 
 class App extends Component {
 // TODO authentication
@@ -29,6 +30,7 @@ class App extends Component {
 		const {main, actions} = this.props
     return (
 			<div style={style}>
+        {main.connected?null:<ConnectionStatus />}
 				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
           <div>
