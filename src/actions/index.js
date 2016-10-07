@@ -45,7 +45,7 @@ export const createBoard = (boardTitle) => {
       updates['/boards/'+key] = {boardIndex: count, boardTitle}
       updates['/selectedBoard'] = key
       return ref.update(updates)
-    }).then(snapshot => dispatch({type: 'default'}))
+    }).then(snapshot => dispatch({type: 'TOGGLE_BOARD_LIST'}))
 
   }
 }
