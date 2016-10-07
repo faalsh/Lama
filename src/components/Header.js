@@ -3,17 +3,9 @@ import BoardList from './BoardList'
 
 class Header extends React.Component {
 
-  constructor(props){
-    super(props)
-    this.state = {
-      open: false
-    }
-  }
 
   handleBoardsClick(){
-    this.setState({
-      open: !this.state.open
-    })
+    this.props.actions.toggleBoardList()
   }
 
     render() {
@@ -58,7 +50,7 @@ class Header extends React.Component {
             Boards
           </div>
           {
-            this.state.open? <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>:null
+            main.boardListOpen? <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>:null
           }
 
             <div style={logoStyle}>Lama</div>

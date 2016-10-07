@@ -10,6 +10,9 @@ class BoardList extends React.Component {
   handleDelete(key) {
      this.props.actions.deleteBoard(key)
   }
+  handleCloseList(){
+    this.props.actions.toggleBoardList()
+  }
 
     render() {
 
@@ -57,23 +60,34 @@ class BoardList extends React.Component {
         width: '15px',
       }
 
-      
+      const closerStyle = {
+        position: 'fixed',
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+         zIndex: 1
+      }
 
       const {boards, selectedBoard} = this.props
         return (
-        	<div style={panelStyle}>
-            {
-                _.map(boards,(board,key) => {
-                const style = key===selectedBoard ? selectedItemStyle:itemStyle
-                return (
-                  <div key={key} style={style} onClick={this.handleClick.bind(this,key)}>
-                    {board.boardTitle}
-                    <div style={deleteStyle} onClick={this.handleDelete.bind(this,key)}>×</div>
-                  </div>
-                )
-              })
-            }
-            <CreateBoard />
+          <div>
+            <div style={closerStyle} onClick={this.handleCloseList.bind(this)}></div>
+          	<div style={panelStyle}>
+              
+              {
+                  _.map(boards,(board,key) => {
+                  const style = key===selectedBoard ? selectedItemStyle:itemStyle
+                  return (
+                    <div key={key} style={style} onClick={this.handleClick.bind(this,key)}>
+                      {board.boardTitle}
+                      <div style={deleteStyle} onClick={this.handleDelete.bind(this,key)}>×</div>
+                    </div>
+                  )
+                })
+              }
+              <CreateBoard />
+            </div>
           </div>
         )
     }

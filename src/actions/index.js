@@ -88,6 +88,10 @@ export const deleteItem = (boardId, listId, itemId) => {
   }
 }
 
+export const toggleBoardList = () => {
+  return {type: 'TOGGLE_BOARD_LIST'}
+}
+
 export const selectBoard = (key) => {
   return dispatch => {
     ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'default'}))
