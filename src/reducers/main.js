@@ -1,14 +1,23 @@
 import _ from 'lodash'
 
 const initialState = {
-	boardListOpen: false
+	boardListOpen: false,
+	selectedBoard: null
 }
 export default function reducer(state =initialState, action){
 	switch(action.type){
     case 'FETCH_DATA': {
-      return {...state, ...action.payload}
+			let selectedBoard = state.selectedBoard
+			if(!selectedBoard) {
+				for(var boardId in action.payload.boards) break;
+				selectedBoard = boardId
+			}
+      return {...state, ...action.payload, selectedBoard}
       break
     }
+		case 'SELECT_BOARD': {
+			return {...state, selectedBoard: action.payload, boardListOpen: false}
+		}
     case 'CONNECTION_STATUS': {
     	return {...state, connected:action.payload}
     }

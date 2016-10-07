@@ -92,10 +92,8 @@ export const toggleBoardList = () => {
   return {type: 'TOGGLE_BOARD_LIST'}
 }
 
-export const selectBoard = (key) => {
-  return dispatch => {
-    ref.update({'selectedBoard':key}).then(snapshot => dispatch({type: 'TOGGLE_BOARD_LIST'}))
-  }
+export const selectBoard = (boardId) => {
+  return ({type:'SELECT_BOARD', payload: boardId})
 }
 
 export const swapLists = (boardId, dragListId, hoverListId) => {
