@@ -64,7 +64,6 @@ export const createItem = (boardId,listId, itemText) => {
   return dispatch => {
     ref.child('boards').child(boardId).child('lists').child(listId).child('items').once('value').then(snapshot => {
       const count = snapshot.numChildren()
-      console.log(count);
       return ref.child('boards').child(boardId)
         .child('lists').child(listId).child('items').push({itemIndex: count, itemText})
     }).then(snapshot => dispatch({type: 'default'}))
@@ -126,7 +125,7 @@ export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => 
       if(item) {
         ref.child('boards').child(boardId).child('lists').child(dragListId).child('items').child(dragItemId).remove()
         item.itemIndex = 1000
-        ref.child('boards').child(boardId).child('lists').child(hoverListId).child('items').push(item)
+        ref.child('boards').child(boardId).child('lists').child(hoverListId).child('items').child(dragItemId).set(item)
         updateItemIndexes(boardId, dragListId)
         updateItemIndexes(boardId, hoverListId)
       }
@@ -136,16 +135,16 @@ export const moveItemToList = (boardId, dragListId, hoverListId, dragItemId) => 
 }
 
 
-export const swapItems = (boardId, dragListId, dragItemId, hoverItemId) => {
+export const swapItems = (boardId, hoverListId, dragItemId, hoverItemId) => {
   return dispatch => {
-    ref.child('boards').child(boardId).child('lists').child(dragListId).child('items')
+    ref.child('boards').child(boardId).child('lists').child(hoverListId).child('items')
       .once('value').then(snapshot => {
         const items = snapshot.val()
         const dragItemIndex = items[dragItemId].itemIndex
         const hoverItemIndex = items[hoverItemId].itemIndex
         let updates = {}
-        updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+dragItemId+'/itemIndex'] = hoverItemIndex
-        updates['boards/'+boardId+'/lists/'+dragListId+'/items/'+hoverItemId+'/itemIndex'] = dragItemIndex
+        updates['boards/'+boardId+'/lists/'+hoverListId+'/items/'+dragItemId+'/itemIndex'] = hoverItemIndex
+        updates['boards/'+boardId+'/lists/'+hoverListId+'/items/'+hoverItemId+'/itemIndex'] = dragItemIndex
         ref.update(updates)
         dispatch({type:'SWAP_ITEMS'})
     })

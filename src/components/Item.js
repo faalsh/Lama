@@ -67,8 +67,8 @@ const itemTarget = {
     const dragItemId = monitor.getItem().itemId
     const hoverItemId = props.itemId
     const hoverListId = props.listId
-    if(dragItemId !== hoverItemId && dragListId === hoverListId) {
-      props.actions.swapItems(boardId, dragListId, dragItemId, hoverItemId)
+    if(dragItemId !== hoverItemId) {
+      props.actions.swapItems(boardId, hoverListId, dragItemId, hoverItemId)
     }
   }
 }
