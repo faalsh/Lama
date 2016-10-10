@@ -16,11 +16,11 @@ class List extends React.Component {
 
     // shouldComponentUpdate(nextProps, nextState) {
     //   if(this.props.list.items && nextProps.list.items) {
-    //     return Object.keys(this.props.list.items).length !== Object.keys(nextProps.list.items).length  
+    //     return Object.keys(this.props.list.items).length !== Object.keys(nextProps.list.items).length
     //   } else {
     //     return !(this.props.list.items && nextProps.list.items)
     //   }
-      
+
     // }
 
     render() {
@@ -82,7 +82,8 @@ const listSource = {
     return {
       boardId: props.boardId,
       listId: props.list.listId,
-      listIndex: props.list.listIndex
+      listIndex: props.list.listIndex,
+      items: props.list.items
     }
   }
 }
@@ -102,7 +103,8 @@ const listTarget = {
         const dragListId = monitor.getItem().listId
         const hoverListId = props.list.listId
         const dragItemId = monitor.getItem().itemId
-        if(dragListId !== hoverListId) {
+        const done = props.list.items && props.list.items[dragItemId]
+        if(dragListId !== hoverListId && !done) {
           props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
         }
     }
