@@ -8,6 +8,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 import _ from 'lodash'
 import ConnectionStatus from '../components/ConnectionStatus'
+import {sort} from '../utils'
 
 class App extends Component {
 // TODO authentication
@@ -28,13 +29,14 @@ class App extends Component {
       left: 0
     }
 		const {main, actions} = this.props
+    const sortedBoards = sort(main.boards, 'boardIndex')
     return (
 			<div style={style}>
         {main.connected?null:<ConnectionStatus />}
 				<Header main={main} actions={actions}/>
 				<div style={{display:'flex', flexDirection:'row'}}>
           <div>
-             {_.map(main.boards,(board,boardId) => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board}/>:null)}
+             {_.map(sortedBoards, board  => main.selectedBoard === board.id ? <Board key={board.id} boardId={board.id} board={board}/>:null)}
           </div>
         </div>
 
