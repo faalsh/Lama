@@ -1,12 +1,12 @@
 import React from 'react';
 import Item from './Item'
 import { connect } from 'react-redux'
-import * as LamaActions from '../actions'
+import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
 import CreateItem from './CreateItem'
 import {DragSource, DropTarget} from 'react-dnd'
 import _ from 'lodash'
-import {sort} from '../utils'
+import {sort} from '../../common/utils'
 
 class List extends React.Component {
 

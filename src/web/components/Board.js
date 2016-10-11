@@ -3,7 +3,7 @@ import List from './List'
 import CreateList from './CreateList'
 import _ from 'lodash'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import {sort} from '../utils'
+import {sort} from '../../common/utils'
 
 export default class Board extends Component {
 

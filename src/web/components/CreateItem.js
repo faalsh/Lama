@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import * as LamaActions from '../actions'
+import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
 
 

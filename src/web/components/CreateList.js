@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import * as LamaActions from '../actions'
+import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
 
 
-class CreateBoard extends React.Component {
+class CreateList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,37 +12,21 @@ class CreateBoard extends React.Component {
           panelOpen: false
         }
     }
-    handleClose(){
-      this.setState({
-        panelOpen: false
-      })
-    }
     handleClick(){
+    	const {boardId, actions} = this.props
     	const {title} = this.state
         if(title !== '') {
-            this.props.actions.createBoard(title)
+            actions.createList(boardId,title)
             this.setState({
               title: '',
               panelOpen: false
             })
-
         }
     }
-    handleKeyPress(e){
-      if(e.key === 'Enter'){
-        const {title} = this.state
-          if(title !== '') {
-              this.props.actions.createBoard(title)
-              this.setState({
-                title: '',
-                panelOpen: false
-              })
-          }
-      }
-    }
-    handleOpen(){
+    handleClose(){
       this.setState({
-        panelOpen: true
+        title: '',
+        panelOpen: false
       })
     }
     handleChange(e) {
@@ -50,25 +34,47 @@ class CreateBoard extends React.Component {
     		title: e.target.value
     	})
     }
+    openPanel(){
+      this.setState({
+        panelOpen: true
+      })
+    }
+    handleKeyPress(e){
+      if(e.key === 'Enter'){
+        const {boardId, actions} = this.props
+        const {title} = this.state
+          if(title !== '') {
+              actions.createList(boardId,title)
+              this.setState({
+                title: '',
+                panelOpen: false
+              })
+          }
+
+      }
+    }
     render() {
     	const panelStyle = {
-        width: '160px',
     		padding: '5px',
+    		margin: '5px',
     		borderRadius: '3px',
-        backgroundColor: '#026AA7',
+    		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-        marginTop: '10px'
+        height: '100%',
+        width: '200px',
     	}
     	const inputStyle = {
-        width: '150px',
-        height:'20px',
-        fontWeight: 'bold'
+        width: '185px',
+        height: '20px',
+        fontWeight: 'bold',
+        marginTop: '10px',
+        marginLeft: '5px',
+        marginBottom:'10px'
+
     	}
-    	const buttonStyle = {
-    		margin: '3px',
+    	const panelButtonStyle = {
     		padding: '5px',
-    		textAlign: 'center',
-    		width: '100px',
+    		width: '70px',
     		height: '20px',
     		fontSize: '12px',
     		background: 'linear-gradient(to bottom,#61BD4F 0,#5AAC44 100%)',
@@ -79,48 +85,50 @@ class CreateBoard extends React.Component {
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: '5px',
-        marginBottom:'10px',
-        marginTop: '10px'
+        marginBottom:'10px'
     	}
       const panelBottomStyle = {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center'
       }
-
       const closeButtonStyle = {
         marginLeft: '15px',
-        fontSize: '20px',
-        cursor: 'pointer',
-        color: 'white'
+        marginBottom: '10px',
+        fontSize: '25px',
+        cursor: 'pointer'
       }
-
-      const createBoardButtonStyle = {
-        marginTop: '10px',
+      const addButtonStyle = {
+        margin: '3px',
+        backgroundColor: '#006ba9',
+        color:'white',
+        height:'20px',
+        width: '200px',
         padding: '5px',
-        textDecoration: 'underline',
-        color: 'white',
-        opacity: '0.8',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent:'center',
         cursor: 'pointer',
+        opacity: '.7'
+
       }
-        return this.state.panelOpen?(
+        return this.state.panelOpen? (
+
         	<div style={panelStyle}>
         		<div>
         			<input autoFocus onChange={this.handleChange.bind(this)} style={inputStyle}
-                placeholder="Board title" style={inputStyle} value={this.state.title}
-                onKeyPress={this.handleKeyPress.bind(this)}/>
+                value={this.state.title} placeholder="List title" onKeyPress={this.handleKeyPress.bind(this)}/>
         		</div>
             <div style={panelBottomStyle}>
-              <div onClick={this.handleClick.bind(this)} style={buttonStyle}>
-                Create Board
+              <div onClick={this.handleClick.bind(this)} style={panelButtonStyle}>
+                Save
               </div>
               <div onClick={this.handleClose.bind(this)} style={closeButtonStyle}>×</div>
-
             </div>
         	</div>
         ):(
-          <div onClick={this.handleOpen.bind(this)} style={createBoardButtonStyle}>
-            Create board
+          <div >
+            <div style={addButtonStyle}onClick={this.openPanel.bind(this)}>Add list</div>
           </div>
         )
     }
@@ -130,4 +138,4 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(CreateBoard);
+export default connect(null, mapDispatchToProps)(CreateList);

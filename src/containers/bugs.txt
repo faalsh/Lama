@@ -1,4 +1,0 @@
-1. List 1 2 3 , if 2 is deleted, 3 should be 2
-2. Same as 1 for Items
-3. DnD lag need to be fixed. Consider changing local state before firebase
-4. [low] sort boards

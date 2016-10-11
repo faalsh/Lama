@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Board from '../components/Board'
 import Header from '../components/Header'
 import { connect } from 'react-redux'
-import * as LamaActions from '../actions'
+import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
 import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 import _ from 'lodash'
 import ConnectionStatus from '../components/ConnectionStatus'
-import {sort} from '../utils'
+import {sort} from '../../common/utils'
 
 class App extends Component {
 // TODO authentication
