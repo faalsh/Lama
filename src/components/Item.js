@@ -53,6 +53,7 @@ class Item extends React.Component {
 
 const itemSource = {
   beginDrag(props){
+    console.log(props)
     return {
       listId: props.listId,
       itemId: props.itemId
@@ -67,6 +68,7 @@ const itemTarget = {
     const dragItemId = monitor.getItem().itemId
     const hoverItemId = props.itemId
     const hoverListId = props.listId
+
     if(dragItemId !== hoverItemId) {
       props.actions.swapItems(boardId, hoverListId, dragItemId, hoverItemId)
     }

@@ -6,22 +6,15 @@ import { bindActionCreators } from 'redux'
 import CreateItem from './CreateItem'
 import {DragSource, DropTarget} from 'react-dnd'
 import _ from 'lodash'
+import {sort} from '../utils'
 
 class List extends React.Component {
 
     handleDelete(){
         const {actions, list, boardId} = this.props
-        actions.deleteList(boardId, list.listId)
+        actions.deleteList(boardId, list.id)
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //   if(this.props.list.items && nextProps.list.items) {
-    //     return Object.keys(this.props.list.items).length !== Object.keys(nextProps.list.items).length
-    //   } else {
-    //     return !(this.props.list.items && nextProps.list.items)
-    //   }
-
-    // }
 
     render() {
     	const {boardId, list, actions, connectDragSource, isDragging, connectDropTarget} = this.props
@@ -54,16 +47,14 @@ class List extends React.Component {
 
         }
 
-        const sortedItems = _.sortBy(_.map(list.items,(item,itemId) => {
-          return {itemId, ...item}
-        }), 'itemIndex')
+        const sortedItems = sort(list.items, 'itemIndex')
 
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
 		        <div style={titleStyle}>{list.listTitle}</div>
-            {_.map(sortedItems,(item) => <Item key={item.itemId} details={item} itemId={item.itemId} listId={list.listId} boardId={boardId} actions={actions}/>)}
-            <CreateItem boardId={boardId} listId={list.listId}/>
+            {_.map(sortedItems,(item) => <Item key={item.id} details={item} itemId={item.id} listId={list.id} boardId={boardId} actions={actions}/>)}
+            <CreateItem boardId={boardId} listId={list.id}/>
 	        </div>
         ))
     }
@@ -81,7 +72,7 @@ const listSource = {
   beginDrag(props){
     return {
       boardId: props.boardId,
-      listId: props.list.listId,
+      listId: props.list.id,
       listIndex: props.list.listIndex,
       items: props.list.items
     }
@@ -93,7 +84,7 @@ const listTarget = {
     if(monitor.getItemType() === 'List') {
       const boardId = monitor.getItem().boardId
       const dragListId = monitor.getItem().listId
-      const hoverListId = props.list.listId
+      const hoverListId = props.list.id
       if(dragListId !== hoverListId) {
         props.actions.swapLists(boardId, dragListId, hoverListId)
       }
@@ -101,7 +92,7 @@ const listTarget = {
       } else if(monitor.getItemType() === 'Item'){
         const boardId = props.boardId
         const dragListId = monitor.getItem().listId
-        const hoverListId = props.list.listId
+        const hoverListId = props.list.id
         const dragItemId = monitor.getItem().itemId
         const done = props.list.items && props.list.items[dragItemId]
         if(dragListId !== hoverListId && !done) {
@@ -109,17 +100,6 @@ const listTarget = {
         }
     }
   },
-  // drop(props, monitor, component){
-  //    if (monitor.getItemType() === 'Item') {
-  //     const boardId = monitor.getItem().boardId
-  //     const dragListId = monitor.getItem().listId
-  //     const hoverListId = props.listId
-  //     const dragItemId = monitor.getItem().itemId
-  //     if(dragListId != hoverListId) {
-  //       props.actions.moveItemToList(boardId, dragListId, hoverListId, dragItemId)
-  //     }
-  //   }
-  // }
 }
 
 
