@@ -23,7 +23,6 @@ class List extends React.Component {
         actions.deleteList(boardId, list.id)
     }
     onChange(e){
-      console.log(e.target.value)
       this.setState({
         title: e.target.value
       })
@@ -84,7 +83,9 @@ class List extends React.Component {
         }
 
         const sortedItems = sort(list.items, 'itemIndex')
-        const title = this.state.edit ? <div><input style={editInputStyle} onChange={this.onChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} value={this.state.title}/></div>:<div onClick={this.toggleMode.bind(this)} style={titleStyle}>{list.listTitle}</div>
+        const titleDisplay = <div onClick={this.toggleMode.bind(this)} style={titleStyle}>{list.listTitle}</div>
+        const titleEdit =  <div><input autoFocus style={editInputStyle} onChange={this.onChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} value={this.state.title}/></div>
+        const title = this.state.edit ? titleEdit:titleDisplay
 
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
