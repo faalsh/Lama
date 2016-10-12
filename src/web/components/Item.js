@@ -2,6 +2,36 @@ import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd'
 
 class Item extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      text: this.props.details.itemText,
+      edit: false
+    }
+  }
+
+  onChange(e){
+    this.setState({
+      text: e.target.value
+    })
+  }
+
+  toggleMode(){
+    this.setState({
+      edit: !this.state.edit
+    })
+  }
+  handleKeyPress(e){
+    if(e.key === 'Enter'){
+      const {boardId, listId, itemId, actions} = this.props
+      actions.updateItem(boardId, listId, itemId, this.state.text)
+      this.setState({
+        edit: false
+      })
+    }
+  }
+
   handleDelete(){
     const {boardId, listId, itemId, actions} = this.props
     actions.deleteItem(boardId, listId, itemId)
@@ -42,10 +72,14 @@ class Item extends React.Component {
         right: '5px',
         cursor: 'pointer'
       }
+
+      const textEdit = <input autoFocus onChange={this.onChange.bind(this)}
+                      onKeyPress={this.handleKeyPress.bind(this)} value={this.state.text} />
+      const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
         return connectDragSource(connectDropTarget(
         	<div style={style}>
             <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
-        		{details.itemText}
+        		{this.state.edit? textEdit:textDisplay}
         	</div>
         ))
     }

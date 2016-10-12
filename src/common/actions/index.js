@@ -187,3 +187,14 @@ export function updateList(boardId, listId, listTitle){
   ref.child('boards').child(boardId).child('lists').child(listId).child('listTitle').set(listTitle)
   return {type:'UPDATE_LIST'}
 }
+
+export function updateItem(boardId, listId, itemId, itemText) {
+  ref.child('boards').child(boardId).child('lists').child(listId).child('items')
+    .child(itemId).child('itemText').set(itemText)
+    return {type: 'UPDATE_ITEM'}
+}
+
+export function updateBoard(boardId, boardTitle) {
+  ref.child('boards').child(boardId).child('boardTitle').set(boardTitle)
+  return {type: 'UPDATE_BOARD'}
+}

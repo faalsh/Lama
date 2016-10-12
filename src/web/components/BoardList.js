@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 class BoardList extends React.Component {
 
-  handleClick(key){
+  handleSelectBoard(key){
       this.props.actions.selectBoard(key)
   }
   handleDelete(key) {
@@ -26,7 +26,7 @@ class BoardList extends React.Component {
         padding: '20px',
         position: 'absolute',
         top: '30px',
-        left: '0px', 
+        left: '0px',
         zIndex: '1'
 
       }
@@ -76,12 +76,12 @@ class BoardList extends React.Component {
           <div>
             <div style={closerStyle} onClick={this.handleCloseList.bind(this)}></div>
           	<div style={panelStyle}>
-              
+
               {
                   _.map(boards,(board,key) => {
                   const style = key===selectedBoard ? selectedItemStyle:itemStyle
                   return (
-                    <div key={key} style={style} onClick={this.handleClick.bind(this,key)}>
+                    <div key={key} style={style} onClick={this.handleSelectBoard.bind(this,key)}>
                       {board.boardTitle}
                       <div style={deleteStyle} onClick={this.handleDelete.bind(this,key)}>×</div>
                     </div>
