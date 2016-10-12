@@ -10,9 +10,36 @@ import {sort} from '../../common/utils'
 
 class List extends React.Component {
 
+    constructor(props){
+      super(props)
+      this.state = {
+        title: this.props.list.listTitle,
+        edit: false
+      }
+    }
+
     handleDelete(){
         const {actions, list, boardId} = this.props
         actions.deleteList(boardId, list.id)
+    }
+    onChange(e){
+      console.log(e.target.value)
+      this.setState({
+        title: e.target.value
+      })
+    }
+
+    toggleMode(){
+      this.setState({
+        edit: !this.state.edit
+      })
+    }
+    handleKeyPress(e){
+      if(e.key === 'Enter'){
+        this.setState({
+          edit: false
+        })
+      }
     }
 
 
@@ -47,12 +74,22 @@ class List extends React.Component {
 
         }
 
+        const editInputStyle = {
+          padding: '5px',
+          border: 'none',
+          merginLeft: '3px',
+          marginBottom: '10px',
+          opacity: '0.7',
+          fontWeight: 'bold'
+        }
+
         const sortedItems = sort(list.items, 'itemIndex')
+        const title = this.state.edit ? <div><input style={editInputStyle} onChange={this.onChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} value={this.state.title}/></div>:<div onClick={this.toggleMode.bind(this)} style={titleStyle}>{list.listTitle}</div>
 
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
                 <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
-		        <div style={titleStyle}>{list.listTitle}</div>
+		        {title}
             {_.map(sortedItems,(item) => <Item key={item.id} details={item} itemId={item.id} listId={list.id} boardId={boardId} actions={actions}/>)}
             <CreateItem boardId={boardId} listId={list.id}/>
 	        </div>
