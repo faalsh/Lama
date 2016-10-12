@@ -23,10 +23,11 @@ class App extends Component {
       fontFamily: 'Helvetica, Arial, sans-serif',
       backgroundColor: 'rgb(0, 121, 191)',
       position: 'fixed',
-      height: '100%',
-      width: '100%',
       top: 0,
-      left: 0
+      bottom: 0,
+      left: 0,
+      overflowY: 'scroll',
+      overflowX: 'scroll'
     }
 		const {main, actions} = this.props
     const sortedBoards = sort(main.boards, 'boardIndex')
