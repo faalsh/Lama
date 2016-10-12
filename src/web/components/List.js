@@ -35,6 +35,8 @@ class List extends React.Component {
     }
     handleKeyPress(e){
       if(e.key === 'Enter'){
+        const {boardId, list, actions} = this.props
+        actions.updateList(boardId, list.id, this.state.title)
         this.setState({
           edit: false
         })

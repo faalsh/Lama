@@ -182,3 +182,8 @@ const updateListIndexes = (boardId) => {
       }
     })
 }
+
+export function updateList(boardId, listId, listTitle){
+  ref.child('boards').child(boardId).child('lists').child(listId).child('listTitle').set(listTitle)
+  return {type:'UPDATE_LIST'}
+}
