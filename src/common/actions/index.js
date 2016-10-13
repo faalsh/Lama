@@ -195,6 +195,22 @@ export function updateItem(boardId, listId, itemId, itemText) {
     return {type: 'UPDATE_ITEM'}
 }
 
+export function swapBoards(dragBoardId, hoverBoardId) {
+
+  ref.child('boards').once('value').then(snapshot => {
+    const boards = snapshot.val()
+    const dragIndex = boards[dragBoardId].boardIndex
+    const hoverIndex = boards[hoverBoardId].boardIndex
+    
+    let updates = {}
+    updates['boards/'+dragBoardId+'/boardIndex'] = hoverIndex
+    updates['boards/'+hoverBoardId+'/boardIndex'] = dragIndex
+    ref.update(updates)
+
+  })
+  return {type:'SWAP_BOARDS'}
+}
+
 // TODO ......
 
 export function updateBoard(boardId, boardTitle) {
@@ -203,5 +219,5 @@ export function updateBoard(boardId, boardTitle) {
 }
 
 export function moveListToBoard(fromBoardId, toBoardId, listId) {
-  
+
 }

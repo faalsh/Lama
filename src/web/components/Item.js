@@ -97,7 +97,6 @@ class Item extends React.Component {
 
 const itemSource = {
   beginDrag(props){
-    console.log(props)
     return {
       listId: props.listId,
       itemId: props.itemId

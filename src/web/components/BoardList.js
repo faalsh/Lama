@@ -1,17 +1,11 @@
 import React from 'react';
 import CreateBoard from './CreateBoard'
 import _ from 'lodash'
+import BoardListItem from './BoardListItem'
+import {sort} from '../../common/utils'
 
 class BoardList extends React.Component {
 
-  handleSelectBoard(key){
-      this.props.actions.selectBoard(key)
-  }
-  handleDelete(key,e) {
-     this.props.actions.deleteBoard(key)
-     console.log(e)
-     e.preventDefault()
-  }
   handleCloseList(){
     this.props.actions.toggleBoardList()
   }
@@ -32,35 +26,6 @@ class BoardList extends React.Component {
         zIndex: '1'
 
       }
-      const itemStyle = {
-        position: 'relative',
-    		padding: '5px',
-        width: '150px',
-        margin: '5px',
-        borderRadius: '3px',
-    		backgroundColor: '#026AA7',
-    		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-        cursor: 'pointer',
-        padding: '10px'
-    	}
-
-      const selectedItemStyle = {
-        position: 'relative',
-        fontWeight:'bold',
-        padding: '5px',
-        width: '150px',
-        borderRadius: '3px',
-    		backgroundColor: '#026AA7',
-    		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-        cursor: 'pointer',
-        padding: '10px'
-      }
-      const deleteStyle = {
-        position: 'absolute',
-        top: '11px',
-        right: '5px',
-        width: '15px',
-      }
 
       const closerStyle = {
         position: 'fixed',
@@ -73,20 +38,20 @@ class BoardList extends React.Component {
          opacity: '0.5'
       }
 
-      const {boards, selectedBoard} = this.props
+      const {boards, selectedBoard, actions} = this.props
+
+      const sortedBoards = sort(boards,'boardIndex')
+
         return (
           <div>
             <div style={closerStyle} onClick={this.handleCloseList.bind(this)}></div>
           	<div style={panelStyle}>
 
               {
-                  _.map(boards,(board,key) => {
-                  const style = key===selectedBoard ? selectedItemStyle:itemStyle
+                  _.map(sortedBoards, board => {
                   return (
-                    <div key={key} style={style} onClick={this.handleSelectBoard.bind(this,key)}>
-                      {board.boardTitle}
-                      <div style={deleteStyle} onClick={this.handleDelete.bind(this,key)}>×</div>
-                    </div>
+                    <BoardListItem key={board.id} selectedBoard={selectedBoard}
+                        boardId={board.id} boardTitle={board.boardTitle}  actions={actions}/>
                   )
                 })
               }
