@@ -33,7 +33,7 @@ class BoardListItem extends React.Component {
       width: '150px',
       margin: '4px',
       borderRadius: '3px',
-      backgroundColor: '#026AA7',
+      backgroundColor: '#61BD4F',
       boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
       cursor: 'pointer',
       padding: '10px'
