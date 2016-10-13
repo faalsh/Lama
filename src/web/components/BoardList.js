@@ -6,8 +6,27 @@ import {sort} from '../../common/utils'
 
 class BoardList extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.onEscape = this.onEscape.bind(this)
+  }
+
   handleCloseList(){
     this.props.actions.toggleBoardList()
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.onEscape);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onEscape);
+  }
+
+  onEscape(e){
+    if(e.key === 'Escape') {
+      this.props.actions.toggleBoardList()
+    }
   }
 
     render() {
@@ -43,7 +62,7 @@ class BoardList extends React.Component {
       const sortedBoards = sort(boards,'boardIndex')
 
         return (
-          <div>
+          <div onKeyDown={()=>console.log('down')} >
             <div style={closerStyle} onClick={this.handleCloseList.bind(this)}></div>
           	<div style={panelStyle}>
 
