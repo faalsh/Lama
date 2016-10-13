@@ -35,6 +35,12 @@ class Item extends React.Component {
       })
     }
   }
+  handleOnBlur(){
+
+      this.setState({
+        edit: false
+      })
+    }
 
   handleDelete(){
     const {boardId, listId, itemId, actions} = this.props
@@ -78,7 +84,7 @@ class Item extends React.Component {
       }
 
       const textEdit = <input autoFocus onChange={this.onChange.bind(this)}
-                      onKeyDown={this.handleKeyDown.bind(this)} value={this.state.text} />
+                      onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.text} />
       const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
         return connectDragSource(connectDropTarget(
         	<div style={style}>

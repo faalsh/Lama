@@ -46,6 +46,12 @@ class List extends React.Component {
         })
       }
     }
+    handleOnBlur(){
+
+      this.setState({
+        edit: false
+      })
+    }
 
 
     render() {
@@ -90,7 +96,8 @@ class List extends React.Component {
 
         const sortedItems = sort(list.items, 'itemIndex')
         const titleDisplay = <div onClick={this.toggleMode.bind(this)} style={titleStyle}>{list.listTitle}</div>
-        const titleEdit =  <div><input autoFocus style={editInputStyle} onChange={this.onChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)} value={this.state.title}/></div>
+        const titleEdit =  <div><input autoFocus style={editInputStyle} onChange={this.onChange.bind(this)}  
+                        onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.title}/></div>
         const title = this.state.edit ? titleEdit:titleDisplay
 
         return connectDragSource( connectDropTarget (
