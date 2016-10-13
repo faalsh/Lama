@@ -83,7 +83,7 @@ class Item extends React.Component {
         cursor: 'pointer'
       }
 
-      const textEdit = <input autoFocus onChange={this.onChange.bind(this)}
+      const textEdit = <textarea rows="3" autoFocus onChange={this.onChange.bind(this)} style={{width:'90%'}}
                       onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.text} />
       const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
         return connectDragSource(connectDropTarget(

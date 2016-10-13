@@ -24,6 +24,25 @@ class CreateItem extends React.Component {
 
         }
     }
+    handleKeyDown(e){
+        if(e.key === 'Enter') {
+            const {boardId, listId, actions} = this.props
+            const {title} = this.state
+            if(title !== '') {
+                actions.createItem(boardId, listId, title)
+                this.setState({
+                  title: '',
+                  panelOpen: false
+                })
+
+            }
+        } else if (e.key === 'Escape') {
+            this.setState({
+                title: '',
+                panelOpen: false
+            })
+        }
+    }
     handleClose(){
       this.setState({
         panelOpen: false
@@ -83,7 +102,7 @@ class CreateItem extends React.Component {
         return this.state.panelOpen?(
         	<div style={panelStyle}>
         		<div>
-        			<textarea autoFocus rows='3' onChange={this.handleChange.bind(this)} style={inputStyle}
+        			<textarea autoFocus rows='3' onChange={this.handleChange.bind(this)} style={inputStyle} onKeyDown={this.handleKeyDown.bind(this)}
                 value={this.state.title} />
         		</div>
 
