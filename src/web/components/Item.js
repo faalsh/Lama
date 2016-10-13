@@ -22,10 +22,14 @@ class Item extends React.Component {
       edit: !this.state.edit
     })
   }
-  handleKeyPress(e){
+  handleKeyDown(e){
     if(e.key === 'Enter'){
       const {boardId, listId, itemId, actions} = this.props
       actions.updateItem(boardId, listId, itemId, this.state.text)
+      this.setState({
+        edit: false
+      })
+    } else if (e.key === 'Escape') {
       this.setState({
         edit: false
       })
@@ -74,7 +78,7 @@ class Item extends React.Component {
       }
 
       const textEdit = <input autoFocus onChange={this.onChange.bind(this)}
-                      onKeyPress={this.handleKeyPress.bind(this)} value={this.state.text} />
+                      onKeyDown={this.handleKeyDown.bind(this)} value={this.state.text} />
       const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
         return connectDragSource(connectDropTarget(
         	<div style={style}>
