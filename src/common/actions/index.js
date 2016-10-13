@@ -43,9 +43,10 @@ export const createBoard = (boardTitle) => {
       const key = ref.child('boards').push().key
       let updates = {}
       updates['/boards/'+key] = {boardIndex: count, boardTitle}
-      updates['/selectedBoard'] = key
-      return ref.update(updates)
-    }).then(snapshot => dispatch({type: 'TOGGLE_BOARD_LIST'}))
+      // updates['/selectedBoard'] = key
+      ref.update(updates)
+      dispatch({type: 'CREATE_BOARD', payload: key})
+    })
 
   }
 }
@@ -56,7 +57,7 @@ export const createList = (boardId,listTitle) => {
       const count = snapshot.numChildren()
       const list = {listIndex: count, listTitle}
       return ref.child('boards').child(boardId).child('lists').push(list)
-    }).then(snapshot => dispatch({type:'default'}))
+    }).then(snapshot => dispatch({type:'CREATE_LIST'}))
   }
 }
 
@@ -66,13 +67,13 @@ export const createItem = (boardId,listId, itemText) => {
       const count = snapshot.numChildren()
       return ref.child('boards').child(boardId)
         .child('lists').child(listId).child('items').push({itemIndex: count, itemText})
-    }).then(snapshot => dispatch({type: 'default'}))
+    }).then(snapshot => dispatch({type: 'CREATE_ITEM'}))
   }
 }
 
 export const deleteBoard = (boardId) => {
   return dispatch => {
-    ref.child('boards/'+boardId).remove().then(snapshot => dispatch({type:'default'}))
+    ref.child('boards/'+boardId).remove().then(snapshot => dispatch({type:'DELETE_BOARD'}))
   }
 }
 
@@ -90,7 +91,7 @@ export const deleteItem = (boardId, listId, itemId) => {
       .then(() => {
         updateItemIndexes(boardId, listId)
       })
-      .then(snapshot => ({type: 'default'}))
+      .then(snapshot => ({type: 'DELETE_ITEM'}))
   }
 }
 

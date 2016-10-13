@@ -23,6 +23,9 @@ export default function reducer(state =initialState, action){
     case 'TOGGLE_BOARD_LIST': {
     	return {...state, boardListOpen: !state.boardListOpen}
     }
+    case 'CREATE_BOARD': {
+    	return {...state, boardListOpen: false, selectedBoard: action.payload}
+    }
 
 		default:
 			return state;

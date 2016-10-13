@@ -7,8 +7,10 @@ class BoardList extends React.Component {
   handleSelectBoard(key){
       this.props.actions.selectBoard(key)
   }
-  handleDelete(key) {
+  handleDelete(key,e) {
      this.props.actions.deleteBoard(key)
+     console.log(e)
+     e.preventDefault()
   }
   handleCloseList(){
     this.props.actions.toggleBoardList()
