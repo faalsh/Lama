@@ -1,6 +1,6 @@
 import React from 'react'
 import {DragSource, DropTarget} from 'react-dnd'
-import Radium from 'radium'
+import { StyleSheet, css } from 'aphrodite'
 
 class BoardListItem extends React.Component {
 
@@ -15,7 +15,30 @@ class BoardListItem extends React.Component {
 
   render(){
 
-    const itemStyle = {
+    // const itemStyle = {
+    //   base: {
+    //     position: 'relative',
+    //     padding: '5px',
+    //     width: '150px',
+    //     margin: '4px',
+    //     borderRadius: '3px',
+    //     backgroundColor: '#026AA7',
+    //     boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
+    //     cursor: 'pointer',
+    //     padding: '10px'
+    //   },
+    //   selected: {
+    //     fontWeight:'bold',
+    //     // backgroundColor: '#61BD4F',
+    //   },
+    //   dragging: {
+    //     backgroundColor: 'black',
+    //     color: 'black',
+    //     opacity: '0.5',
+    //   }
+    // }
+
+    const styles = StyleSheet.create({
       base: {
         position: 'relative',
         padding: '5px',
@@ -35,23 +58,22 @@ class BoardListItem extends React.Component {
         backgroundColor: 'black',
         color: 'black',
         opacity: '0.5',
+      },
+      deleteButton: {
+        position: 'absolute',
+        top: '11px',
+        right: '5px',
+        width: '15px',
       }
-    }
-
-    const deleteStyle = {
-      position: 'absolute',
-      top: '11px',
-      right: '5px',
-      width: '15px',
-    }
+    })
 
     const {selectedBoard, boardId, boardTitle,
         isDragging, connectDragSource, connectDropTarget} = this.props
 
     return connectDragSource(connectDropTarget(
-      <div  style={[itemStyle.base, boardId===selectedBoard && itemStyle.selected, isDragging && itemStyle.dragging ]} onClick={this.handleSelectBoard.bind(this,boardId)}>
+      <div  className={css(styles.base, boardId===selectedBoard && styles.selected, isDragging && styles.dragging )} onClick={this.handleSelectBoard.bind(this,boardId)}>
         {boardTitle}
-        <div style={deleteStyle} onClick={this.handleDelete.bind(this,boardId)}>×</div>
+        <div className={css(styles.deleteButton)} onClick={this.handleDelete.bind(this,boardId)}>×</div>
       </div>
     ))
   }
@@ -83,7 +105,6 @@ function collect(connecter, monitor) {
   }
 }
 
-BoardListItem = Radium(BoardListItem)
 BoardListItem = DragSource('BoardListItem', boardListItemSource, collect)(BoardListItem)
 BoardListItem = DropTarget('BoardListItem', boardListItemTarget, connect => ({connectDropTarget: connect.dropTarget()}))(BoardListItem)
 

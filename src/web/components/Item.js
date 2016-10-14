@@ -2,7 +2,7 @@ import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd'
 import ContextMenu from './ContextMenu'
 import ContextMenuItem from './ContextMenuItem'
-import Radium from 'radium'
+import { StyleSheet, css } from 'aphrodite'
 
 class Item extends React.Component {
 
@@ -56,7 +56,7 @@ class Item extends React.Component {
     	const {details, connectDragSource, connectDropTarget, isDragging} = this.props
 
 
-      const itemStyle={
+      const styles = StyleSheet.create({
         base: {
           position: 'relative',
           backgroundColor: 'white',
@@ -75,14 +75,14 @@ class Item extends React.Component {
           backgroundColor: 'grey',
           color: 'grey',
         }
-    	}
+    	})
 
       const textEdit = <textarea rows="3" autoFocus onChange={this.onChange.bind(this)} style={{width:'90%'}}
                       onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.text} />
       const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
         return connectDragSource(connectDropTarget(
-        	<div style={[itemStyle.base, isDragging && itemStyle.dragging]}>
-            
+        	<div className={css(styles.base, isDragging && styles.dragging)}>
+
         		{this.state.edit? textEdit:textDisplay}
             <ContextMenu title="Item Actions">
               <ContextMenuItem onClick={this.handleDelete} itemText="Delete"/>
@@ -122,7 +122,6 @@ function collect(connecter, monitor) {
   }
 }
 
-Item = Radium(Item)
 Item = DragSource('Item', itemSource, collect)(Item)
 Item = DropTarget('Item', itemTarget, connect => ({connectDropTarget: connect.dropTarget()}))(Item)
 

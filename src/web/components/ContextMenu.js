@@ -1,5 +1,5 @@
 import React from 'react';
-import Radium from 'radium'
+import { StyleSheet, css } from 'aphrodite'
 
 class ContextMenuPanel extends React.Component {
 	constructor(props) {
@@ -62,7 +62,7 @@ class ContextMenu extends React.Component {
         this.onEscape = this.onEscape.bind(this)
     }
 
-	
+
 
 	onEscape(){
 		this.setState({
@@ -78,23 +78,26 @@ class ContextMenu extends React.Component {
     }
 
     render() {
-    	const menuButtonStyle = {
-    		cursor: 'pointer',
-    		fontWeight: 'bold',
-    		padding: '2px',
-    		display: 'flex',
-    		justifyContent: 'center',
-    		alignItems: 'center',
-    		width: '15px',
-    		height: '15px',
-    		':hover': {
-    			backgroundColor: '#efecec',
-    		}
-    	}
+
+			const styles = StyleSheet.create({
+				menuButton: {
+	    		cursor: 'pointer',
+	    		fontWeight: 'bold',
+	    		padding: '2px',
+	    		display: 'flex',
+	    		justifyContent: 'center',
+	    		alignItems: 'center',
+	    		width: '15px',
+	    		height: '15px',
+	    		':hover': {
+	    			backgroundColor: '#efecec',
+	    		}
+	    	}
+			})
 
         return(
         	<div>
-        		<div style={menuButtonStyle} onClick={this.togglePanel}>&#8230;</div>
+        		<div className={css(styles.menuButton)} onClick={this.togglePanel}>&#8230;</div>
         		{this.state.open ? <ContextMenuPanel title={this.props.title} onEscape={this.onEscape}>{this.props.children}</ContextMenuPanel>:null}
         	</div>
 
@@ -103,4 +106,4 @@ class ContextMenu extends React.Component {
 }
 
 
-export default Radium(ContextMenu);
+export default ContextMenu;

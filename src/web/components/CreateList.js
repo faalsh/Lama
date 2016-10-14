@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
-import Radium from 'radium'
+import { StyleSheet, css } from 'aphrodite'
+
 
 class CreateList extends React.Component {
     constructor(props) {
@@ -54,84 +55,85 @@ class CreateList extends React.Component {
       }
     }
     render() {
-    	const panelStyle = {
-    		padding: '5px',
-    		margin: '5px',
-    		borderRadius: '3px',
-    		backgroundColor: 'lightgrey',
-    		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-        height: '100%',
-        width: '200px',
-    	}
-    	const inputStyle = {
-        width: '185px',
-        height: '20px',
-        fontWeight: 'bold',
-        marginTop: '10px',
-        marginLeft: '5px',
-        marginBottom:'10px'
 
-    	}
-    	const panelButtonStyle = {
-    		padding: '5px',
-    		width: '70px',
-    		height: '20px',
-    		fontSize: '12px',
-    		background: 'linear-gradient(to bottom,#61BD4F 0,#5AAC44 100%)',
-    		color: 'white',
-    		boxShadow: '0 1px 0 #3F6F21',
-    		cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: '5px',
-        marginBottom:'10px'
-    	}
-      const panelBottomStyle = {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center'
-      }
-      const closeButtonStyle = {
-        marginLeft: '15px',
-        marginBottom: '10px',
-        fontSize: '25px',
-        cursor: 'pointer'
-      }
-      const addButtonStyle = {
-        margin: '3px',
-        backgroundColor: '#006ba9',
-        color:'white',
-        height:'20px',
-        width: '200px',
-        padding: '5px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent:'center',
-        cursor: 'pointer',
-        opacity: '.7',
-        ':hover': {
-          backgroundColor: '#51bfff'
+      const styles = StyleSheet.create({
+        panel: {
+      		padding: '5px',
+      		margin: '5px',
+      		borderRadius: '3px',
+      		backgroundColor: 'lightgrey',
+      		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
+          height: '100%',
+          width: '200px',
+      	},
+        input: {
+          width: '185px',
+          height: '20px',
+          fontWeight: 'bold',
+          marginTop: '10px',
+          marginLeft: '5px',
+          marginBottom:'10px'
+        },
+        panelButton: {
+          padding: '5px',
+      		width: '70px',
+      		height: '20px',
+      		fontSize: '12px',
+      		background: 'linear-gradient(to bottom,#61BD4F 0,#5AAC44 100%)',
+      		color: 'white',
+      		boxShadow: '0 1px 0 #3F6F21',
+      		cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginLeft: '5px',
+          marginBottom:'10px'
+        },
+        panelBottom: {
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center'
+        },
+        closeButton: {
+          marginLeft: '15px',
+          marginBottom: '10px',
+          fontSize: '25px',
+          cursor: 'pointer'
+        },
+        addButton: {
+          margin: '3px',
+          backgroundColor: '#006ba9',
+          color:'white',
+          height:'20px',
+          width: '200px',
+          padding: '5px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent:'center',
+          cursor: 'pointer',
+          opacity: '.7',
+          ':hover': {
+            backgroundColor: '#51bfff'
+          }
         }
-
-      }
+      })
         return this.state.panelOpen? (
 
-        	<div style={panelStyle}>
+        	<div className={css(styles.panel)}>
         		<div>
-        			<input autoFocus onChange={this.handleChange.bind(this)} style={inputStyle}
+        			<input autoFocus onChange={this.handleChange.bind(this)} className={css(styles.input)}
                 value={this.state.title} placeholder="List title" onKeyPress={this.handleKeyPress.bind(this)}/>
         		</div>
-            <div style={panelBottomStyle}>
-              <div onClick={this.handleClick.bind(this)} style={panelButtonStyle}>
+            <div className={css(styles.panelBottom)}>
+              <div onClick={this.handleClick.bind(this)} className={css(styles.panelButton)}>
                 Save
               </div>
-              <div onClick={this.handleClose.bind(this)} style={closeButtonStyle}>×</div>
+              <div onClick={this.handleClose.bind(this)} className={css(styles.closeButton)}>×</div>
             </div>
         	</div>
         ):(
           <div >
-            <div style={addButtonStyle}onClick={this.openPanel.bind(this)}>Add list</div>
+            <div className={css(styles.addButton)} onClick={this.openPanel.bind(this)}>Add list</div>
           </div>
         )
     }
@@ -141,5 +143,4 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
-CreateList = Radium(CreateList)
 export default connect(null, mapDispatchToProps)(CreateList);

@@ -1,21 +1,24 @@
 import React from 'react';
-import Radium from 'radium'
+import { StyleSheet, css } from 'aphrodite'
 
 class ContextMenuItem extends React.Component {
 
     render() {
-    	const itemStyle = {
-    		fontSize: '16px',
-    		fontWeight: 'bold',
-    		padding: '10px',
-            ':hover': {
-                backgroundColor: '#dadada'
-            }
-    	}
+
+      const styles = StyleSheet.create({
+        item: {
+      		fontSize: '16px',
+      		fontWeight: 'bold',
+      		padding: '10px',
+              ':hover': {
+                  backgroundColor: '#dadada'
+              }
+      	}
+      })
         return(
-        	<div style={itemStyle} onClick={this.props.onClick}>{this.props.itemText}</div>
+        	<div className={css(styles.item)} onClick={this.props.onClick}>{this.props.itemText}</div>
         )
     }
 }
 
-export default Radium(ContextMenuItem);
+export default ContextMenuItem;
