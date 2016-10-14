@@ -1,5 +1,6 @@
 import React from 'react'
 import {DragSource, DropTarget} from 'react-dnd'
+import Radium from 'radium'
 
 class BoardListItem extends React.Component {
 
@@ -15,42 +16,26 @@ class BoardListItem extends React.Component {
   render(){
 
     const itemStyle = {
-      position: 'relative',
-      padding: '5px',
-      width: '150px',
-      margin: '4px',
-      borderRadius: '3px',
-      backgroundColor: '#026AA7',
-      boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-      cursor: 'pointer',
-      padding: '10px'
-    }
-
-    const selectedItemStyle = {
-      position: 'relative',
-      fontWeight:'bold',
-      padding: '5px',
-      width: '150px',
-      margin: '4px',
-      borderRadius: '3px',
-      backgroundColor: '#61BD4F',
-      boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-      cursor: 'pointer',
-      padding: '10px'
-    }
-
-    const styleDragging = {
-      position: 'relative',
-      padding: '5px',
-      width: '150px',
-      margin: '5px',
-      borderRadius: '3px',
-      backgroundColor: 'black',
-      color: 'black',
-      opacity: '0.5',
-      boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-      cursor: 'pointer',
-      padding: '10px'
+      base: {
+        position: 'relative',
+        padding: '5px',
+        width: '150px',
+        margin: '4px',
+        borderRadius: '3px',
+        backgroundColor: '#026AA7',
+        boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
+        cursor: 'pointer',
+        padding: '10px'
+      },
+      selected: {
+        fontWeight:'bold',
+        // backgroundColor: '#61BD4F',
+      },
+      dragging: {
+        backgroundColor: 'black',
+        color: 'black',
+        opacity: '0.5',
+      }
     }
 
     const deleteStyle = {
@@ -63,10 +48,8 @@ class BoardListItem extends React.Component {
     const {selectedBoard, boardId, boardTitle,
         isDragging, connectDragSource, connectDropTarget} = this.props
 
-    const style = boardId===selectedBoard ? selectedItemStyle:itemStyle
-    const finalStyle = isDragging ? styleDragging:style
     return connectDragSource(connectDropTarget(
-      <div  style={finalStyle} onClick={this.handleSelectBoard.bind(this,boardId)}>
+      <div  style={[itemStyle.base, boardId===selectedBoard && itemStyle.selected, isDragging && itemStyle.dragging ]} onClick={this.handleSelectBoard.bind(this,boardId)}>
         {boardTitle}
         <div style={deleteStyle} onClick={this.handleDelete.bind(this,boardId)}>×</div>
       </div>
@@ -100,6 +83,7 @@ function collect(connecter, monitor) {
   }
 }
 
+BoardListItem = Radium(BoardListItem)
 BoardListItem = DragSource('BoardListItem', boardListItemSource, collect)(BoardListItem)
 BoardListItem = DropTarget('BoardListItem', boardListItemTarget, connect => ({connectDropTarget: connect.dropTarget()}))(BoardListItem)
 

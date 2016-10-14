@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
-
+import Radium from 'radium'
 
 class CreateItem extends React.Component {
     constructor(props) {
@@ -97,7 +97,11 @@ class CreateItem extends React.Component {
         padding: '5px',
         textDecoration: 'underline',
         color: 'grey',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        ':hover': {
+            backgroundColor: '#f7f5f5',
+            opacity: '0.5'
+        }
       }
         return this.state.panelOpen?(
         	<div style={panelStyle}>
@@ -125,4 +129,5 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
+CreateItem = Radium(CreateItem)
 export default connect(null, mapDispatchToProps)(CreateItem);

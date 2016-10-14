@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium'
 
 class ContextMenuItem extends React.Component {
 
@@ -6,7 +7,10 @@ class ContextMenuItem extends React.Component {
     	const itemStyle = {
     		fontSize: '16px',
     		fontWeight: 'bold',
-    		margin: '10px'
+    		padding: '10px',
+            ':hover': {
+                backgroundColor: '#dadada'
+            }
     	}
         return(
         	<div style={itemStyle} onClick={this.props.onClick}>{this.props.itemText}</div>
@@ -14,4 +18,4 @@ class ContextMenuItem extends React.Component {
     }
 }
 
-export default ContextMenuItem;
+export default Radium(ContextMenuItem);

@@ -2,6 +2,7 @@ import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd'
 import ContextMenu from './ContextMenu'
 import ContextMenuItem from './ContextMenuItem'
+import Radium from 'radium'
 
 class Item extends React.Component {
 
@@ -53,46 +54,34 @@ class Item extends React.Component {
 
     render() {
     	const {details, connectDragSource, connectDropTarget, isDragging} = this.props
-      const styleNotDragging={
-        position: 'relative',
-    		backgroundColor: 'white',
-    		margin: '2px',
-    		padding: '4px 10px 4px 4px',
-    		fontSize: '12px',
-        borderRadius: '3px',
-        minHeight: '30px',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        fontSize: '14px'
-    	}
-      const styleDragging = {
-        position: 'relative',
-        backgroundColor: 'grey',
-        color: 'grey',
-        margin: '2px',
-        padding: '4px 10px 4px 4px',
-        borderRadius: '3px',
-        minHeight: '30px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
 
-      }
-      const style = isDragging? styleDragging:styleNotDragging
-      const deleteStyle = {
-        position:'absolute',
-        color:'grey',
-        right: '5px',
-        cursor: 'pointer'
-      }
+
+      const itemStyle={
+        base: {
+          position: 'relative',
+          backgroundColor: 'white',
+          margin: '2px',
+          padding: '4px 10px 4px 4px',
+          fontSize: '12px',
+          borderRadius: '3px',
+          minHeight: '30px',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontSize: '14px'
+        },
+        dragging: {
+          backgroundColor: 'grey',
+          color: 'grey',
+        }
+    	}
 
       const textEdit = <textarea rows="3" autoFocus onChange={this.onChange.bind(this)} style={{width:'90%'}}
                       onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.text} />
       const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
         return connectDragSource(connectDropTarget(
-        	<div style={style}>
+        	<div style={[itemStyle.base, isDragging && itemStyle.dragging]}>
             
         		{this.state.edit? textEdit:textDisplay}
             <ContextMenu title="Item Actions">
@@ -133,6 +122,7 @@ function collect(connecter, monitor) {
   }
 }
 
+Item = Radium(Item)
 Item = DragSource('Item', itemSource, collect)(Item)
 Item = DropTarget('Item', itemTarget, connect => ({connectDropTarget: connect.dropTarget()}))(Item)
 

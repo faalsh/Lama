@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium'
 
 class ContextMenuPanel extends React.Component {
 	constructor(props) {
@@ -79,12 +80,21 @@ class ContextMenu extends React.Component {
     render() {
     	const menuButtonStyle = {
     		cursor: 'pointer',
-    		fontWeight: 'bold'
+    		fontWeight: 'bold',
+    		padding: '2px',
+    		display: 'flex',
+    		justifyContent: 'center',
+    		alignItems: 'center',
+    		width: '15px',
+    		height: '15px',
+    		':hover': {
+    			backgroundColor: '#efecec',
+    		}
     	}
 
         return(
         	<div>
-        		<div style={menuButtonStyle} onClick={this.togglePanel}>...</div>
+        		<div style={menuButtonStyle} onClick={this.togglePanel}>&#8230;</div>
         		{this.state.open ? <ContextMenuPanel title={this.props.title} onEscape={this.onEscape}>{this.props.children}</ContextMenuPanel>:null}
         	</div>
 
@@ -92,4 +102,5 @@ class ContextMenu extends React.Component {
     }
 }
 
-export default ContextMenu;
+
+export default Radium(ContextMenu);

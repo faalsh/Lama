@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
-
+import Radium from 'radium'
 
 class CreateBoard extends React.Component {
     constructor(props) {
@@ -102,6 +102,14 @@ class CreateBoard extends React.Component {
         color: 'white',
         opacity: '0.8',
         cursor: 'pointer',
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        height: '30px',
+        alignItems: 'center',
+        ':hover': {
+          backgroundColor: '#44b1f1'
+        }
       }
         return this.state.panelOpen?(
         	<div style={panelStyle}>
@@ -130,4 +138,5 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
+CreateBoard = Radium(CreateBoard)
 export default connect(null, mapDispatchToProps)(CreateBoard);

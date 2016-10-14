@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as LamaActions from '../../common/actions'
 import { bindActionCreators } from 'redux'
-
+import Radium from 'radium'
 
 class CreateList extends React.Component {
     constructor(props) {
@@ -109,7 +109,10 @@ class CreateList extends React.Component {
         alignItems: 'center',
         justifyContent:'center',
         cursor: 'pointer',
-        opacity: '.7'
+        opacity: '.7',
+        ':hover': {
+          backgroundColor: '#51bfff'
+        }
 
       }
         return this.state.panelOpen? (
@@ -138,4 +141,5 @@ const mapDispatchToProps = dispatch =>({
   actions: bindActionCreators(LamaActions,dispatch)
 })
 
+CreateList = Radium(CreateList)
 export default connect(null, mapDispatchToProps)(CreateList);
