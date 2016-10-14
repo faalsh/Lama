@@ -7,6 +7,9 @@ import CreateItem from './CreateItem'
 import {DragSource, DropTarget} from 'react-dnd'
 import _ from 'lodash'
 import {sort} from '../../common/utils'
+import ContextMenu from './ContextMenu'
+import ContextMenuItem from './ContextMenuItem'
+
 
 class List extends React.Component {
 
@@ -16,6 +19,8 @@ class List extends React.Component {
         title: this.props.list.listTitle,
         edit: false
       }
+
+      this.handleDelete = this.handleDelete.bind(this)
     }
 
     handleDelete(){
@@ -74,7 +79,8 @@ class List extends React.Component {
     		fontWeight: 'bold',
     		fontSize: '14px',
     		marginBottom: '10px',
-    		textAlign: 'center'
+    		textAlign: 'center',
+        width: '100%'
     	}
         const deleteStyle = {
           position: 'absolute',
@@ -94,6 +100,13 @@ class List extends React.Component {
           fontWeight: 'bold'
         }
 
+        const headerStyle = {
+          display: 'flex', 
+          flexDirection: 'row', 
+          justifyContent: 'space-between'
+        }
+
+
         const sortedItems = sort(list.items, 'itemIndex')
         const titleDisplay = <div onClick={this.toggleMode.bind(this)} style={titleStyle}>{list.listTitle}</div>
         const titleEdit =  <div><input autoFocus style={editInputStyle} onChange={this.onChange.bind(this)}  
@@ -102,8 +115,13 @@ class List extends React.Component {
 
         return connectDragSource( connectDropTarget (
 	        <div style={{...style, opacity}}>
-                <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
-		        {title}
+            <div style={headerStyle}>
+              {title}
+              <ContextMenu title="List Actions">
+                <ContextMenuItem onClick={this.handleDelete} itemText="Delete"/>
+                <ContextMenuItem  itemText="Move List to Board"/>
+              </ContextMenu>
+		        </div>
             {_.map(sortedItems,(item) => <Item key={item.id} details={item} itemId={item.id} listId={list.id} boardId={boardId} actions={actions}/>)}
             <CreateItem boardId={boardId} listId={list.id}/>
 	        </div>

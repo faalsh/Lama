@@ -1,5 +1,7 @@
 import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd'
+import ContextMenu from './ContextMenu'
+import ContextMenuItem from './ContextMenuItem'
 
 class Item extends React.Component {
 
@@ -9,6 +11,8 @@ class Item extends React.Component {
       text: this.props.details.itemText,
       edit: false
     }
+
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   onChange(e){
@@ -58,8 +62,9 @@ class Item extends React.Component {
         borderRadius: '3px',
         minHeight: '30px',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         fontSize: '14px'
     	}
       const styleDragging = {
@@ -88,8 +93,11 @@ class Item extends React.Component {
       const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
         return connectDragSource(connectDropTarget(
         	<div style={style}>
-            <div style={deleteStyle} onClick={this.handleDelete.bind(this)}>×</div>
+            
         		{this.state.edit? textEdit:textDisplay}
+            <ContextMenu title="Item Actions">
+              <ContextMenuItem onClick={this.handleDelete} itemText="Delete"/>
+            </ContextMenu>
         	</div>
         ))
     }
