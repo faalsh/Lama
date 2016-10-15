@@ -14,7 +14,7 @@ class App extends Component {
 // TODO authentication
   componentDidMount() {
     const {fetchData, getConnectionStatus, checkLoginStatus} = this.props.actions
-    fetchData()
+    // fetchData()
     getConnectionStatus()
     checkLoginStatus()
   }

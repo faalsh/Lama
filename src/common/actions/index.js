@@ -16,7 +16,14 @@ export function checkLoginStatus(){
   return dispatch => {
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
+
         dispatch({type:'LOGIN_STATUS', payload:{loggedIn: true, user:user}})
+        ref.on('value', (snapshot) => {
+          dispatch({
+            type:'FETCH_DATA',
+            payload: snapshot.val()
+          })
+        })
       } else {
         dispatch({type:'LOGIN_STATUS', payload:{loggedIn: false}})      }
     })
@@ -53,16 +60,16 @@ export function signOut(){
    })
   }
 }
-export function fetchData() {
-  return dispatch => {
-    ref.on('value', (snapshot) => {
-      dispatch({
-        type:'FETCH_DATA',
-        payload: snapshot.val()
-      })
-    })
-  }
-}
+// export function fetchData() {
+//   return dispatch => {
+//     ref.on('value', (snapshot) => {
+//       dispatch({
+//         type:'FETCH_DATA',
+//         payload: snapshot.val()
+//       })
+//     })
+//   }
+// }
 
 export const getConnectionStatus = () => {
   return dispatch => {
