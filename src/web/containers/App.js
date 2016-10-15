@@ -13,9 +13,10 @@ import {sort} from '../../common/utils'
 class App extends Component {
 // TODO authentication
   componentDidMount() {
-    const {fetchData, getConnectionStatus} = this.props.actions
+    const {fetchData, getConnectionStatus, checkLoginStatus} = this.props.actions
     fetchData()
     getConnectionStatus()
+    checkLoginStatus()
   }
 
   render() {
@@ -32,15 +33,20 @@ class App extends Component {
     }
 		const {main, actions} = this.props
     const sortedBoards = sort(main.boards, 'boardIndex')
+    const mainApp = <div><Header main={main} actions={actions}/>
+    <div style={{display:'flex', flexDirection:'row'}}>
+      <div>
+         {_.map(sortedBoards, board  => main.selectedBoard === board.id ? <Board key={board.id} boardId={board.id} board={board}/>:null)}
+      </div>
+    </div></div>
     return (
 			<div style={style}>
         {main.connected?null:<ConnectionStatus />}
-				<Header main={main} actions={actions}/>
-				<div style={{display:'flex', flexDirection:'row'}}>
-          <div>
-             {_.map(sortedBoards, board  => main.selectedBoard === board.id ? <Board key={board.id} boardId={board.id} board={board}/>:null)}
-          </div>
-        </div>
+        {main.loggedIn? <div onClick={() => actions.signOut() }>Sign out</div>:<div onClick={() => actions.signIn() }>Login</div> }
+
+
+        {main.loggedIn? mainApp:null}
+
 
 			</div>
 

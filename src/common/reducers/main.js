@@ -2,7 +2,8 @@ import _ from 'lodash'
 
 const initialState = {
 	boardListOpen: false,
-	selectedBoard: null
+	selectedBoard: null,
+	loggedIn: false
 }
 export default function reducer(state =initialState, action){
 	switch(action.type){
@@ -14,6 +15,9 @@ export default function reducer(state =initialState, action){
 			}
       return {...state, ...action.payload, selectedBoard}
     }
+		case 'LOGIN_STATUS': {
+			return {...state, loggedIn: action.payload.loggedIn}
+		}
 		case 'SELECT_BOARD': {
 			return {...state, selectedBoard: action.payload, boardListOpen: false}
 		}
