@@ -12,16 +12,83 @@ const config = {
   const ref = firebase.database().ref('/')
 
 
-export function fetchData() {
+export function checkLoginStatus(){
   return dispatch => {
-    ref.on('value', (snapshot) => {
-      dispatch({
-        type:'FETCH_DATA',
-        payload: snapshot.val()
-      })
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+
+        dispatch({type:'LOGIN_STATUS', payload:{loggedIn: true, user:user}})
+        ref.on('value', (snapshot) => {
+          dispatch({
+            type:'FETCH_DATA',
+            payload: snapshot.val()
+          })
+        })
+      } else {
+        dispatch({type:'LOGIN_STATUS', payload:{loggedIn: false}})      }
     })
   }
 }
+
+
+export function signInWithGithub() {
+  var provider = new firebase.auth.GithubAuthProvider()
+  return dispatch => {
+    firebase.auth().signInWithPopup(provider).then(result => {
+      const token = result.credential.accessToken
+      const user = result.user
+      dispatch({type: 'LOGIN_SUCCESS', payload: user.displayName})
+    }).catch(error => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      // const email = error.email
+      // const credential = error.credential
+      // console.log(errorMessage);
+      dispatch({type: 'LOGIN_ERROR', payload: {errorCode, errorMessage}})
+
+    })
+  }
+}
+
+export function signInWithGoogle() {
+  var provider = new firebase.auth.GoogleAuthProvider()
+  return dispatch => {
+    firebase.auth().signInWithPopup(provider).then(result => {
+      const token = result.credential.accessToken
+      const user = result.user
+      dispatch({type: 'LOGIN_SUCCESS', payload: user.displayName})
+    }).catch(error => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      // const email = error.email
+      // const credential = error.credential
+      // console.log(errorMessage);
+      dispatch({type: 'LOGIN_ERROR', payload: {errorCode, errorMessage}})
+
+    })
+  }
+}
+
+
+export function signOut(){
+  return dispatch => {
+    firebase.auth().signOut().then(() => {
+     dispatch({type: 'SIGNOUT_SUCCESS'})
+   }, () => {
+     dispatch({type: 'SIGNOUT_ERROR'})
+   })
+  }
+}
+// export function fetchData() {
+//   return dispatch => {
+//     ref.on('value', (snapshot) => {
+//       dispatch({
+//         type:'FETCH_DATA',
+//         payload: snapshot.val()
+//       })
+//     })
+//   }
+// }
 
 export const getConnectionStatus = () => {
   return dispatch => {
@@ -201,7 +268,7 @@ export function swapBoards(dragBoardId, hoverBoardId) {
     const boards = snapshot.val()
     const dragIndex = boards[dragBoardId].boardIndex
     const hoverIndex = boards[hoverBoardId].boardIndex
-    
+
     let updates = {}
     updates['boards/'+dragBoardId+'/boardIndex'] = hoverIndex
     updates['boards/'+hoverBoardId+'/boardIndex'] = dragIndex
