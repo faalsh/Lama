@@ -9,6 +9,7 @@ import {DragDropContext} from 'react-dnd';
 import _ from 'lodash'
 import ConnectionStatus from '../components/ConnectionStatus'
 import {sort} from '../../common/utils'
+import Login from '../components/Login'
 
 class App extends Component {
 // TODO authentication
@@ -42,14 +43,8 @@ class App extends Component {
     return (
 			<div style={style}>
         {main.connected?null:<ConnectionStatus />}
-        {main.loggedIn? <div onClick={() => actions.signOut() }>Sign out</div>:<div onClick={() => actions.signIn() }>Login</div> }
-
-
-        {main.loggedIn? mainApp:null}
-
-
+        {main.loggedIn? mainApp:<Login actions={actions} />}
 			</div>
-
     );
 
   }
