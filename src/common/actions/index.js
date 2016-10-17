@@ -30,6 +30,17 @@ export function checkLoginStatus(){
   }
 }
 
+export function register(email, password) {
+  return dispatch => {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        dispatch({type: 'REGISTER_SUCCESS'})
+      })
+      .catch(e => {
+        dispatch({type: 'REGISTER_ERROR', payload:{errorMessage: e.message}})
+      })
+  }
+}
 export function signInWithEmail(email, password) {
   return dispatch => {
     firebase.auth().signInWithEmailAndPassword(email, password).then(result => {

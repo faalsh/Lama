@@ -28,6 +28,10 @@ class Login extends React.Component {
     e.preventDefault()
     this.props.actions.signInWithEmail(this.state.email, this.state.password)
   }
+  register(e) {
+    e.preventDefault()
+    this.props.actions.register(this.state.email, this.state.password)
+  }
 
     render() {
       const styles = StyleSheet.create({
@@ -66,7 +70,11 @@ class Login extends React.Component {
           padding: '15px',
           color: '#FFFFFF',
           fontSize: '14px',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          margin: '5px'
+        },
+        register: {
+          backgroundColor: 'grey'
         },
         loginWith: {
           display: 'flex',
@@ -81,7 +89,8 @@ class Login extends React.Component {
         loginProvider: {
           margin: '5px',
           padding: '10px',
-          backgroundColor: '#ececec',
+          backgroundColor: '#eeeeee',
+          color: 'grey',
           cursor: 'pointer',
           fontWeight: 'bold',
           display: 'flex',
@@ -109,7 +118,11 @@ class Login extends React.Component {
                   <input onChange={(e) => this.setState({email:e.target.value})} value={this.state.email} type="text" placeholder="email" className={css(styles.input)}/>
                   <input onChange={(e) => this.setState({password:e.target.value})} value={this.state.password} type="password" placeholder="password" className={css(styles.input)}/>
                   {loginError? <div className={css(styles.error)}>{loginError}</div>:null}
-                  <button onClick={this.loginWithEmail.bind(this)} className={css(styles.button)}>LOGIN</button>
+                  <div style={{display:'flex', justifyContent: 'space-around'}}>
+                    <button onClick={this.loginWithEmail.bind(this)} className={css(styles.button)}>LOGIN</button>
+                    <button onClick={this.register.bind(this)} className={css([styles.button, styles.register])}>REGISTER</button>
+                  </div>
+
                 </form>
                 <div>
                   <div className={css(styles.loginWith)}>Login with</div>

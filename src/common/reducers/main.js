@@ -23,6 +23,12 @@ export default function reducer(state =initialState, action){
 		case 'LOGIN_ERROR': {
 			return {...state, loginError: action.payload.errorMessage}
 		}
+		case 'REGISTER_SUCCESS': {
+			return {...state, loginError: null}
+		}
+		case 'REGISTER_ERROR': {
+			return {...state, loginError: action.payload.errorMessage}
+		}
 		case 'LOGIN_SUCCESS':{
 			return {...state, loginError: null}
 		}
