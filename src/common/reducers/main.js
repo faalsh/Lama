@@ -3,7 +3,9 @@ import _ from 'lodash'
 const initialState = {
 	boardListOpen: false,
 	selectedBoard: null,
-	loggedIn: false
+	loggedIn: false,
+	uid: null,
+	loginError: null
 }
 export default function reducer(state =initialState, action){
 	switch(action.type){
@@ -16,7 +18,13 @@ export default function reducer(state =initialState, action){
       return {...state, ...action.payload, selectedBoard}
     }
 		case 'LOGIN_STATUS': {
-			return {...state, loggedIn: action.payload.loggedIn}
+			return action.payload.loggedIn?{...state, loggedIn: action.payload.loggedIn, uid: action.payload.user.uid}:{...state, loggedIn: action.payload.loggedIn}
+		}
+		case 'LOGIN_ERROR': {
+			return {...state, loginError: action.payload.errorMessage}
+		}
+		case 'LOGIN_SUCCESS':{
+			return {...state, loginError: null}
 		}
 		case 'SELECT_BOARD': {
 			return {...state, selectedBoard: action.payload, boardListOpen: false}

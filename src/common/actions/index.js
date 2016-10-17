@@ -30,6 +30,25 @@ export function checkLoginStatus(){
   }
 }
 
+export function signInWithEmail(email, password) {
+  return dispatch => {
+    firebase.auth().signInWithEmailAndPassword(email, password).then(result => {
+      // const token = result.credential.accessToken
+      // const user = result.user
+      console.log(result)
+      dispatch({type: 'LOGIN_SUCCESS'})
+    }).catch(error => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      // const email = error.email
+      // const credential = error.credential
+      // console.log(errorMessage);
+      dispatch({type: 'LOGIN_ERROR', payload: {errorCode, errorMessage}})
+
+    })
+  }
+}
+
 
 export function signInWithGithub() {
   var provider = new firebase.auth.GithubAuthProvider()

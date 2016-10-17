@@ -3,6 +3,13 @@ import { StyleSheet, css } from 'aphrodite'
 import '../assets/github.png'
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
 
   loginWithProvider(provider){
     console.log(provider);
@@ -15,6 +22,11 @@ class Login extends React.Component {
         actions.signInWithGoogle()
         break
     }
+  }
+
+  loginWithEmail(e){
+    e.preventDefault()
+    this.props.actions.signInWithEmail(this.state.email, this.state.password)
   }
 
     render() {
@@ -81,16 +93,23 @@ class Login extends React.Component {
           backgroundColor: 'black',
           color: 'white',
           width: '100px'
+        },
+        error: {
+          color: 'red',
+          margin: '10px',
+          padding: '5px',
+          fontWeight: 'bold'
         }
       })
-
+        const {loginError} = this.props.main
         return(
             <div className={css(styles.loginPage)}>
               <div className={css(styles.form)}>
                 <form>
-                  <input type="text" placeholder="username" className={css(styles.input)}/>
-                  <input type="password" placeholder="password" className={css(styles.input)}/>
-                  <button className={css(styles.button)}>LOGIN</button>
+                  <input onChange={(e) => this.setState({email:e.target.value})} value={this.state.email} type="text" placeholder="email" className={css(styles.input)}/>
+                  <input onChange={(e) => this.setState({password:e.target.value})} value={this.state.password} type="password" placeholder="password" className={css(styles.input)}/>
+                  {loginError? <div className={css(styles.error)}>{loginError}</div>:null}
+                  <button onClick={this.loginWithEmail.bind(this)} className={css(styles.button)}>LOGIN</button>
                 </form>
                 <div>
                   <div className={css(styles.loginWith)}>Login with</div>

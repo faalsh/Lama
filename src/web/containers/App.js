@@ -43,7 +43,7 @@ class App extends Component {
     return (
 			<div style={style}>
         {main.connected?null:<ConnectionStatus />}
-        {main.loggedIn? mainApp:<Login actions={actions} />}
+        {main.loggedIn? mainApp:<Login main={main} actions={actions} />}
 			</div>
     );
 
