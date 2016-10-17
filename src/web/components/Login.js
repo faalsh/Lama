@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite'
+import '../assets/github.png'
 
 class Login extends React.Component {
 
@@ -19,7 +20,7 @@ class Login extends React.Component {
     render() {
       const styles = StyleSheet.create({
         loginPage: {
-          width: '360px',
+          width: '460px',
           padding: '8% 0 0',
           margin: 'auto'
         },
@@ -70,8 +71,16 @@ class Login extends React.Component {
           padding: '10px',
           backgroundColor: '#ececec',
           cursor: 'pointer',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center'
 
+        },
+        github: {
+          backgroundColor: 'black',
+          color: 'white',
+          width: '100px'
         }
       })
 
@@ -86,8 +95,10 @@ class Login extends React.Component {
                 <div>
                   <div className={css(styles.loginWith)}>Login with</div>
                   <div className={css(styles.loginProvidersContainer)}>
-                    <div onClick={this.loginWithProvider.bind(this,'github')} className={css(styles.loginProvider)}>Github</div>
-                    <div onClick={this.loginWithProvider.bind(this,'google')} className={css(styles.loginProvider)}>Google</div>
+                    <div onClick={this.loginWithProvider.bind(this,'github')} className={css([styles.loginProvider, styles.github])}>
+                      <img src='static//github.png' style={{width: '25px', height: '25px'}}/> Github
+                    </div>
+                    <div onClick={this.loginWithProvider.bind(this,'google')} className={css([styles.loginProvider])}>Google</div>
                   </div>
                 </div>
               </div>
