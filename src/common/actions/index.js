@@ -120,6 +120,9 @@ export function signOut(){
 //   }
 // }
 
+export function dismissError(){
+  return {type: 'DISMISS_ERROR'}
+}
 export const getConnectionStatus = () => {
   return dispatch => {
     ref.child('.info/connected').on('value', function(connectedSnap) {
