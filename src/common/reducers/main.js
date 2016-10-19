@@ -19,7 +19,7 @@ export default function reducer(state =initialState, action){
       return {...state, ...action.payload, selectedBoard}
     }
 		case 'LOGIN_STATUS': {
-			return action.payload.loggedIn?{...state, loggedIn: action.payload.loggedIn, uid: action.payload.user.uid, emailVerified: action.payload.user.emailVerified}:{...state, loggedIn: action.payload.loggedIn}
+			return action.payload.loggedIn?{...state, loggedIn: action.payload.loggedIn, uid: action.payload.user.uid, emailVerified: action.payload.user.emailVerified || !action.payload.user.email}:{...state, loggedIn: action.payload.loggedIn}
 		}
 		case 'LOGIN_ERROR': {
 			return {...state, error: action.payload.errorMessage}
