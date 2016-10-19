@@ -10,7 +10,8 @@ import _ from 'lodash'
 import ConnectionStatus from '../components/ConnectionStatus'
 import {sort} from '../../common/utils'
 import Login from '../components/Login'
-import Error from '../components/Error'
+import ErrorMessage from '../components/ErrorMessage'
+import InfoMessage from '../components/InfoMessage'
 
 class App extends Component {
 // TODO authentication
@@ -35,16 +36,18 @@ class App extends Component {
     }
 		const {main, actions} = this.props
     const sortedBoards = sort(main.boards, 'boardIndex')
-    const mainApp = <div><Header main={main} actions={actions}/>
+    const loggedInApp = <div><Header main={main} actions={actions}/>
     <div style={{display:'flex', flexDirection:'row'}}>
-      
+
       <div>
          {_.map(sortedBoards, board  => main.selectedBoard === board.id ? <Board key={board.id} boardId={board.id} board={board}/>:null)}
       </div>
     </div></div>
+
+    const mainApp = main.emailVerified?loggedInApp:<div><Header main={main} actions={actions}/><InfoMessage message='An activation email was sent to your email address, please verify your email to login' actions={actions}/></div>
     return (
 			<div style={style}>
-        {main.error?<Error message={main.error} actions={actions}/>:null}
+        {main.error?<ErrorMessage message={main.error} actions={actions}/>:null}
         {main.connected?null:<ConnectionStatus />}
         {main.loggedIn? mainApp:<Login main={main} actions={actions} />}
 			</div>

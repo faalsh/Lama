@@ -33,7 +33,8 @@ export function checkLoginStatus(){
 export function register(email, password) {
   return dispatch => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(user => {
+        user.sendEmailVerification()
         dispatch({type: 'REGISTER_SUCCESS'})
       })
       .catch(e => {
@@ -56,9 +57,8 @@ export function signInWithEmail(email, password) {
   return dispatch => {
     firebase.auth().signInWithEmailAndPassword(email, password).then(result => {
       // const token = result.credential.accessToken
-      // const user = result.user
-      console.log(result)
-      dispatch({type: 'LOGIN_SUCCESS'})
+      const user = result.user
+      dispatch({type: 'LOGIN_SUCCESS', user})
     }).catch(error => {
       const errorCode = error.code
       const errorMessage = error.message

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite'
 import '../assets/error.png'
 
-class Login extends React.Component {
+class ErrorMessage extends React.Component {
 
 	handleDismiss(){
 		this.props.actions.dismissError()
@@ -24,7 +24,7 @@ class Login extends React.Component {
         message: {
         	backgroundColor: '#eee',
         	height: '80%',
-        	color: '#616161', 
+        	color: '#616161',
         	display: 'flex',
         	flexDirection: 'column',
         	justifyContent: 'center',
@@ -48,7 +48,7 @@ class Login extends React.Component {
         snap: {
         	fontWeight: 'bold',
         	marginTop: '10px',
-        	marginBottom: '10px', 
+        	marginBottom: '10px',
         	fontSize: '20px'
         },
         errorMessage: {
@@ -71,4 +71,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default ErrorMessage;

@@ -5,7 +5,8 @@ const initialState = {
 	selectedBoard: null,
 	loggedIn: false,
 	uid: null,
-	error: null
+	error: null,
+	emailVerified: false
 }
 export default function reducer(state =initialState, action){
 	switch(action.type){
@@ -18,7 +19,7 @@ export default function reducer(state =initialState, action){
       return {...state, ...action.payload, selectedBoard}
     }
 		case 'LOGIN_STATUS': {
-			return action.payload.loggedIn?{...state, loggedIn: action.payload.loggedIn, uid: action.payload.user.uid}:{...state, loggedIn: action.payload.loggedIn}
+			return action.payload.loggedIn?{...state, loggedIn: action.payload.loggedIn, uid: action.payload.user.uid, emailVerified: action.payload.user.emailVerified}:{...state, loggedIn: action.payload.loggedIn}
 		}
 		case 'LOGIN_ERROR': {
 			return {...state, error: action.payload.errorMessage}
