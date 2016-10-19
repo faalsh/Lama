@@ -33,6 +33,10 @@ class Login extends React.Component {
     this.props.actions.register(this.state.email, this.state.password)
   }
 
+  handleResetPassword(){
+    this.props.actions.resetPassword(this.state.email)
+  }
+
     render() {
       const styles = StyleSheet.create({
         loginPage: {
@@ -71,7 +75,8 @@ class Login extends React.Component {
           color: '#FFFFFF',
           fontSize: '14px',
           cursor: 'pointer',
-          margin: '5px'
+          margin: '5px',
+          marginTop: 20
         },
         register: {
           backgroundColor: 'grey'
@@ -108,16 +113,23 @@ class Login extends React.Component {
           margin: '10px',
           padding: '5px',
           fontWeight: 'bold'
+        },
+        resetPassword: {
+          display: 'flex',
+          justifyContent: 'flex-end',
+          textDecoration: 'underline',
+          color: 'grey',
+          fontSize: 14,
+          cursor: 'pointer'
         }
       })
-        const {loginError} = this.props.main
         return(
             <div className={css(styles.loginPage)}>
               <div className={css(styles.form)}>
                 <form>
                   <input onChange={(e) => this.setState({email:e.target.value})} value={this.state.email} type="text" placeholder="email" className={css(styles.input)}/>
                   <input onChange={(e) => this.setState({password:e.target.value})} value={this.state.password} type="password" placeholder="password" className={css(styles.input)}/>
-                  {loginError? <div className={css(styles.error)}>{loginError}</div>:null}
+                  <div onClick={this.handleResetPassword.bind(this)} className={css(styles.resetPassword)}>Reset password</div>
                   <div style={{display:'flex', justifyContent: 'space-around'}}>
                     <button onClick={this.loginWithEmail.bind(this)} className={css(styles.button)}>LOGIN</button>
                     <button onClick={this.register.bind(this)} className={css([styles.button, styles.register])}>REGISTER</button>

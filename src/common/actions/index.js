@@ -41,6 +41,17 @@ export function register(email, password) {
       })
   }
 }
+
+export function resetPassword(email) {
+  return dispatch => {
+    firebase.auth().sendPasswordResetEmail(email).then(() => {
+      dispatch({type: 'PASSWORD_RESET_SUCCESS'})
+    }).catch(e => {
+      dispatch({type: 'PASSWORD_RESET_ERROR', payload: {errorMessage: e.message}})
+    })
+  }
+}
+
 export function signInWithEmail(email, password) {
   return dispatch => {
     firebase.auth().signInWithEmailAndPassword(email, password).then(result => {

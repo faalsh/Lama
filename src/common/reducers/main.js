@@ -30,6 +30,9 @@ export default function reducer(state =initialState, action){
 		case 'DISMISS_ERROR': {
 			return {...state, error:null}
 		}
+		case 'PASSWORD_RESET_ERROR': {
+			return {...state, error: action.payload.errorMessage}
+		}
 		case 'SELECT_BOARD': {
 			return {...state, selectedBoard: action.payload, boardListOpen: false}
 		}
