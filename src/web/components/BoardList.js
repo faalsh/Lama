@@ -3,6 +3,8 @@ import CreateBoard from './CreateBoard'
 import _ from 'lodash'
 import BoardListItem from './BoardListItem'
 import {sort} from '../../common/utils'
+import { StyleSheet, css } from 'aphrodite'
+
 
 class BoardList extends React.Component {
 
@@ -31,31 +33,45 @@ class BoardList extends React.Component {
 
     render() {
 
-      const panelStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin:'10px',
-        width: '150px',
-        backgroundColor: '#4c94be',
-        padding: '20px',
-        position: 'absolute',
-        top: '30px',
-        left: '0px',
-        zIndex: '1'
-
+      const keyframes = {
+        'from': {
+          transform: 'translateY(-50%) scaleY(0.5)',
+          opacity: 0,
+        },
+        'to': {
+          transform: 'translateY(0) scaleY(1)',
+          opacity: 1,
+        }
       }
-
-      const closerStyle = {
-        position: 'fixed',
-        left: 0,
-        top: 0,
-        width: '100%',
-        height: '100%',
-         zIndex: 1,
-         backgroundColor: 'black',
-         opacity: '0.5'
-      }
+      const styles = StyleSheet.create({
+        panel: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          margin:'10px',
+          width: '150px',
+          backgroundColor: '#4c94be',
+          padding: '20px',
+          position: 'absolute',
+          top: '30px',
+          left: '0px',
+          zIndex: '1'
+        },
+        closer: {
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          width: '100%',
+          height: '100%',
+           zIndex: 1,
+           backgroundColor: 'black',
+           opacity: '0.5'
+        },
+        animate: {
+          animationName: keyframes,
+          animationDuration: '100ms'
+        }
+      })
 
       const {boards, selectedBoard, actions} = this.props
 
@@ -63,8 +79,8 @@ class BoardList extends React.Component {
 
         return (
           <div onKeyDown={()=>console.log('down')} >
-            <div style={closerStyle} onClick={this.handleCloseList.bind(this)}></div>
-          	<div style={panelStyle}>
+            <div className={css(styles.closer)} onClick={this.handleCloseList.bind(this)}></div>
+          	<div className={css(styles.panel, styles.animate)}>
 
               {
                   _.map(sortedBoards, board => {

@@ -56,6 +56,15 @@ class CreateList extends React.Component {
     }
     render() {
 
+      const keyframes = {
+        'from': {
+          opacity: 0,
+        },
+        'to': {
+          opacity: 1,
+        }
+      }
+
       const styles = StyleSheet.create({
         panel: {
       		padding: '5px',
@@ -65,6 +74,8 @@ class CreateList extends React.Component {
       		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
           height: '100%',
           width: '200px',
+          display: 'flex',
+          flexDirection: 'column'
       	},
         input: {
           width: '185px',
@@ -115,11 +126,15 @@ class CreateList extends React.Component {
           ':hover': {
             backgroundColor: '#51bfff'
           }
+        },
+        animate: {
+          animationName: keyframes,
+          animationDuration: '1000ms'
         }
       })
         return this.state.panelOpen? (
 
-        	<div className={css(styles.panel)}>
+        	<div className={css(styles.panel, styles.animate)}>
         		<div>
         			<input autoFocus onChange={this.handleChange.bind(this)} className={css(styles.input)}
                 value={this.state.title} placeholder="List title" onKeyPress={this.handleKeyPress.bind(this)}/>

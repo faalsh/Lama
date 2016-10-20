@@ -9,18 +9,31 @@ class ErrorMessage extends React.Component {
 	}
 
     render() {
+			const keyframes = {
+				'from': {
+					transform: 'scale(0)',
+					opacity: 0
+				},
+				'to': {
+					transform: 'scale(1)',
+					opacity: 1
+				}
+			}
+
       const styles = StyleSheet.create({
-        panel: {
-          width: '350px',
-          height: '200px',
-          position: 'fixed',
-          backgroundColor: 'white',
-          top: '50%',
-          left: '50%',
-          zIndex: 100,
-          transform: 'translate(-50%, -50%)',
-          boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)',
-        },
+				panel: {
+					width: '350px',
+					height: '200px',
+					position: 'absolute',
+					top: 0,
+					bottom: 0,
+					left: 0,
+					right: 0,
+					margin: 'auto',
+					backgroundColor: 'white',
+					zIndex: 100,
+					boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)',
+				},
         message: {
         	backgroundColor: '#eee',
         	height: '80%',
@@ -55,11 +68,15 @@ class ErrorMessage extends React.Component {
         	paddingLeft: '30px',
         	paddingRight: '30px',
         	textAlign: 'center'
-        }
+        },
+				animate: {
+					animationName: keyframes,
+					animationDuration: '300ms'
+				}
       })
         const {message} = this.props
         return(
-        	<div className={css(styles.panel)}>
+        	<div className={css(styles.panel, styles.animate)}>
         		<div className={css(styles.message)}>
         			<img className={css(styles.errorIcon)} src='static/error.png'/>
         			<div className={css(styles.snap)}>Oh snap!</div>

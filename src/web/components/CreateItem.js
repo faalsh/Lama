@@ -60,6 +60,15 @@ class CreateItem extends React.Component {
     }
     render() {
 
+      const keyframes = {
+        'from': {
+          opacity: 0,
+        },
+        'to': {
+          opacity: 1,
+        }
+      }
+
       const styles = StyleSheet.create({
         panel: {
       		padding: '5px',
@@ -104,11 +113,15 @@ class CreateItem extends React.Component {
               backgroundColor: '#f7f5f5',
               opacity: '0.5'
           }
+        },
+        animate: {
+          animationName: keyframes,
+          animationDuration: '500ms'
         }
       })
 
         return this.state.panelOpen?(
-        	<div className={css(styles.panel)}>
+        	<div className={css(styles.panel, styles.animate)}>
         		<div>
         			<textarea autoFocus rows='3' onChange={this.handleChange.bind(this)} className={css(styles.input)} onKeyDown={this.handleKeyDown.bind(this)}
                 value={this.state.title} />

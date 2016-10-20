@@ -52,6 +52,15 @@ class CreateBoard extends React.Component {
     }
     render() {
 
+      const keyframes = {
+        'from': {
+          opacity: 0,
+        },
+        'to': {
+          opacity: 1,
+        }
+      }
+
       const styles = StyleSheet.create({
         panel: {
           width: '160px',
@@ -110,11 +119,15 @@ class CreateBoard extends React.Component {
           ':hover': {
             backgroundColor: '#44b1f1'
           }
+        },
+        animate: {
+          animationName: keyframes,
+          animationDuration: '500ms'
         }
       })
 
         return this.state.panelOpen?(
-        	<div className={css(styles.panel)}>
+        	<div className={css(styles.panel, styles.animate)}>
         		<div>
         			<input autoFocus onChange={this.handleChange.bind(this)} className={css(styles.input)}
                 placeholder="Board title" className={css(styles.input)} value={this.state.title}
