@@ -135,7 +135,7 @@ class CreateList extends React.Component {
         },
         animate: {
           animationName: keyframes,
-          animationDuration: '1000ms'
+          animationDuration: '500ms'
         }
       })
         return this.state.panelOpen? (

@@ -71,7 +71,7 @@ class ErrorMessage extends React.Component {
         },
 				animate: {
 					animationName: keyframes,
-					animationDuration: '300ms'
+					animationDuration: '200ms'
 				}
       })
         const {message} = this.props
