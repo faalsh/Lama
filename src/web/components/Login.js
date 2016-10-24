@@ -124,7 +124,7 @@ class Login extends React.Component {
         }
       })
         return(
-            <div className={css(styles.loginPage)}>
+            this.props.main.connected?(<div className={css(styles.loginPage)}>
               <div className={css(styles.form)}>
                 <form>
                   <input onChange={(e) => this.setState({email:e.target.value})} value={this.state.email} type="text" placeholder="email" className={css(styles.input)}/>
@@ -146,7 +146,7 @@ class Login extends React.Component {
                   </div>
                 </div>
               </div>
-              </div>
+              </div>):null
     	)
     }
 }

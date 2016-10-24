@@ -6,7 +6,8 @@ const initialState = {
 	loggedIn: false,
 	uid: null,
 	error: null,
-	emailVerified: false
+	emailVerified: false,
+	connected: false
 }
 export default function reducer(state =initialState, action){
 	switch(action.type){
