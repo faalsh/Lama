@@ -128,13 +128,14 @@ class CreateBoard extends React.Component {
         }
       })
 
-        return this.state.panelOpen?(
-        	<div className={css(styles.panel, styles.animate)}>
-        		<div>
-        			<input autoFocus onChange={this.handleChange.bind(this)} className={css(styles.input)}
+      const CreateBoardForm = () => {
+        return (
+          <div className={css(styles.panel, styles.animate)}>
+            <div>
+              <input autoFocus onChange={this.handleChange.bind(this)} className={css(styles.input)}
                 placeholder="Board title" className={css(styles.input)} value={this.state.title}
                 onKeyPress={this.handleKeyPress.bind(this)}/>
-        		</div>
+            </div>
             <div className={css(styles.panelBottom)}>
               <div onClick={this.handleClick.bind(this)} className={css(styles.button)}>
                 Create Board
@@ -142,12 +143,20 @@ class CreateBoard extends React.Component {
               <div onClick={this.handleClose.bind(this)} className={css(styles.closeButton)}>×</div>
 
             </div>
-        	</div>
-        ):(
+          </div>
+        )
+      }
+
+      const CreateBoardButton = () => {
+        return (
           <div onClick={this.handleOpen.bind(this)} className={css(styles.createBoardButton)}>
             Create board
           </div>
         )
+      }
+
+    return this.state.panelOpen?<CreateBoardForm /> : <CreateBoardButton />
+    
     }
 }
 

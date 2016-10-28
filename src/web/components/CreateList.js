@@ -138,25 +138,32 @@ class CreateList extends React.Component {
           animationDuration: '500ms'
         }
       })
-        return this.state.panelOpen? (
 
-        	<div className={css(styles.panel, styles.animate)}>
-        		<div>
-        			<input autoFocus onChange={this.handleChange.bind(this)} className={css(styles.input)}
+      const AddListForm = () => {
+        return (
+          <div className={css(styles.panel, styles.animate)}>
+            <div>
+              <input autoFocus onChange={this.handleChange.bind(this)} className={css(styles.input)}
                 value={this.state.title} placeholder="List title" onKeyDown={this.handleKeyDown.bind(this)}/>
-        		</div>
+            </div>
             <div className={css(styles.panelBottom)}>
               <div onClick={this.handleClick.bind(this)} className={css(styles.panelButton)}>
                 Save
               </div>
               <div onClick={this.handleClose.bind(this)} className={css(styles.closeButton)}>×</div>
             </div>
-        	</div>
-        ):(
+          </div>
+        )
+      }
+
+      const AddListButton = () => {
+        return (
           <div >
             <div className={css(styles.addButton)} onClick={this.openPanel.bind(this)}>Add list</div>
           </div>
         )
+      }
+      return this.state.panelOpen? <AddListForm /> : <AddListButton />
     }
 }
 

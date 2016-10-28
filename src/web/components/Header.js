@@ -54,20 +54,35 @@ class Header extends React.Component {
 
       }
 
+      const BoardsButton = () => {
+        return (
+          <div style={boardsButtonStyle} onClick={this.handleBoardsClick.bind(this)}>
+            Boards
+          </div>
+        )
+      }
+
+      const Logo = () => {
+        return (
+          <div style={logoStyle}>Lama</div>
+        )
+      }
+
+      const SignOut = () => {
+        return (
+          <div onClick={()=> actions.signOut()} style={signOutStyle}>Sign Out</div>
+        )
+      }
 
         return (
 
         	<div style={style}>
-
-          <div style={boardsButtonStyle} onClick={this.handleBoardsClick.bind(this)}>
-            Boards
-          </div>
-          {
-            main.boardListOpen? <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>:null
-          }
-
-            <div style={logoStyle}>Lama</div>
-            <div onClick={()=> actions.signOut()} style={signOutStyle}>Sign Out</div>
+            <BoardsButton />
+            {
+              main.boardListOpen? <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>:null
+            }
+            <Logo />
+            <SignOut />
         	</div>
         )
     }

@@ -122,8 +122,9 @@ class CreateItem extends React.Component {
         }
       })
 
-        return this.state.panelOpen?(
-        	<div className={css(styles.panel, styles.animate)}>
+      const AddItemForm = () => {
+        return (
+          <div className={css(styles.panel, styles.animate)}>
         		<div>
         			<textarea autoFocus rows='3' onChange={this.handleChange.bind(this)} className={css(styles.input)} onKeyDown={this.handleKeyDown.bind(this)}
                 value={this.state.title} />
@@ -136,11 +137,18 @@ class CreateItem extends React.Component {
             <div onClick={this.handleClose.bind(this)} className={css(styles.closeButton)}>×</div>
             </div>
         	</div>
-        ):(
+        )
+      }
+
+      const AddItemButton = () => {
+        return (
           <div onClick={this.handleOpen.bind(this)} className={css(styles.addItemButton)}>
             Add item
           </div>
         )
+      }
+
+      return this.state.panelOpen? <AddItemForm />:<AddItemButton />
     }
 }
 
