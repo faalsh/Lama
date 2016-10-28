@@ -14,7 +14,6 @@ import ErrorMessage from '../components/ErrorMessage'
 import InfoMessage from '../components/InfoMessage'
 
 class App extends Component {
-// TODO authentication
   componentDidMount() {
     const {fetchData, getConnectionStatus, checkLoginStatus} = this.props.actions
     // fetchData()
@@ -35,12 +34,12 @@ class App extends Component {
       overflowX: 'scroll'
     }
 		const {main, actions} = this.props
-    const sortedBoards = sort(main.boards, 'boardIndex')
+    // const sortedBoards = sort(main.boards, 'boardIndex')
     const loggedInApp = <div><Header main={main} actions={actions}/>
     <div style={{display:'flex', flexDirection:'row'}}>
 
       <div>
-         {_.map(sortedBoards, board  => main.selectedBoard === board.id ? <Board key={board.id} boardId={board.id} board={board}/>:null)}
+         {_.map(main.boards, (board, boardId)  => main.selectedBoard === boardId ? <Board key={boardId} boardId={boardId} board={board}/>:null)}
       </div>
     </div></div>
 

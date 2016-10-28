@@ -9,7 +9,7 @@ class Item extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: this.props.details.itemText,
+      text: this.props.item.itemText,
       edit: false
     }
 
@@ -53,8 +53,7 @@ class Item extends React.Component {
   }
 
     render() {
-    	const {details, connectDragSource, connectDropTarget, isDragging} = this.props
-
+    	const {item, connectDragSource, connectDropTarget, isDragging} = this.props
 
       const styles = StyleSheet.create({
         base: {
@@ -69,7 +68,8 @@ class Item extends React.Component {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          fontSize: '14px'
+          fontSize: '14px',
+          order: item.itemIndex
         },
         dragging: {
           backgroundColor: 'grey',
@@ -79,7 +79,7 @@ class Item extends React.Component {
 
       const textEdit = <textarea rows="3" autoFocus onChange={this.onChange.bind(this)} style={{width:'90%'}}
                       onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.text} />
-      const textDisplay = <div onClick={this.toggleMode.bind(this)}>{details.itemText}</div>
+      const textDisplay = <div onClick={this.toggleMode.bind(this)}>{item.itemText}</div>
         return connectDragSource(connectDropTarget(
         	<div className={css(styles.base, isDragging && styles.dragging)}>
 

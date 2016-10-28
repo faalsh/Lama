@@ -68,7 +68,8 @@ class CreateBoard extends React.Component {
       		borderRadius: '3px',
           backgroundColor: '#026AA7',
       		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-          marginTop: '10px'
+          marginTop: '10px',
+          order: 1000
       	},
       	input: {
           width: '150px',
@@ -118,7 +119,8 @@ class CreateBoard extends React.Component {
           alignItems: 'center',
           ':hover': {
             backgroundColor: '#44b1f1'
-          }
+          },
+          order: 1000
         },
         animate: {
           animationName: keyframes,

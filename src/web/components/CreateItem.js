@@ -73,6 +73,7 @@ class CreateItem extends React.Component {
         panel: {
       		padding: '5px',
       		margin: '5px',
+          order: 1000
       	},
       	input: {
           width: '170px'
@@ -112,7 +113,8 @@ class CreateItem extends React.Component {
           ':hover': {
               backgroundColor: '#f7f5f5',
               opacity: '0.5'
-          }
+          },
+          order: 1000
         },
         animate: {
           animationName: keyframes,

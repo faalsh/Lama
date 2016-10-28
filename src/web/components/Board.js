@@ -3,7 +3,7 @@ import List from './List'
 import CreateList from './CreateList'
 import _ from 'lodash'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import {sort} from '../../common/utils'
+// import {sort} from '../../common/utils'
 
 export default class Board extends Component {
 
@@ -11,9 +11,9 @@ export default class Board extends Component {
   	const {boardTitle, lists} = this.props.board
     const {boardId} = this.props
 
-    const sortedLists = sort(lists, 'listIndex')
-    const renderedList =_.map(sortedLists, (list) =>
-        <List key={list.id}  list={list} boardId={boardId}/>)
+    // const sortedLists = sort(lists, 'listIndex')
+    const renderedList =_.map(lists, (list, listId) =>
+        <List key={listId}  list={list} listId={listId} boardId={boardId}/>)
 
   	const style = {
   		display: 'flex',

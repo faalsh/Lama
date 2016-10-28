@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import CreateItem from './CreateItem'
 import {DragSource, DropTarget} from 'react-dnd'
 import _ from 'lodash'
-import {sort} from '../../common/utils'
+// import {sort} from '../../common/utils'
 import ContextMenu from './ContextMenu'
 import ContextMenuItem from './ContextMenuItem'
 
@@ -24,8 +24,8 @@ class List extends React.Component {
     }
 
     handleDelete(){
-        const {actions, list, boardId} = this.props
-        actions.deleteList(boardId, list.id)
+        const {actions, list, listId, boardId} = this.props
+        actions.deleteList(boardId, listId)
     }
     onChange(e){
       this.setState({
@@ -40,8 +40,8 @@ class List extends React.Component {
     }
     handleKeyDown(e){
       if(e.key === 'Enter'){
-        const {boardId, list, actions} = this.props
-        actions.updateList(boardId, list.id, this.state.title)
+        const {boardId, list,listId, actions} = this.props
+        actions.updateList(boardId, listId, this.state.title)
         this.setState({
           edit: false
         })
@@ -60,7 +60,7 @@ class List extends React.Component {
 
 
     render() {
-    	const {boardId, list, actions, connectDragSource, isDragging, connectDropTarget} = this.props
+    	const {boardId, list, listId, actions, connectDragSource, isDragging, connectDropTarget} = this.props
       const opacity = isDragging? 0.3:1
     	const style = {
         position: 'relative',
@@ -73,7 +73,8 @@ class List extends React.Component {
         borderRadius: '3px',
     		backgroundColor: 'lightgrey',
     		boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-            cursor: 'pointer'
+        cursor: 'pointer',
+        order: list.listIndex
     	}
     	const titleStyle = {
     		fontWeight: 'bold',
@@ -101,15 +102,15 @@ class List extends React.Component {
         }
 
         const headerStyle = {
-          display: 'flex', 
-          flexDirection: 'row', 
+          display: 'flex',
+          flexDirection: 'row',
           justifyContent: 'space-between'
         }
 
 
-        const sortedItems = sort(list.items, 'itemIndex')
+        // const sortedItems = sort(list.items, 'itemIndex')
         const titleDisplay = <div onClick={this.toggleMode.bind(this)} style={titleStyle}>{list.listTitle}</div>
-        const titleEdit =  <div><input autoFocus style={editInputStyle} onChange={this.onChange.bind(this)}  
+        const titleEdit =  <div><input autoFocus style={editInputStyle} onChange={this.onChange.bind(this)}
                         onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.title}/></div>
         const title = this.state.edit ? titleEdit:titleDisplay
 
@@ -122,8 +123,8 @@ class List extends React.Component {
                 <ContextMenuItem  itemText="Move List to Board"/>
               </ContextMenu>
 		        </div>
-            {_.map(sortedItems,(item) => <Item key={item.id} details={item} itemId={item.id} listId={list.id} boardId={boardId} actions={actions}/>)}
-            <CreateItem boardId={boardId} listId={list.id}/>
+            {_.map(list.items,(item, itemId) => <Item key={itemId} item={item} itemId={itemId} listId={listId} boardId={boardId} actions={actions}/>)}
+            <CreateItem boardId={boardId} listId={listId}/>
 	        </div>
         ))
     }
@@ -141,7 +142,7 @@ const listSource = {
   beginDrag(props){
     return {
       boardId: props.boardId,
-      listId: props.list.id,
+      listId: props.listId,
       listIndex: props.list.listIndex,
       items: props.list.items
     }
@@ -153,7 +154,7 @@ const listTarget = {
     if(monitor.getItemType() === 'List') {
       const boardId = monitor.getItem().boardId
       const dragListId = monitor.getItem().listId
-      const hoverListId = props.list.id
+      const hoverListId = props.listId
       if(dragListId !== hoverListId) {
         props.actions.swapLists(boardId, dragListId, hoverListId)
       }
@@ -161,7 +162,7 @@ const listTarget = {
       } else if(monitor.getItemType() === 'Item'){
         const boardId = props.boardId
         const dragListId = monitor.getItem().listId
-        const hoverListId = props.list.id
+        const hoverListId = props.listId
         const dragItemId = monitor.getItem().itemId
         const done = props.list.items && props.list.items[dragItemId]
         if(dragListId !== hoverListId && !done) {

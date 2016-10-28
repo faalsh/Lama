@@ -14,29 +14,7 @@ class BoardListItem extends React.Component {
   }
 
   render(){
-
-    // const itemStyle = {
-    //   base: {
-    //     position: 'relative',
-    //     padding: '5px',
-    //     width: '150px',
-    //     margin: '4px',
-    //     borderRadius: '3px',
-    //     backgroundColor: '#026AA7',
-    //     boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-    //     cursor: 'pointer',
-    //     padding: '10px'
-    //   },
-    //   selected: {
-    //     fontWeight:'bold',
-    //     // backgroundColor: '#61BD4F',
-    //   },
-    //   dragging: {
-    //     backgroundColor: 'black',
-    //     color: 'black',
-    //     opacity: '0.5',
-    //   }
-    // }
+    const {boardIndex} = this.props
 
     const styles = StyleSheet.create({
       base: {
@@ -48,7 +26,8 @@ class BoardListItem extends React.Component {
         backgroundColor: '#026AA7',
         boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
         cursor: 'pointer',
-        padding: '10px'
+        padding: '10px',
+        order: boardIndex
       },
       selected: {
         fontWeight:'bold',

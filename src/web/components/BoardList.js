@@ -2,7 +2,6 @@ import React from 'react';
 import CreateBoard from './CreateBoard'
 import _ from 'lodash'
 import BoardListItem from './BoardListItem'
-import {sort} from '../../common/utils'
 import { StyleSheet, css } from 'aphrodite'
 
 
@@ -75,18 +74,16 @@ class BoardList extends React.Component {
 
       const {boards, selectedBoard, actions} = this.props
 
-      const sortedBoards = sort(boards,'boardIndex')
-
         return (
           <div onKeyDown={()=>console.log('down')} >
             <div className={css(styles.closer)} onClick={this.handleCloseList.bind(this)}></div>
           	<div className={css(styles.panel, styles.animate)}>
 
               {
-                  _.map(sortedBoards, board => {
+                  _.map(boards, (board, boardId) => {
                   return (
-                    <BoardListItem key={board.id} selectedBoard={selectedBoard}
-                        boardId={board.id} boardTitle={board.boardTitle}  actions={actions}/>
+                    <BoardListItem key={boardId} selectedBoard={selectedBoard} boardIndex={board.boardIndex}
+                        boardId={boardId} boardTitle={board.boardTitle}  actions={actions}/>
                   )
                 })
               }
