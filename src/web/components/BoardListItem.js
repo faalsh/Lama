@@ -9,8 +9,6 @@ class BoardListItem extends React.Component {
   }
   handleDelete(key,e) {
      this.props.actions.deleteBoard(key)
-     console.log(e)
-     e.preventDefault()
   }
 
   render(){

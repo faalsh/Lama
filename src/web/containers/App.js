@@ -8,7 +8,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import {DragDropContext} from 'react-dnd';
 import _ from 'lodash'
 import ConnectionStatus from '../components/ConnectionStatus'
-import {sort} from '../../common/utils'
+// import {sort} from '../../common/utils'
 import Login from '../components/Login'
 import ErrorMessage from '../components/ErrorMessage'
 import InfoMessage from '../components/InfoMessage'

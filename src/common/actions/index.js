@@ -62,9 +62,6 @@ export function signInWithEmail(email, password) {
     }).catch(error => {
       const errorCode = error.code
       const errorMessage = error.message
-      // const email = error.email
-      // const credential = error.credential
-      // console.log(errorMessage);
       dispatch({type: 'LOGIN_ERROR', payload: {errorCode, errorMessage}})
 
     })
@@ -82,9 +79,6 @@ export function signInWithGithub() {
     }).catch(error => {
       const errorCode = error.code
       const errorMessage = error.message
-      // const email = error.email
-      // const credential = error.credential
-      // console.log(errorMessage);
       dispatch({type: 'LOGIN_ERROR', payload: {errorCode, errorMessage}})
 
     })
@@ -101,9 +95,6 @@ export function signInWithGoogle() {
     }).catch(error => {
       const errorCode = error.code
       const errorMessage = error.message
-      // const email = error.email
-      // const credential = error.credential
-      // console.log(errorMessage);
       dispatch({type: 'LOGIN_ERROR', payload: {errorCode, errorMessage}})
 
     })

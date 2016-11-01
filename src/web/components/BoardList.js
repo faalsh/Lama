@@ -75,7 +75,7 @@ class BoardList extends React.Component {
       const {boards, selectedBoard, actions} = this.props
 
         return (
-          <div onKeyDown={()=>console.log('down')} >
+          <div>
             <div className={css(styles.closer)} onClick={this.handleCloseList.bind(this)}></div>
           	<div className={css(styles.panel, styles.animate)}>
 

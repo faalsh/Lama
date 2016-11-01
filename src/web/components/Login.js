@@ -12,7 +12,6 @@ class Login extends React.Component {
   }
 
   loginWithProvider(provider){
-    console.log(provider);
     const {actions} = this.props
     switch (provider) {
       case 'github':
