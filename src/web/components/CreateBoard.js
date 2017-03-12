@@ -122,10 +122,10 @@ class CreateBoard extends React.Component {
           },
           order: 1000
         },
-        animate: {
-          animationName: keyframes,
-          animationDuration: '500ms'
-        }
+        // animate: {
+        //   animationName: keyframes,
+        //   animationDuration: '500ms'
+        // }
       })
 
       const CreateBoardForm = () => {
@@ -156,7 +156,7 @@ class CreateBoard extends React.Component {
       }
 
     return this.state.panelOpen?<CreateBoardForm /> : <CreateBoardButton />
-    
+
     }
 }
 

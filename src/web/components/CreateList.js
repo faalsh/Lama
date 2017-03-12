@@ -133,10 +133,10 @@ class CreateList extends React.Component {
             backgroundColor: '#51bfff'
           }
         },
-        animate: {
-          animationName: keyframes,
-          animationDuration: '500ms'
-        }
+        // animate: {
+        //   animationName: keyframes,
+        //   animationDuration: '500ms'
+        // }
       })
 
       const AddListForm = () => {

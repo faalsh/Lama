@@ -116,15 +116,15 @@ class CreateItem extends React.Component {
           },
           order: 1000
         },
-        animate: {
-          animationName: keyframes,
-          animationDuration: '500ms'
-        }
+        // animate: {
+        //   animationName: keyframes,
+        //   animationDuration: '500ms'
+        // }
       })
 
       const AddItemForm = () => {
         return (
-          <div className={css(styles.panel, styles.animate)}>
+          <div className={css(styles.panel)}>
         		<div>
         			<textarea autoFocus rows='3' onChange={this.handleChange.bind(this)} className={css(styles.input)} onKeyDown={this.handleKeyDown.bind(this)}
                 value={this.state.title} />
