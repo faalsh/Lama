@@ -74,15 +74,42 @@ class Item extends React.Component {
         dragging: {
           backgroundColor: 'grey',
           color: 'grey',
+        },
+        tag: {
+          fontSize:'10px',
+          padding: '5px',
+          color:'white',
+          border: '1px solid',
+          borderRadius: '10px',
+          backgroundColor: '#4875af',
+        },
+        itemText: {
+          display:'flex',
+          flexDirection: 'column'
+        },
+        assignees: {
+          marginTop: '10px',
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap'
         }
     	})
 
       const textEdit = <textarea rows="3" autoFocus onChange={this.onChange.bind(this)} style={{width:'90%'}}
                       onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.text} />
-      const textDisplay = <div onClick={this.toggleMode.bind(this)}>{item.itemText}</div>
+      const textDisplay =
+          <div onClick={this.toggleMode.bind(this)} className={css(styles.itemText)}>
+              {item.itemText}
+              <div className={css(styles.assignees)}>
+                <div className={css(styles.tag)}>Fahad</div>
+                <div className={css(styles.tag)}>Khalid</div>
+                <div className={css(styles.tag)}>Mohammed</div>
+                <div className={css(styles.tag)}>Saleh</div>
+              </div>
+
+          </div>
         return connectDragSource(connectDropTarget(
         	<div className={css(styles.base, isDragging && styles.dragging)}>
-
         		{this.state.edit? textEdit:textDisplay}
             <ContextMenu title="Item Actions">
               <ContextMenuItem onClick={this.handleDelete} itemText="Delete"/>
