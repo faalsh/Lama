@@ -5,12 +5,12 @@ class ConnectionStatus extends React.Component {
     render() {
     	const style = {
     		position: 'absolute',
-    		top: 0,
+    		top: 50,
     		left: 0,
     		zIndex: 1,
-			width: '100%',
-			display: 'flex',
-			justifyContent: 'flex-end' 
+			  width: '100%',
+			  display: 'flex',
+			  justifyContent: 'flex-end'
     	}
     	const messageStyle = {
     		backgroundColor: 'black',
