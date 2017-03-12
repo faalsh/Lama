@@ -78,10 +78,11 @@ class Item extends React.Component {
         tag: {
           fontSize:'10px',
           padding: '5px',
-          color:'white',
+          color:'#807979',
           border: '1px solid',
           borderRadius: '10px',
-          backgroundColor: '#4875af',
+          backgroundColor: '#dadada',
+          margin: '2px'
         },
         itemText: {
           display:'flex',
