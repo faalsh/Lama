@@ -127,7 +127,13 @@ class CreateItem extends React.Component {
           <div className={css(styles.panel)}>
         		<div>
         			<textarea autoFocus rows='3' onChange={this.handleChange.bind(this)} className={css(styles.input)} onKeyDown={this.handleKeyDown.bind(this)}
-                value={this.state.title} />
+                value={this.state.title}
+                ref={(input) => {
+                  if(input) {
+                    const length = input.value.length
+                    input.selectionStart  = input.selectionEnd = length
+                  }
+                }}/>
         		</div>
 
             <div className={css(styles.panelBottom)}>
