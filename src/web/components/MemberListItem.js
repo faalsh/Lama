@@ -16,7 +16,8 @@ class MemberListItem extends React.Component {
         marginTop:'5px',
         padding: '5px',
         fontWeight: 'bold',
-        backgroundColor: 'grey'
+        backgroundColor: 'grey',
+        width: '100%'
       },
       deleteButton: {
         position: 'absolute',

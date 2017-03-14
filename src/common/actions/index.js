@@ -11,7 +11,6 @@ const config = {
   }
   const ref = firebase.database().ref('/')
 
-
 export function checkLoginStatus(){
   return dispatch => {
     firebase.auth().onAuthStateChanged((user) => {
