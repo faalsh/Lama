@@ -201,6 +201,10 @@ export const toggleBoardList = () => {
   return {type: 'TOGGLE_BOARD_LIST'}
 }
 
+export const toggleMemberList = () => {
+  return {type: 'TOGGLE_MEMBER_LIST'}
+}
+
 export const selectBoard = (boardId) => {
   return ({type:'SELECT_BOARD', payload: boardId})
 }
@@ -322,4 +326,38 @@ export function updateBoard(boardId, boardTitle) {
 
 export function moveListToBoard(fromBoardId, toBoardId, listId) {
 
+}
+
+export function addMemberToBoard(boardId, memberName) {
+  return dispatch => {
+    ref.child('boards').child(boardId).child('members').push(memberName)
+      .then(()=> dispatch({type: 'ADD_MEMBER'}))
+  }
+}
+
+export function deleteMemberFromBoard(boardId, memberId) {
+  return dispatch => {
+    ref.child('boards/'+boardId+'/members/'+memberId).remove()
+      .then(() => dispatch({type: 'DELETE_MEMBER'}))
+  }
+}
+
+export function assignMemberToItem(boardId, listId, itemId, memberId, memberName){
+  return dispatch => {
+    ref.child('boards').child(boardId)
+      .child('lists').child(listId)
+      .child('items').child(itemId)
+      .child('assignees').child(memberId).set(memberName)
+      .then(()=> dispatch ({type: 'ASSIGN_MEMBER'}))
+  }
+}
+
+export function deassignMemberFromItem(boardId, listId, itemId, memberId){
+  return dispatch => {
+    ref.child('boards').child(boardId)
+      .child('lists').child(listId)
+      .child('items').child(itemId)
+      .child('assignees').child(memberId).remove()
+      .then(()=> dispatch ({type: 'DEASSIGN_MEMBER'}))
+  }
 }

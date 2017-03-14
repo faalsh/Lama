@@ -2,6 +2,7 @@ import _ from 'lodash'
 
 const initialState = {
 	boardListOpen: false,
+	memberListOpen: false,
 	selectedBoard: null,
 	loggedIn: false,
 	uid: null,
@@ -42,8 +43,11 @@ export default function reducer(state =initialState, action){
     	return {...state, connected:action.payload}
     }
     case 'TOGGLE_BOARD_LIST': {
-    	return {...state, boardListOpen: !state.boardListOpen}
+    	return {...state, boardListOpen: !state.boardListOpen, memberListOpen: false}
     }
+		case 'TOGGLE_MEMBER_LIST': {
+			return {...state, memberListOpen: !state.memberListOpen, boardListOpen: false}
+		}
     case 'CREATE_BOARD': {
     	return {...state, boardListOpen: false, selectedBoard: action.payload}
     }

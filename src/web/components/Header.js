@@ -1,11 +1,15 @@
 import React from 'react';
 import BoardList from './BoardList'
+import MemberList from './MemberList'
 
 class Header extends React.Component {
 
 
   handleBoardsClick(){
     this.props.actions.toggleBoardList()
+  }
+  handleMembersClick(){
+    this.props.actions.toggleMemberList()
   }
 
     render() {
@@ -29,12 +33,14 @@ class Header extends React.Component {
         width: '100%',
         fontFamily: '"Indie Flower",cursive'
       }
-      const boardsButtonStyle = {
+      const headerButtonStyle = {
         cursor: 'pointer',
         backgroundColor: '#4c94be',
         marginLeft: '10px',
         width: '100px',
         height: '30px',
+        paddingLeft: '5px',
+        paddingRight: '5px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -56,11 +62,20 @@ class Header extends React.Component {
 
       const BoardsButton = () => {
         return (
-          <div style={boardsButtonStyle} onClick={this.handleBoardsClick.bind(this)}>
+          <div style={headerButtonStyle} onClick={this.handleBoardsClick.bind(this)}>
             Boards
           </div>
         )
       }
+
+      const MembersButton = () => {
+        return (
+          <div style={headerButtonStyle} onClick={this.handleMembersClick.bind(this)}>
+            Members
+          </div>
+        )
+      }
+
 
       const Logo = () => {
         return (
@@ -73,13 +88,20 @@ class Header extends React.Component {
           <div onClick={()=> actions.signOut()} style={signOutStyle}>Sign Out</div>
         )
       }
-
         return (
 
         	<div style={style}>
             <BoardsButton />
+            <MembersButton />
             {
-              main.boardListOpen? <BoardList boards={main.boards} selectedBoard={main.selectedBoard} actions={actions}/>:null
+              main.boardListOpen? <BoardList boards={main.boards}
+                selectedBoard={main.selectedBoard}
+                actions={actions}/>:null
+            }
+            {
+              main.memberListOpen? <MemberList members={main.boards[main.selectedBoard].members}
+                actions={actions}
+                boardId={main.selectedBoard}/>:null
             }
             <Logo />
             <SignOut />

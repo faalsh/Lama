@@ -2,7 +2,10 @@ import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd'
 import ContextMenu from './ContextMenu'
 import ContextMenuItem from './ContextMenuItem'
+import ContextMenuSubHeader from './ContextMenuSubHeader'
+import AssignMembersPanel from './AssignMembersPanel'
 import { StyleSheet, css } from 'aphrodite'
+import _ from 'lodash'
 
 class Item extends React.Component {
 
@@ -53,7 +56,7 @@ class Item extends React.Component {
   }
 
     render() {
-    	const {item, connectDragSource, connectDropTarget, isDragging} = this.props
+    	const {item, boardId, listId, itemId, connectDragSource, connectDropTarget, isDragging} = this.props
 
       const styles = StyleSheet.create({
         base: {
@@ -78,11 +81,11 @@ class Item extends React.Component {
         tag: {
           fontSize:'10px',
           padding: '5px',
-          color:'#807979',
+          color: '#548eff',
           border: '1px solid',
           borderRadius: '10px',
-          backgroundColor: '#dadada',
-          margin: '2px'
+          margin: '2px',
+          opacity: '1'
         },
         itemText: {
           display:'flex',
@@ -95,17 +98,20 @@ class Item extends React.Component {
           flexWrap: 'wrap'
         }
     	})
-
       const textEdit = <textarea rows="3" autoFocus onChange={this.onChange.bind(this)} style={{width:'90%'}}
                       onKeyDown={this.handleKeyDown.bind(this)} onBlur={this.handleOnBlur.bind(this)} value={this.state.text} />
       const textDisplay =
           <div onClick={this.toggleMode.bind(this)} className={css(styles.itemText)}>
               {item.itemText}
               <div className={css(styles.assignees)}>
-                <div className={css(styles.tag)}>Fahad</div>
-                <div className={css(styles.tag)}>Khalid</div>
-                <div className={css(styles.tag)}>Mohammed</div>
-                <div className={css(styles.tag)}>Saleh</div>
+
+                {
+                  _.map(item.assignees, (assigneeName, assigneeId) => {
+                    return (
+                      <div key={assigneeId} className={css(styles.tag)}>{assigneeName}</div>
+                    )
+                  })
+                }
               </div>
 
           </div>
@@ -114,6 +120,9 @@ class Item extends React.Component {
         		{this.state.edit? textEdit:textDisplay}
             <ContextMenu title="Item Actions">
               <ContextMenuItem onClick={this.handleDelete} itemText="Delete"/>
+              <hr />
+              <ContextMenuSubHeader>Assigned Members:</ContextMenuSubHeader>
+              <AssignMembersPanel boardId={boardId} listId={listId} itemId={itemId}/>
             </ContextMenu>
         	</div>
         ))

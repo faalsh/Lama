@@ -21,27 +21,43 @@ class ContextMenuPanel extends React.Component {
 		}
 	}
 
-	render(){
-		const panelStyle = {
-			position: 'absolute',
-			backgroundColor: 'white',
-			width: '200px',
-			boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
-			zIndex: 3,
-			padding: '10px'
-		}
+	handleCloseList(){
+		this.props.onEscape()
+	}
 
-		const titleStyle = {
-			display: 'flex',
-			justifyContent: 'center',
-			fontSize: '16px',
-			color: 'grey',
-			fontWeight: 'bold'
-		}
+
+	render(){
+
+		const styles = StyleSheet.create({
+			panel: {
+				position: 'absolute',
+				backgroundColor: 'white',
+				width: '200px',
+				boxShadow: '0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)',
+				zIndex: 1,
+				padding: '10px'
+			},
+			title: {
+				display: 'flex',
+				justifyContent: 'center',
+				fontSize: '16px',
+				color: 'grey',
+				fontWeight: 'bold'
+			},
+			closer: {
+				position: 'fixed',
+				left: 0,
+				top: 0,
+				width: '100%',
+				height: '100%',
+				zIndex: -1
+			}
+		})
 
 		return(
-			<div style={panelStyle}>
-				<div style={titleStyle} >{this.props.title}</div>
+			<div className={css(styles.panel)}>
+				<div className={css(styles.closer)} onClick={this.handleCloseList.bind(this)}></div>
+				<div className={css(styles.title)} >{this.props.title}</div>
 				<hr />
 				{this.props.children}
 			</div>
@@ -64,12 +80,11 @@ class ContextMenu extends React.Component {
 
 
 
-	onEscape(){
-		this.setState({
-			open: false
-		})
-	}
-
+		onEscape(){
+			this.setState({
+				open: false
+			})
+		}
 
     togglePanel(){
     	this.setState({

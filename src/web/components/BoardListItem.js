@@ -28,7 +28,6 @@ class BoardListItem extends React.Component {
         order: boardIndex
       },
       selected: {
-        // fontWeight:'bold',
         backgroundColor: '#14a005',
       },
       dragging: {
