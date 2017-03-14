@@ -116,6 +116,7 @@ class MemberList extends React.Component {
                 value={this.state.newMemberName}
                 placeholder="Add new member"
                 onKeyPress={this.handleKeyPress.bind(this)}
+                autoFocus
               className={css(styles.input)}/>
             </div>
           </div>
